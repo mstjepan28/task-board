@@ -1,0 +1,9 @@
+{
+  "name": "@shared/task-board",
+  "private": true,
+  "version": "1",
+  "main": "./src",
+  "dependencies": {
+    "react": "*"
+  }
+}

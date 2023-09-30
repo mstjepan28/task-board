@@ -7,7 +7,7 @@
     "build": "tsc && vite build"
   },
   "dependencies": {
-    "@shared/ui": "workspace:^",
+    "@shared/task-board": "workspace:^",
     "react": "^18.2.0"
   },
   "devDependencies": {
