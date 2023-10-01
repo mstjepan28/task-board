@@ -1,3 +1,5 @@
+import { TaskBoardScreen } from "@shared/task-board";
+
 export const App = () => {
-  return <div className=""></div>;
+  return <TaskBoardScreen />;
 };

@@ -5,5 +5,8 @@
   "main": "./src",
   "dependencies": {
     "react": "*"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "8.1.0"
   }
 }
