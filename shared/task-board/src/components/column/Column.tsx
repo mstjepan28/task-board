@@ -17,9 +17,11 @@ export const Column = ({ columnData }: IProps) => {
   };
 
   return (
-    <div id={columnId} className="basis-full min-h-full relative border border-gray-700 rounded-lg">
+    <div className="basis-full min-h-full relative border border-gray-700 rounded-lg">
       <ColumnTitle title={columnData.title} />
-      <div className="h-full flex flex-col items-center gap-y-2 px-2 pb-2 mt-5">{renderTaskList()}</div>
+      <div id={columnId} className="h-full flex flex-col items-center gap-y-2 px-2 pb-2 mt-5">
+        {renderTaskList()}
+      </div>
     </div>
   );
 };

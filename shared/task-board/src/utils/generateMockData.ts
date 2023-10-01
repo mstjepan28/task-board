@@ -37,7 +37,7 @@ export const generateMockTaskGroups = () => {
 
   return taskGroupList.map((taskGroup, order: number) => {
     const taskGroupId = faker.string.uuid();
-    const numOfTasks = faker.number.int({ min: 1, max: 10 });
+    const numOfTasks = faker.number.int({ min: 1, max: 1 });
 
     return {
       id: taskGroupId,
