@@ -23,5 +23,6 @@ const createTask = (): TTask => {
 };
 
 export const generateMockTasks = (count: number): TTask[] => {
+  faker.seed(12345);
   return faker.helpers.multiple(createTask, { count });
 };
