@@ -4,6 +4,7 @@
   "version": "1",
   "main": "./src",
   "dependencies": {
+    "@shared/storage": "workspace:^",
     "react": "*"
   },
   "devDependencies": {

@@ -995,11 +995,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@shared/storage@workspace:^, @shared/storage@workspace:shared/storage":
+  version: 0.0.0-use.local
+  resolution: "@shared/storage@workspace:shared/storage"
+  languageName: unknown
+  linkType: soft
+
 "@shared/task-board@workspace:^, @shared/task-board@workspace:shared/task-board":
   version: 0.0.0-use.local
   resolution: "@shared/task-board@workspace:shared/task-board"
   dependencies:
     "@faker-js/faker": 8.1.0
+    "@shared/storage": "workspace:^"
     react: "*"
   languageName: unknown
   linkType: soft

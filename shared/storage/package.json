@@ -1,0 +1,6 @@
+{
+  "name": "@shared/storage",
+  "private": true,
+  "version": "1",
+  "main": "./src"
+}

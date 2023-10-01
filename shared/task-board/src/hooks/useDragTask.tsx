@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { TTask } from "../types/task";
+import { storage } from "@shared/storage";
 
-export const useMoveTask = (taskId: string, task: TTask) => {
+export const useDragTask = (taskId: string, task: TTask) => {
   const [isBeingMoved, setIsBeingMoved] = useState(false);
 
-  const handleDragStart = (event: DragEvent) => {
+  const handleDragStart = () => {
     setIsBeingMoved(true);
+    storage.setItem("move-task", task);
   };
 
-  const handleDragEnd = (event: DragEvent) => {
+  const handleDragEnd = () => {
     setIsBeingMoved(false);
-    console.log(event);
+    storage.removeItem("move-task");
   };
 
   useEffect(() => {
@@ -29,9 +31,5 @@ export const useMoveTask = (taskId: string, task: TTask) => {
     };
   }, []);
 
-  return {
-    isBeingMoved,
-    handleDragStart,
-    handleDragEnd,
-  };
+  return { isBeingMoved };
 };
