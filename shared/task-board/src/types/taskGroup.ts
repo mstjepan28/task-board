@@ -1,7 +1,8 @@
 import { TTask } from "./task";
 
-export type TColumn = {
+export type TTaskGroup = {
   id: string;
   title: string;
+  order: number;
   taskList: TTask[];
 };

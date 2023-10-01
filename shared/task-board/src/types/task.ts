@@ -3,9 +3,11 @@ export type TTask = {
 
   title: string;
   description: string;
-  taskGroup: string;
 
-  status: string;
+  taskSubGroup: string;
+  taskGroupId: string;
+
+  order: number;
   active: boolean;
   dueDate: string;
 
