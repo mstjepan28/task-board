@@ -7,7 +7,7 @@ faker.seed(12345);
 
 // -------------------------------------------- //
 
-export const generateMockTasks = (count: number, parentId: string): TTask[] => {
+const generateMockTasks = (count: number, parentId: string): TTask[] => {
   return Array.from({ length: count }).map((_, order: number) => {
     const userId = faker.string.uuid();
     const createdAt = faker.date.past().toISOString();
@@ -17,6 +17,7 @@ export const generateMockTasks = (count: number, parentId: string): TTask[] => {
       id: faker.string.uuid(),
       title: faker.lorem.words(5),
       description: faker.lorem.sentences(),
+      backgroundColor: faker.internet.color(),
       taskSubGroup: faker.lorem.word(),
       order: order,
       taskGroupId: parentId,
@@ -30,20 +31,25 @@ export const generateMockTasks = (count: number, parentId: string): TTask[] => {
   });
 };
 
+export const generateMockTasksForGroups = () => {
+  return Array.from({ length: 4 })
+    .map((_, order: number) => {
+      return generateMockTasks(2, String(order));
+    })
+    .flat();
+};
+
 // -------------------------------------------- //
 
 export const generateMockTaskGroups = () => {
   const taskGroupList = Object.values(TaskStatus);
 
   return taskGroupList.map((taskGroup, order: number) => {
-    const taskGroupId = faker.string.uuid();
-    const numOfTasks = faker.number.int({ min: 1, max: 1 });
-
     return {
-      id: taskGroupId,
+      id: String(order),
       title: taskGroup,
       order: order,
-      taskList: generateMockTasks(numOfTasks, taskGroupId),
+      taskList: [] as TTask[],
     } satisfies TTaskGroup;
   });
 };

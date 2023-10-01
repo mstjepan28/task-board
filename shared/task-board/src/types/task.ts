@@ -3,6 +3,7 @@ export type TTask = {
 
   title: string;
   description: string;
+  backgroundColor: string;
 
   taskSubGroup: string;
   taskGroupId: string;
