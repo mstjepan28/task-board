@@ -13,7 +13,7 @@ export const TaskBoardUi = ({ taskGroupList }: IProps) => {
   };
 
   return (
-    <div className="h-screen-safe p-4 flex gap-x-2 bg-gray-800">
+    <div className="min-h-screen-safe p-4 flex gap-x-2 bg-gray-800">
       {taskGroupList.map((taskGroup) => {
         return (
           <Column key={taskGroup.id} columnData={taskGroup}>

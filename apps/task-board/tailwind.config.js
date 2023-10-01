@@ -6,6 +6,9 @@ module.exports = {
       height: {
         "screen-safe": "100svh",
       },
+      minHeight: {
+        "screen-safe": "100svh",
+      },
     },
   },
   plugins: [],

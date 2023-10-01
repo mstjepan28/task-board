@@ -8,12 +8,9 @@ interface IProps {
 
 export const Column = ({ children, columnData }: IProps) => {
   return (
-    <div
-      key={columnData.id}
-      className="group basis-full h-full relative border border-gray-700 rounded-lg transition-all transition-150 hover:border-gray-600 hover:bg-gray-700/25"
-    >
+    <div key={columnData.id} className="basis-full min-h-full relative border border-gray-700 rounded-lg">
       <ColumnTitle title={columnData.title} />
-      <div className="h-full flex items-center">{children}</div>
+      <div className="h-full flex flex-col items-center gap-y-2 px-2 pb-2 mt-5">{children}</div>
     </div>
   );
 };
