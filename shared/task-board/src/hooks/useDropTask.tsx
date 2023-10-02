@@ -15,9 +15,7 @@ export const useDropTask = (columnId: string) => {
     skeletonPlaceholder.classList.add(
       "w-full",
       "h-24",
-      "mb-2",
       "rounded-lg",
-      "pointer-events-none",
       "border",
       "border-dashed",
       "border-gray-100",
