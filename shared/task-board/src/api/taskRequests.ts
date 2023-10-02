@@ -24,7 +24,9 @@ export const getTaskListByGroup = (groupId: string) => {
   return sortTaskListInOrder(filteredTaskList);
 };
 
-export const updateTask = (taskId: string, task: TTask) => {
+export const updateTask = (task: TTask) => {
+  const taskId = task.id;
+
   const taskList = getTaskList();
   const taskIndex = taskList.findIndex((task) => task.id === taskId);
 
@@ -40,16 +42,19 @@ export const updateTaskOrder = (task: TTask) => {
   const taskList = getTaskListByGroup(task.taskGroupId);
 
   let foundTask = false;
-  for (let i = 0; i < taskList.length; i++) {
-    const taskItem = taskList[i];
-
+  const updatedTaskOrders = taskList.map((taskItem, index) => {
     if (taskItem.id === task.id) {
       foundTask = true;
     } else if (foundTask) {
-      taskItem.order = i;
-      updateTask(taskItem.id, taskItem);
+      taskItem.order = index;
+      updateTask(taskItem);
     }
-  }
 
-  return taskList;
+    return taskItem;
+  });
+
+  const foo = updatedTaskOrders.map(({ title, order }) => `${title} - ${order}`);
+  console.log(JSON.stringify(foo, null, 2));
+
+  return updatedTaskOrders;
 };

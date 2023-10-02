@@ -116,6 +116,7 @@ export const useDropTask = (columnId: string) => {
 
   const onDropTask = () => {
     const newOrder = getSkeletonOrderPlacement();
+    console.log({ newOrder });
     removeSkeletonPlaceholder();
 
     const taskData = storage.getItem("move-task") as { task: TTask } | null;
@@ -130,7 +131,7 @@ export const useDropTask = (columnId: string) => {
 
     removeOldElement(task);
 
-    updateTask(task.id, task);
+    updateTask(task);
     const updatedTaskList = updateTaskOrder(task);
 
     setUpdatedTaskList(updatedTaskList);

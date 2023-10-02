@@ -15,7 +15,7 @@ export const TaskCard = ({ task }: IProps) => {
       draggable
       data-order={task.order}
       style={{ backgroundColor: task.backgroundColor }}
-      className="w-full cursor-pointer p-1 rounded-lg border border-gray-100"
+      className="w-full cursor-move p-1 rounded-lg border border-gray-100"
     >
       <span className="select-none text-sm text-gray-300">{task.title}</span>
     </div>
