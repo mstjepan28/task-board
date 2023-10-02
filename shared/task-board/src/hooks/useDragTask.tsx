@@ -5,9 +5,13 @@ import { storage } from "@shared/storage";
 export const useDragTask = (taskId: string, task: TTask) => {
   const [isBeingMoved, setIsBeingMoved] = useState(false);
 
-  const handleDragStart = () => {
+  const handleDragStart = (event: DragEvent) => {
     setIsBeingMoved(true);
-    storage.setItem("move-task", task);
+
+    const taskElement = event?.currentTarget as HTMLElement | undefined;
+    const dimensions = taskElement?.getBoundingClientRect() || ({} as DOMRect);
+
+    storage.setItem("move-task", { task, dimensions });
   };
 
   const handleDragEnd = () => {

@@ -4,7 +4,7 @@ import { App } from "./App";
 import "./index.css";
 
 const getApp = () => {
-  const strictModeEnabled = true;
+  const strictModeEnabled = false;
   if (strictModeEnabled) {
     return (
       <React.StrictMode>

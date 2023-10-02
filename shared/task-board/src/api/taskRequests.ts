@@ -2,6 +2,10 @@ import { storage } from "@shared/storage";
 import { TTask } from "../types/task";
 import { generateMockTasksForGroups } from "../utils/generateMockData";
 
+const sortTaskListInOrder = (taskList: TTask[]) => {
+  return taskList.sort((a, b) => a.order - b.order);
+};
+
 export const getTaskList = () => {
   const cachedData = storage.getItem("task-list");
   if (cachedData) {
@@ -16,10 +20,8 @@ export const getTaskList = () => {
 
 export const getTaskListByGroup = (groupId: string) => {
   const taskList = getTaskList();
-  return taskList.filter(({ taskGroupId }) => {
-    console.log({ taskGroupId, groupId, isSame: taskGroupId === groupId });
-    return taskGroupId === groupId;
-  });
+  const filteredTaskList = taskList.filter(({ taskGroupId }) => taskGroupId === groupId);
+  return sortTaskListInOrder(filteredTaskList);
 };
 
 export const updateTask = (taskId: string, task: TTask) => {
@@ -32,4 +34,22 @@ export const updateTask = (taskId: string, task: TTask) => {
 
   taskList[taskIndex] = task;
   storage.setItem("task-list", taskList);
+};
+
+export const updateTaskOrder = (task: TTask) => {
+  const taskList = getTaskListByGroup(task.taskGroupId);
+
+  let foundTask = false;
+  for (let i = 0; i < taskList.length; i++) {
+    const taskItem = taskList[i];
+
+    if (taskItem.id === task.id) {
+      foundTask = true;
+    } else if (foundTask) {
+      taskItem.order = i;
+      updateTask(taskItem.id, taskItem);
+    }
+  }
+
+  return taskList;
 };

@@ -1,7 +1,10 @@
 import { storage } from "@shared/storage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { TTask } from "../types/task";
+import { updateTask, updateTaskOrder } from "../api/taskRequests";
 
 export const useDropTask = (columnId: string) => {
+  const [updatedTaskList, setUpdatedTaskList] = useState<TTask[] | null>(null);
   const placeholderId = "skeleton-placeholder";
 
   // --------------------------------------------- //
@@ -26,6 +29,29 @@ export const useDropTask = (columnId: string) => {
 
   const removeSkeletonPlaceholder = () => {
     document.getElementById(placeholderId)?.remove();
+  };
+
+  const getSkeletonOrderPlacement = () => {
+    const columnChildren = document.getElementById(columnId)?.children;
+    if (!columnChildren) {
+      return 0;
+    }
+
+    for (let i = 0; i < columnChildren.length; i++) {
+      const child = columnChildren[i];
+      if (child.id === placeholderId) {
+        return i;
+      }
+    }
+
+    return columnChildren.length;
+  };
+
+  const removeOldElement = (task: TTask) => {
+    const oldTaskElement = document.getElementById(`task-${task.id}`);
+    if (oldTaskElement) {
+      oldTaskElement.remove();
+    }
   };
 
   // --------------------------------------------- //
@@ -65,7 +91,7 @@ export const useDropTask = (columnId: string) => {
 
   const handleColumnElement = (targetElement: HTMLElement) => {
     const children = targetElement.children;
-    const isLastChildPlaceholder = children[children.length - 1].id === placeholderId;
+    const isLastChildPlaceholder = children[children.length - 1]?.id === placeholderId;
 
     if (!isLastChildPlaceholder) {
       removeSkeletonPlaceholder();
@@ -76,11 +102,6 @@ export const useDropTask = (columnId: string) => {
   };
 
   // --------------------------------------------- //
-
-  const getMovingElement = () => {
-    const movingTask = storage.getItem("move-task");
-    console.log(movingTask);
-  };
 
   const onDragOver = (event: DragEvent) => {
     event.preventDefault();
@@ -96,8 +117,25 @@ export const useDropTask = (columnId: string) => {
   };
 
   const onDropTask = () => {
+    const newOrder = getSkeletonOrderPlacement();
     removeSkeletonPlaceholder();
-    getMovingElement();
+
+    const taskData = storage.getItem("move-task") as { task: TTask } | null;
+    const task = taskData?.task;
+    if (!task) {
+      console.error("Task not found");
+      return;
+    }
+
+    task.taskGroupId = columnId.split("col-")[1];
+    task.order = newOrder;
+
+    removeOldElement(task);
+
+    updateTask(task.id, task);
+    const updatedTaskList = updateTaskOrder(task);
+
+    setUpdatedTaskList(updatedTaskList);
   };
 
   useEffect(() => {
@@ -115,4 +153,6 @@ export const useDropTask = (columnId: string) => {
       columnElement.removeEventListener("drop", onDropTask);
     };
   }, []);
+
+  return { updatedTaskList };
 };
