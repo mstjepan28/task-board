@@ -21,6 +21,7 @@ export const getTaskList = () => {
 export const getTaskListByGroup = (groupId: string) => {
   const taskList = getTaskList();
   const filteredTaskList = taskList.filter(({ taskGroupId }) => taskGroupId === groupId);
+
   return sortTaskListInOrder(filteredTaskList);
 };
 
@@ -41,11 +42,11 @@ export const updateTask = (task: TTask) => {
 /**
  * Update task order for a group based on the given task
  */
-export const updateTaskOrder = (task: TTask) => {
-  const taskList = getTaskListByGroup(task.taskGroupId);
+export const updateTaskOrder = (groupId: string, orderOfTasks: string[]) => {
+  const taskList = getTaskListByGroup(groupId);
 
-  const updatedTaskOrders = taskList.map((taskItem, index) => {
-    taskItem.order = index;
+  const updatedTaskOrders = taskList.map((taskItem) => {
+    taskItem.order = orderOfTasks.indexOf(taskItem.id);
     updateTask(taskItem);
 
     return taskItem;

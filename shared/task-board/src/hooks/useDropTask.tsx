@@ -1,6 +1,7 @@
 import { storage } from "@shared/storage";
 import { useEffect, useState } from "react";
 import { TTask } from "../types/task";
+import { updateTask, updateTaskOrder } from "../api/taskRequests";
 
 export const useDropTask = (columnId: string) => {
   const [movedTask, setMovedTask] = useState<TTask | null>(null);
@@ -31,20 +32,16 @@ export const useDropTask = (columnId: string) => {
     }
   };
 
-  const getSkeletonOrderPlacement = () => {
+  const getChildrenIdList = (taskId: string) => {
     const columnChildren = document.getElementById(columnId)?.children;
     if (!columnChildren) {
-      return 0;
+      return [];
     }
 
-    for (let i = 0; i < columnChildren.length; i++) {
-      const child = columnChildren[i];
-      if (child.id === placeholderId) {
-        return i;
-      }
-    }
-
-    return columnChildren.length;
+    return Array.from(columnChildren)
+      .map((child) => child.id.replace("task-", ""))
+      .filter((childId) => childId !== taskId)
+      .map((childId) => (childId === placeholderId ? taskId : childId));
   };
 
   // --------------------------------------------- //
@@ -110,9 +107,6 @@ export const useDropTask = (columnId: string) => {
   };
 
   const onDropTask = () => {
-    const newOrder = getSkeletonOrderPlacement();
-    removeSkeletonPlaceholder();
-
     const taskData = storage.getItem("move-task") as { task: TTask } | null;
     const task = taskData?.task;
     if (!task) {
@@ -120,8 +114,13 @@ export const useDropTask = (columnId: string) => {
       return;
     }
 
+    const taskOrder = getChildrenIdList(task.id);
+    removeSkeletonPlaceholder();
+
     task.taskGroupId = columnId.split("col-")[1];
-    task.order = newOrder;
+
+    updateTask(task);
+    updateTaskOrder(task.taskGroupId, taskOrder);
 
     setMovedTask(task);
   };

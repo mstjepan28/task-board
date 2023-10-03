@@ -21,8 +21,8 @@ export const useTask = () => {
       return;
     }
 
-    updateTask(task);
-    updateTaskOrder(task);
+    // updateTask(task);
+    // updateTaskOrder(task);
 
     getSortedTaskList();
   };
