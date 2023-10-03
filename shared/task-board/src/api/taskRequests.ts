@@ -44,14 +44,9 @@ export const updateTask = (task: TTask) => {
 export const updateTaskOrder = (task: TTask) => {
   const taskList = getTaskListByGroup(task.taskGroupId);
 
-  let foundTask = false;
   const updatedTaskOrders = taskList.map((taskItem, index) => {
-    if (taskItem.id === task.id) {
-      foundTask = true;
-    } else if (foundTask) {
-      taskItem.order = index;
-      updateTask(taskItem);
-    }
+    taskItem.order = index;
+    updateTask(taskItem);
 
     return taskItem;
   });

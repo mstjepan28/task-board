@@ -4,6 +4,14 @@ import { storage } from "@shared/storage";
 
 export const useDragTask = (taskId: string, task: TTask) => {
   const [isBeingMoved, setIsBeingMoved] = useState(false);
+  const placeholderId = "skeleton-placeholder";
+
+  const removeSkeletonPlaceholder = () => {
+    const skeleton = document.getElementById(placeholderId);
+    if (skeleton) {
+      skeleton.remove();
+    }
+  };
 
   const handleDragStart = (event: DragEvent) => {
     setIsBeingMoved(true);
@@ -17,6 +25,8 @@ export const useDragTask = (taskId: string, task: TTask) => {
   const handleDragEnd = () => {
     setIsBeingMoved(false);
     storage.removeItem("move-task");
+
+    removeSkeletonPlaceholder();
   };
 
   useEffect(() => {

@@ -15,9 +15,9 @@ export const TaskCard = ({ task }: IProps) => {
       draggable
       data-order={task.order}
       style={{ backgroundColor: task.backgroundColor }}
-      className="w-full cursor-move p-1 rounded-lg border border-gray-100"
+      className="py-4 flex justify-center items-center  w-full cursor-move p-1 rounded-lg border border-gray-100"
     >
-      <span className="select-none text-sm text-gray-300">{task.title}</span>
+      <span className="select-none text-sm text-gray-300">{task.order}</span>
     </div>
   );
 };
