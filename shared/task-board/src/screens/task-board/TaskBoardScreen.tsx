@@ -1,12 +1,8 @@
-import { getTaskGroupList } from "../../api/taskGroupRequests";
-import { getTaskListByGroup } from "../../api/taskRequests";
+import { useTask } from "../../hooks/task-hooks/useTask";
 import { TaskBoardUi } from "./TaskBoardUi";
 
 export const TaskBoardScreen = () => {
-  const taskGroupList = getTaskGroupList().map((taskGroup) => {
-    const taskList = getTaskListByGroup(taskGroup.id);
-    return { ...taskGroup, taskList };
-  });
+  const { taskGroupList, onTaskMove } = useTask();
 
-  return <TaskBoardUi taskGroupList={taskGroupList} />;
+  return <TaskBoardUi taskGroupList={taskGroupList} onTaskMove={onTaskMove} />;
 };

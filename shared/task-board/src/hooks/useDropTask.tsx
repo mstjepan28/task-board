@@ -1,10 +1,9 @@
 import { storage } from "@shared/storage";
 import { useEffect, useState } from "react";
 import { TTask } from "../types/task";
-import { updateTask, updateTaskOrder } from "../api/taskRequests";
 
 export const useDropTask = (columnId: string) => {
-  const [updatedTaskList, setUpdatedTaskList] = useState<TTask[] | null>(null);
+  const [movedTask, setMovedTask] = useState<TTask | null>(null);
   const placeholderId = "skeleton-placeholder";
 
   // --------------------------------------------- //
@@ -26,7 +25,10 @@ export const useDropTask = (columnId: string) => {
   };
 
   const removeSkeletonPlaceholder = () => {
-    document.getElementById(placeholderId)?.remove();
+    const skeleton = document.getElementById(placeholderId);
+    if (skeleton) {
+      skeleton.remove();
+    }
   };
 
   const getSkeletonOrderPlacement = () => {
@@ -43,13 +45,6 @@ export const useDropTask = (columnId: string) => {
     }
 
     return columnChildren.length;
-  };
-
-  const removeOldElement = (task: TTask) => {
-    const oldTaskElement = document.getElementById(`task-${task.id}`);
-    if (oldTaskElement) {
-      oldTaskElement.remove();
-    }
   };
 
   // --------------------------------------------- //
@@ -116,7 +111,6 @@ export const useDropTask = (columnId: string) => {
 
   const onDropTask = () => {
     const newOrder = getSkeletonOrderPlacement();
-    console.log({ newOrder });
     removeSkeletonPlaceholder();
 
     const taskData = storage.getItem("move-task") as { task: TTask } | null;
@@ -129,12 +123,7 @@ export const useDropTask = (columnId: string) => {
     task.taskGroupId = columnId.split("col-")[1];
     task.order = newOrder;
 
-    removeOldElement(task);
-
-    updateTask(task);
-    const updatedTaskList = updateTaskOrder(task);
-
-    setUpdatedTaskList(updatedTaskList);
+    setMovedTask(task);
   };
 
   useEffect(() => {
@@ -153,5 +142,5 @@ export const useDropTask = (columnId: string) => {
     };
   }, []);
 
-  return { updatedTaskList };
+  return { movedTask };
 };

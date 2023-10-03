@@ -38,6 +38,9 @@ export const updateTask = (task: TTask) => {
   storage.setItem("task-list", taskList);
 };
 
+/**
+ * Update task order for a group based on the given task
+ */
 export const updateTaskOrder = (task: TTask) => {
   const taskList = getTaskListByGroup(task.taskGroupId);
 
@@ -52,9 +55,6 @@ export const updateTaskOrder = (task: TTask) => {
 
     return taskItem;
   });
-
-  const foo = updatedTaskOrders.map(({ title, order }) => `${title} - ${order}`);
-  console.log(JSON.stringify(foo, null, 2));
 
   return updatedTaskOrders;
 };
