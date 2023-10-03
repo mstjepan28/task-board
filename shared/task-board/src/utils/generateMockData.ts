@@ -34,7 +34,7 @@ const generateMockTasks = (count: number, parentId: string): TTask[] => {
 export const generateMockTasksForGroups = () => {
   return Array.from({ length: 4 })
     .map((_, order: number) => {
-      return generateMockTasks(1, String(order));
+      return generateMockTasks(5, String(order));
     })
     .flat();
 };
