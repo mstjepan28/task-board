@@ -33,12 +33,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@apps/task-board@workspace:apps/task-board"
   dependencies:
+    "@heroicons/react": 2.0.18
+    "@shared/calendar": "workspace:^"
+    "@shared/cryptogram": "workspace:^"
+    "@shared/module-board": "workspace:^"
     "@shared/task-board": "workspace:^"
     "@types/react": ^18.0.28
     "@types/react-dom": ^18.0.11
     "@typescript-eslint/eslint-plugin": ^5.57.1
     "@typescript-eslint/parser": ^5.57.1
     "@vitejs/plugin-react": ^4.0.0
+    dayjs: ^1.10.7
     eslint: ^8.38.0
     eslint-plugin-react-hooks: ^4.6.0
     eslint-plugin-react-refresh: ^0.3.4
@@ -854,6 +859,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@heroicons/react@npm:2.0.18":
+  version: 2.0.18
+  resolution: "@heroicons/react@npm:2.0.18"
+  peerDependencies:
+    react: ">= 16"
+  checksum: 597e8668818623d568a302e343ef06b69f62ce297c14b88c2ebbfed0c0f00cd85ec44fae33ec8a249931b4e7dcf145743ae3198095a9f4682108de5155f5f4c3
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.11.11":
   version: 0.11.11
   resolution: "@humanwhocodes/config-array@npm:0.11.11"
@@ -995,6 +1009,45 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@shared/calendar@workspace:^, @shared/calendar@workspace:shared/calendar":
+  version: 0.0.0-use.local
+  resolution: "@shared/calendar@workspace:shared/calendar"
+  dependencies:
+    "@typescript-eslint/eslint-plugin": latest
+    "@typescript-eslint/parser": latest
+    autoprefixer: ^10.4.14
+    dayjs: ^1.10.4
+    eslint: latest
+    eslint-plugin-react: latest
+    postcss: ^8.4.23
+    prettier: ^3.0.2
+    react: "*"
+    tailwindcss: ^3.3.2
+    vitest: 0.34.4
+  languageName: unknown
+  linkType: soft
+
+"@shared/cryptogram@workspace:^, @shared/cryptogram@workspace:shared/cryptogram":
+  version: 0.0.0-use.local
+  resolution: "@shared/cryptogram@workspace:shared/cryptogram"
+  dependencies:
+    "@shared/storage": "workspace:^"
+    "@shared/ui": "workspace:^"
+    dayjs: "*"
+    react: "*"
+  languageName: unknown
+  linkType: soft
+
+"@shared/module-board@workspace:^, @shared/module-board@workspace:shared/module-board":
+  version: 0.0.0-use.local
+  resolution: "@shared/module-board@workspace:shared/module-board"
+  dependencies:
+    "@faker-js/faker": 8.1.0
+    "@shared/storage": "workspace:^"
+    react: "*"
+  languageName: unknown
+  linkType: soft
+
 "@shared/storage@workspace:^, @shared/storage@workspace:shared/storage":
   version: 0.0.0-use.local
   resolution: "@shared/storage@workspace:shared/storage"
@@ -1011,7 +1064,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@shared/ui@workspace:shared/ui":
+"@shared/ui@workspace:^, @shared/ui@workspace:shared/ui":
   version: 0.0.0-use.local
   resolution: "@shared/ui@workspace:shared/ui"
   languageName: unknown
@@ -2002,6 +2055,13 @@ __metadata:
   version: 3.1.2
   resolution: "csstype@npm:3.1.2"
   checksum: e1a52e6c25c1314d6beef5168da704ab29c5186b877c07d822bd0806717d9a265e8493a2e35ca7e68d0f5d472d43fac1cdce70fd79fd0853dff81f3028d857b5
+  languageName: node
+  linkType: hard
+
+"dayjs@npm:*, dayjs@npm:^1.10.4, dayjs@npm:^1.10.7":
+  version: 1.11.10
+  resolution: "dayjs@npm:1.11.10"
+  checksum: a6b5a3813b8884f5cd557e2e6b7fa569f4c5d0c97aca9558e38534af4f2d60daafd3ff8c2000fed3435cfcec9e805bcebd99f90130c6d1c5ef524084ced588c4
   languageName: node
   linkType: hard
 

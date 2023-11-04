@@ -1,0 +1,13 @@
+{
+  "name": "@shared/module-board",
+  "private": true,
+  "version": "1",
+  "main": "./src",
+  "dependencies": {
+    "@shared/storage": "workspace:^",
+    "react": "*"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "8.1.0"
+  }
+}
