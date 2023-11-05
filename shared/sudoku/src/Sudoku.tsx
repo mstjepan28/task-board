@@ -2,16 +2,15 @@ import { useEffect, useState } from "react";
 
 export const Sudoku = () => {
   const [board, setBoard] = useState<number[][]>([]);
-  const [selected, setSelected] = useState<number[] | null>(null);
+  const [selected, setSelected] = useState<number[] | null[]>([null, null]);
 
   // --- check if cell selected ---
 
   const checkIfSectionSelected = (cellRow: number, cellCol: number) => {
-    if (!selected) {
+    const [selectedRow, selectedCol] = selected;
+    if (selectedRow === null || selectedCol === null) {
       return false;
     }
-
-    const [selectedRow, selectedCol] = selected;
 
     const rowStart = Math.floor(selectedRow / 3) * 3;
     const rowEnd = rowStart + 3;
@@ -23,7 +22,7 @@ export const Sudoku = () => {
   };
 
   const checkIfRowSelected = (cellRow: number) => {
-    if (!selected) {
+    if (selected[0] === null) {
       return false;
     }
 
@@ -31,7 +30,7 @@ export const Sudoku = () => {
   };
 
   const checkIfColSelected = (cellCol: number) => {
-    if (!selected) {
+    if (selected[1] === null) {
       return false;
     }
 
@@ -99,7 +98,7 @@ export const Sudoku = () => {
   // --- handle number select ---
 
   const handleNumberSelect = (number: number) => {
-    if (!selected) {
+    if (!selected[0] || !selected[1]) {
       return;
     }
     const [row, col] = selected;
@@ -138,19 +137,20 @@ export const Sudoku = () => {
     }
 
     const handleArrowPress = (rowChange: number, colChange: number) => {
-      console.log("handleArrowPress");
+      setSelected((cur) => {
+        if (cur[0] === null || cur[1] === null) {
+          return cur;
+        }
 
-      const newRow = selected[0] + rowChange;
-      const newCol = selected[1] + colChange;
+        const newRow = cur[0] + rowChange;
+        const newCol = cur[1] + colChange;
 
-      console.log(selected[0], rowChange, newRow);
-      console.log(selected[1], colChange, newCol);
+        if (newRow < 0 || newRow > 8 || newCol < 0 || newCol > 8) {
+          return cur;
+        }
 
-      if (newRow < 0 || newRow > 8 || newCol < 0 || newCol > 8) {
-        return;
-      }
-
-      setSelected([newRow, newCol]);
+        return [newRow, newCol];
+      });
     };
 
     switch (key) {
