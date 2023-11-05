@@ -98,10 +98,10 @@ export const Sudoku = () => {
   // --- handle number select ---
 
   const handleNumberSelect = (number: number) => {
-    if (!selected[0] || !selected[1]) {
+    const [row, col] = selected;
+    if (row === null || col === null) {
       return;
     }
-    const [row, col] = selected;
 
     const boardCopy = [...board];
     boardCopy[row][col] = number;
@@ -131,28 +131,24 @@ export const Sudoku = () => {
 
   // --- handle key press ---
 
+  const handleArrowPress = (rowChange: number, colChange: number) => {
+    setSelected((cur) => {
+      if (cur[0] === null || cur[1] === null) {
+        return cur;
+      }
+
+      const newRow = cur[0] + rowChange;
+      const newCol = cur[1] + colChange;
+
+      if (newRow < 0 || newRow > 8 || newCol < 0 || newCol > 8) {
+        return cur;
+      }
+
+      return [newRow, newCol];
+    });
+  };
+
   const handleKeyPress = (key: string) => {
-    if (!selected) {
-      return;
-    }
-
-    const handleArrowPress = (rowChange: number, colChange: number) => {
-      setSelected((cur) => {
-        if (cur[0] === null || cur[1] === null) {
-          return cur;
-        }
-
-        const newRow = cur[0] + rowChange;
-        const newCol = cur[1] + colChange;
-
-        if (newRow < 0 || newRow > 8 || newCol < 0 || newCol > 8) {
-          return cur;
-        }
-
-        return [newRow, newCol];
-      });
-    };
-
     switch (key) {
       case "ArrowUp":
         handleArrowPress(-1, 0);
