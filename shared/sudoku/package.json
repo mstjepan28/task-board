@@ -1,0 +1,12 @@
+{
+  "name": "@shared/sudoku",
+  "private": true,
+  "version": "1",
+  "main": "./src",
+  "dependencies": {
+    "@shared/storage": "workspace:^",
+    "@shared/ui": "workspace:^",
+    "dayjs": "*",
+    "react": "*"
+  }
+}

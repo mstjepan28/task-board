@@ -1054,6 +1054,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@shared/sudoku@workspace:shared/sudoku":
+  version: 0.0.0-use.local
+  resolution: "@shared/sudoku@workspace:shared/sudoku"
+  dependencies:
+    "@shared/storage": "workspace:^"
+    "@shared/ui": "workspace:^"
+    dayjs: "*"
+    react: "*"
+  languageName: unknown
+  linkType: soft
+
 "@shared/task-board@workspace:^, @shared/task-board@workspace:shared/task-board":
   version: 0.0.0-use.local
   resolution: "@shared/task-board@workspace:shared/task-board"
