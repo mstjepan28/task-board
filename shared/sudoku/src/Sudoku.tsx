@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
 export const Sudoku = () => {
+  const EMPTY_CELL = -1;
+
   const [board, setBoard] = useState<number[][]>([]);
   const [selected, setSelected] = useState<number[] | null[]>([null, null]);
 
@@ -53,7 +55,7 @@ export const Sudoku = () => {
 
   const generateBoard = () => {
     const newBoard = Array.from({ length: 9 }).map(() => {
-      return Array.from({ length: 9 }, () => -1);
+      return Array.from({ length: 9 }, () => EMPTY_CELL);
     });
     setBoard(newBoard);
   };
@@ -85,7 +87,7 @@ export const Sudoku = () => {
             ${isSelected ? "bg-gray-300" : "bg-white/10"}
           `}
         >
-          {cell !== -1 && cell}
+          {cell !== EMPTY_CELL && cell}
         </button>
       );
     });
@@ -151,8 +153,10 @@ export const Sudoku = () => {
   const handleKeyPress = (key: string) => {
     const isNumber = !isNaN(Number(key));
     if (isNumber) {
-      console.log(key);
       handleNumberSelect(Number(key));
+      return;
+    } else if (key === "Backspace") {
+      handleNumberSelect(EMPTY_CELL);
       return;
     }
 
