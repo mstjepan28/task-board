@@ -6,26 +6,34 @@
     "apps/*"
   ],
   "scripts": {
-    "board": "yarn workspace @apps/task-board dev",
-    "board:build": "yarn workspace @apps/task-board build",
-    "-----------------": "-------------------------------------------",
+    "dev": "yarn workspace @apps/core-app dev",
+    "dev:build": "yarn workspace @apps/core-app build",
+    "--- Validation commands ------------------------------------------": "",
     "test": "vitest",
-    "check": "yarn run lint && yarn run format && yarn run vitest run",
     "lint": "yarn run eslint '**/*.{tsx,ts,jsx,json}'",
     "lint:fix": "yarn run eslint '**/*.{tsx,ts,jsx,json}' --fix",
     "format": "npx prettier '**/*.{tsx,ts,jsx,json}' --check",
-    "format:fix": "npx prettier '**/*.{tsx,ts,jsx,json}' --write"
+    "format:fix": "npx prettier '**/*.{tsx,ts,jsx,json}' --write",
+    "dep-check": "yarn check-dependency-version-consistency .",
+    "dep-check:fix": "yarn check-dependency-version-consistency . --fix",
+    "check": "yarn run lint && yarn run format && yarn run vitest run && yarn run dep-check",
+    "check:fix": "yarn run lint:fix && yarn run format:fix && yarn run dep-check:fix",
+    "--- Misc. commands -----------------------------------------------": "",
+    "module": "node ./scripts/create-new-module.js",
+    "extract": "yarn workspace @shared/translations extract"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "latest",
-    "@typescript-eslint/parser": "latest",
-    "autoprefixer": "^10.4.14",
-    "eslint": "latest",
-    "eslint-plugin-react": "latest",
-    "postcss": "^8.4.23",
-    "prettier": "^3.0.2",
-    "tailwindcss": "^3.3.2",
-    "vitest": "0.34.4"
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
+    "autoprefixer": "^10.4.16",
+    "check-dependency-version-consistency": "^4.1.0",
+    "eslint": "^8.53.0",
+    "eslint-plugin-react": "7.33.2",
+    "postcss": "^8.4.31",
+    "prettier": "^3.1.0",
+    "prettier-plugin-tailwindcss": "0.5.7",
+    "tailwindcss": "^3.3.5",
+    "vitest": "0.34.6"
   },
   "packageManager": "yarn@3.5.0"
 }
