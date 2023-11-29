@@ -1,6 +1,0 @@
-{
-  "name": "@shared/ui",
-  "private": true,
-  "version": "1",
-  "main": "./src"
-}
