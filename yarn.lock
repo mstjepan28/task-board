@@ -38,11 +38,14 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^6.11.0
     "@typescript-eslint/parser": ^6.11.0
     "@vitejs/plugin-react": ^4.2.0
+    autoprefixer: ^10.4.16
     eslint: ^8.53.0
     eslint-plugin-react-hooks: ^4.6.0
     eslint-plugin-react-refresh: ^0.4.4
+    postcss: ^8.4.31
     react: ^18.2.0
     react-dom: ^18.2.0
+    tailwindcss: ^3.3.5
     typescript: ^5.2.2
     vite: ^5.0.0
   languageName: unknown
@@ -743,29 +746,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@services/storage@workspace:^, @services/storage@workspace:services/storage":
+  version: 0.0.0-use.local
+  resolution: "@services/storage@workspace:services/storage"
+  languageName: unknown
+  linkType: soft
+
 "@shared/cryptogram@workspace:shared/cryptogram":
   version: 0.0.0-use.local
   resolution: "@shared/cryptogram@workspace:shared/cryptogram"
   dependencies:
-    "@shared/storage": "workspace:^"
-    dayjs: "*"
-    react: "*"
-  languageName: unknown
-  linkType: soft
-
-"@shared/module-board@workspace:shared/module-board":
-  version: 0.0.0-use.local
-  resolution: "@shared/module-board@workspace:shared/module-board"
-  dependencies:
-    "@faker-js/faker": 8.1.0
-    "@shared/storage": "workspace:^"
+    "@services/storage": "workspace:^"
+    dayjs: ^1.11.10
     react: ^18.2.0
-  languageName: unknown
-  linkType: soft
-
-"@shared/storage@workspace:^, @shared/storage@workspace:shared/storage":
-  version: 0.0.0-use.local
-  resolution: "@shared/storage@workspace:shared/storage"
   languageName: unknown
   linkType: soft
 
@@ -773,8 +766,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@shared/sudoku@workspace:shared/sudoku"
   dependencies:
-    "@shared/storage": "workspace:^"
-    dayjs: ^1.10.7
+    "@services/storage": "workspace:^"
+    dayjs: ^1.11.10
     react: ^18.2.0
   languageName: unknown
   linkType: soft
@@ -784,7 +777,7 @@ __metadata:
   resolution: "@shared/task-board@workspace:shared/task-board"
   dependencies:
     "@faker-js/faker": 8.1.0
-    "@shared/storage": "workspace:^"
+    "@services/storage": "workspace:^"
     react: ^18.2.0
   languageName: unknown
   linkType: soft
@@ -1730,7 +1723,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:*, dayjs@npm:^1.10.7":
+"dayjs@npm:^1.11.10":
   version: 1.11.10
   resolution: "dayjs@npm:1.11.10"
   checksum: a6b5a3813b8884f5cd557e2e6b7fa569f4c5d0c97aca9558e38534af4f2d60daafd3ff8c2000fed3435cfcec9e805bcebd99f90130c6d1c5ef524084ced588c4
@@ -3571,6 +3564,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"monorepo-project@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "monorepo-project@workspace:."
+  dependencies:
+    "@typescript-eslint/eslint-plugin": ^6.11.0
+    "@typescript-eslint/parser": ^6.11.0
+    check-dependency-version-consistency: ^4.1.0
+    eslint: ^8.53.0
+    eslint-plugin-react: 7.33.2
+    prettier: ^3.1.0
+    prettier-plugin-tailwindcss: 0.5.7
+    vitest: 0.34.6
+  languageName: unknown
+  linkType: soft
+
 "ms@npm:2.1.2":
   version: 2.1.2
   resolution: "ms@npm:2.1.2"
@@ -3618,24 +3626,6 @@ __metadata:
   checksum: b8ffeb1e262eff7968fc90a2b6767b04cfd9842582a9d0ece0af7049537266e7b2506dfb1d107a32f06dd849ab2aea834d5830f7f4d0e5cb7d36e1ae55d021d9
   languageName: node
   linkType: hard
-
-"nextjs-monorepo@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "nextjs-monorepo@workspace:."
-  dependencies:
-    "@typescript-eslint/eslint-plugin": ^6.11.0
-    "@typescript-eslint/parser": ^6.11.0
-    autoprefixer: ^10.4.16
-    check-dependency-version-consistency: ^4.1.0
-    eslint: ^8.53.0
-    eslint-plugin-react: 7.33.2
-    postcss: ^8.4.31
-    prettier: ^3.1.0
-    prettier-plugin-tailwindcss: 0.5.7
-    tailwindcss: ^3.3.5
-    vitest: 0.34.6
-  languageName: unknown
-  linkType: soft
 
 "node-gyp@npm:latest":
   version: 9.3.1
@@ -4194,7 +4184,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:*, react@npm:^18.2.0":
+"react@npm:^18.2.0":
   version: 18.2.0
   resolution: "react@npm:18.2.0"
   dependencies:

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { TTask } from "../types/task";
-import { storage } from "@shared/storage";
+import { storage } from "@services/storage";
 
 export const useDragTask = (taskId: string, task: TTask) => {
   const [isBeingMoved, setIsBeingMoved] = useState(false);

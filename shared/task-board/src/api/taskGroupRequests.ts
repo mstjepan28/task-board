@@ -1,4 +1,4 @@
-import { storage } from "@shared/storage";
+import { storage } from "@services/storage";
 import { generateMockTaskGroups } from "../utils/generateMockData";
 import { TTaskGroup } from "../types/taskGroup";
 

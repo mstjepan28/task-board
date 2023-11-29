@@ -1,4 +1,4 @@
-import { storage } from "@shared/storage";
+import { storage } from "@services/storage";
 import { useEffect, useState } from "react";
 import { TTask } from "../types/task";
 import { updateTask, updateTaskOrder } from "../api/taskRequests";

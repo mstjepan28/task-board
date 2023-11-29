@@ -1,5 +1,5 @@
 {
-  "name": "@shared/storage",
+  "name": "@services/storage",
   "private": true,
   "version": "1",
   "main": "./src"
