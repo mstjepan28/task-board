@@ -132,23 +132,30 @@ export const Sudoku = () => {
   // --- handle key press ---
 
   const handleArrowPress = (rowChange: number, colChange: number) => {
-    setSelected((cur) => {
-      if (cur[0] === null || cur[1] === null) {
-        return cur;
-      }
+    const [row, col] = [...selected];
 
-      const newRow = cur[0] + rowChange;
-      const newCol = cur[1] + colChange;
+    if (row === null || col === null) {
+      return;
+    }
 
-      if (newRow < 0 || newRow > 8 || newCol < 0 || newCol > 8) {
-        return cur;
-      }
+    const newRow = row + rowChange;
+    const newCol = col + colChange;
 
-      return [newRow, newCol];
-    });
+    if (newRow < 0 || newRow > 8 || newCol < 0 || newCol > 8) {
+      return;
+    }
+
+    setSelected([newRow, newCol]);
   };
 
   const handleKeyPress = (key: string) => {
+    const isNumber = !isNaN(Number(key));
+    if (isNumber) {
+      console.log(key);
+      handleNumberSelect(Number(key));
+      return;
+    }
+
     switch (key) {
       case "ArrowUp":
         handleArrowPress(-1, 0);
@@ -169,11 +176,13 @@ export const Sudoku = () => {
 
   useEffect(() => {
     generateBoard();
-    document.addEventListener("keydown", ({ key }) => handleKeyPress(key));
   }, []);
 
   return (
-    <div className="w-full flex flex-col justify-center items-center gap-y-4">
+    <div
+      onKeyDownCapture={(event) => handleKeyPress(event.key)}
+      className="w-full flex flex-col justify-center items-center gap-y-4"
+    >
       <div className="rounded-lg p-4 bg-gray-300">
         <div className="grid grid-cols-9 border-t-2 border-l-2 border-gray-900 bg-white">{renderBoard()}</div>
       </div>

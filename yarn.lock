@@ -33,6 +33,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@apps/core-app@workspace:apps/core-app"
   dependencies:
+    "@shared/sudoku": "workspace:^"
     "@types/react": ^18.2.37
     "@types/react-dom": ^18.2.15
     "@typescript-eslint/eslint-plugin": ^6.11.0
@@ -762,7 +763,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@shared/sudoku@workspace:shared/sudoku":
+"@shared/sudoku@workspace:^, @shared/sudoku@workspace:shared/sudoku":
   version: 0.0.0-use.local
   resolution: "@shared/sudoku@workspace:shared/sudoku"
   dependencies:
