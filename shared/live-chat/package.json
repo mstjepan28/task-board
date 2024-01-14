@@ -1,0 +1,9 @@
+{
+  "name": "@shared/live-chat",
+  "private": true,
+  "version": "1",
+  "main": "./src",
+  "dependencies": {
+    "react": "^18.2.0"
+  }
+}

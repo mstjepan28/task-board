@@ -8,6 +8,7 @@
     "build": "tsc && vite build"
   },
   "dependencies": {
+    "@shared/live-chat": "workspace:^",
     "@shared/sudoku": "workspace:^",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

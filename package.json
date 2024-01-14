@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "yarn workspace @apps/core-app dev",
     "dev:build": "yarn workspace @apps/core-app build",
+    "server": "yarn workspace @services/chat-server start",
     "--- Validation commands ------------------------------------------": "",
     "test": "vitest",
     "lint": "yarn run eslint '**/*.{tsx,ts,jsx,json}'",
