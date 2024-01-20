@@ -33,6 +33,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@apps/core-app@workspace:apps/core-app"
   dependencies:
+    "@shared/brick-breaker": "workspace:^"
     "@shared/live-chat": "workspace:^"
     "@shared/sudoku": "workspace:^"
     "@shared/text-editor": "workspace:^"
@@ -762,6 +763,15 @@ __metadata:
 "@services/storage@workspace:^, @services/storage@workspace:services/storage":
   version: 0.0.0-use.local
   resolution: "@services/storage@workspace:services/storage"
+  languageName: unknown
+  linkType: soft
+
+"@shared/brick-breaker@workspace:^, @shared/brick-breaker@workspace:shared/brick-breaker":
+  version: 0.0.0-use.local
+  resolution: "@shared/brick-breaker@workspace:shared/brick-breaker"
+  dependencies:
+    react: 18.2.0
+    react-dom: 18.2.0
   languageName: unknown
   linkType: soft
 
