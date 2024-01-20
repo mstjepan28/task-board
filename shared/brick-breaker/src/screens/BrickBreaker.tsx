@@ -1,45 +1,23 @@
 import { useEffect, useRef } from "react";
+import { useCanvas } from "../hooks/useCanvas";
 
 export const BrickBreaker = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { context, size } = useCanvas(canvasRef);
 
-  const getContext = () => {
-    const canvas = canvasRef.current;
-
-    if (!canvas) {
-      throw new Error("Canvas not found");
-    }
-    if (!canvas.getContext) {
-      throw new Error("Canvas context not found");
-    }
-
-    const context = canvas.getContext("2d");
+  const draw = () => {
     if (!context) {
-      throw new Error("Canvas context not found");
+      return;
     }
 
-    return context;
-  };
-
-  const draw = (context: CanvasRenderingContext2D) => {
     context.fillStyle = "#fff";
-
-    // get canvas size in px
-    const width = context.canvas.width;
-    const height = context.canvas.height;
-
-    console.log(width, height);
-
-    // const foo = context.();
-    // console.log(foo);
-
-    context.fillRect(0, 0, width, height);
+    context.fillRect(0, 0, 50, 50);
   };
 
   useEffect(() => {
-    const context = getContext();
-    draw(context);
-  }, []);
+    console.log(size);
+    draw();
+  }, [context]);
 
   return (
     <canvas ref={canvasRef} className="w-10/12 h-10/12 bg-gray-950 rounded-xl p-4">
