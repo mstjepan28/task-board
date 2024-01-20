@@ -1,23 +1,32 @@
-import { useEffect, useRef } from "react";
-import { useCanvas } from "../hooks/useCanvas";
+import { useLayoutEffect, useRef } from "react";
+import { getCanvasSize, getContext } from "../utils/canvasHelpers";
 
 export const BrickBreaker = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { context, size } = useCanvas(canvasRef);
 
-  const draw = () => {
+  const draw = (context: CanvasRenderingContext2D | null) => {
     if (!context) {
       return;
     }
 
+    const size = getCanvasSize(context);
+
+    const width = size.width * 0.1;
+    const height = size.height * 0.1;
+
+    const xPos = size.width * 0.5 - 25;
+    const yPos = size.height - height;
+
+    console.log(xPos, yPos, width, height);
+
     context.fillStyle = "#fff";
-    context.fillRect(0, 0, 50, 50);
+    context.fillRect(xPos, yPos, width, height);
   };
 
-  useEffect(() => {
-    console.log(size);
-    draw();
-  }, [context]);
+  useLayoutEffect(() => {
+    const context = getContext(canvasRef);
+    draw(context);
+  }, []);
 
   return (
     <canvas ref={canvasRef} className="w-10/12 h-10/12 bg-gray-950 rounded-xl p-4">
