@@ -1,6 +1,14 @@
 import { useLayoutEffect, useMemo, useRef } from "react";
 import { drawBall, drawBoard, getCanvasSize, getContext } from "../utils/canvasHelpers";
 
+const offsets = {
+  board: 0,
+  ball: {
+    x: 0,
+    y: 0,
+  },
+};
+
 export const BrickBreaker = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -20,37 +28,35 @@ export const BrickBreaker = () => {
       return;
     }
 
-    const MOVE_BY = 1;
+    const MOVE_BY = 15;
 
     switch (key) {
       case "ArrowLeft":
-        drawBoard(context, -MOVE_BY);
+        offsets.board -= MOVE_BY;
         break;
       case "ArrowRight":
-        drawBoard(context, MOVE_BY);
+        offsets.board += MOVE_BY;
         break;
       default:
         break;
     }
   };
 
-  // --- Main draw loop ---
-
-  const mainDrawLoop = (context: CanvasRenderingContext2D | null) => {
+  useLayoutEffect(() => {
+    const context = getContext(canvasRef);
     if (!context) {
       return;
     }
 
-    const size = getCanvasSize(context);
-    context.clearRect(0, 0, size.width, size.height);
+    const interval = setInterval(() => {
+      const size = getCanvasSize(context);
+      context.clearRect(0, 0, size.width, size.height);
 
-    drawBall(context, size.centerX, size.centerY);
-    drawBoard(context, 0);
-  };
+      drawBall(context, size.centerX, size.centerY);
+      drawBoard(context, offsets.board);
+    }, 1000 / 60);
 
-  useLayoutEffect(() => {
-    const context = getContext(canvasRef);
-    setInterval(() => mainDrawLoop(context), 1000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
