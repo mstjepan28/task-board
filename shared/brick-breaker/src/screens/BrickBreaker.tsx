@@ -22,6 +22,21 @@ export const BrickBreaker = () => {
 
   // --- Handle drawing the bounce board ---
 
+  const checkBoardCollision = (x: number) => {
+    const { width } = getCanvasSize(getContext(canvasRef));
+    const boardWidth = width * 0.125;
+
+    if (x + boardWidth > width / 2) {
+      return width / 2 - boardWidth;
+    }
+
+    if (x < -width / 2) {
+      return -width / 2;
+    }
+
+    return x;
+  };
+
   const handleKeyPress = (key: string) => {
     const context = getContext(canvasRef);
     if (!context) {
@@ -30,16 +45,17 @@ export const BrickBreaker = () => {
 
     const MOVE_BY = 15;
 
-    switch (key) {
-      case "ArrowLeft":
-        offsets.board -= MOVE_BY;
-        break;
-      case "ArrowRight":
-        offsets.board += MOVE_BY;
-        break;
-      default:
-        break;
+    if (key === "ArrowLeft") {
+      const newPosition = offsets.board - MOVE_BY;
+      offsets.board = checkBoardCollision(newPosition);
     }
+
+    if (key === "ArrowRight") {
+      const newPosition = offsets.board + MOVE_BY;
+      offsets.board = checkBoardCollision(newPosition);
+    }
+
+    console.log(offsets.board);
   };
 
   useLayoutEffect(() => {
