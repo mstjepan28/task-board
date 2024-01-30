@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { Button } from "../components/Button";
+import React, { useEffect, useState } from "react";
 
 export const Chat = () => {
   const [socket, setSocket] = useState<WebSocket | null>(null);

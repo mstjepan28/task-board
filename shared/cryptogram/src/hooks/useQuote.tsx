@@ -15,14 +15,19 @@ export const useQuote = (cipherOffset: number) => {
     const quote = selectedQuote.quote.toLowerCase();
     const author = selectedQuote.author;
 
-    const solution = quote.split("").reduce((acc, letter) => {
-      if (!letter.match(/[a-z]/i)) {
-        return acc;
-      }
+    const solution = quote.split("").reduce(
+      (acc, letter) => {
+        if (!letter.match(/[a-z]/i)) {
+          return acc;
+        }
 
-      const encrypted = caesarCipher(letter, cipherOffset);
-      return { ...acc, [encrypted]: letter };
-    }, {}) as TPuzzle;
+        const encrypted = caesarCipher(letter, cipherOffset);
+
+        acc[encrypted] = letter;
+        return acc;
+      },
+      {} as Record<string, string>,
+    ) as TPuzzle;
 
     const encryptedQuote = quote.split("").map((letter) => caesarCipher(letter, cipherOffset));
 

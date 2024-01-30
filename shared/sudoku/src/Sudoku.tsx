@@ -151,11 +151,12 @@ export const Sudoku = () => {
   };
 
   const handleKeyPress = (key: string) => {
-    const isNumber = !isNaN(Number(key));
+    const isNumber = !Number.isNaN(Number(key));
     if (isNumber) {
       handleNumberSelect(Number(key));
       return;
-    } else if (key === "Backspace") {
+    }
+    if (key === "Backspace") {
       handleNumberSelect(EMPTY_CELL);
       return;
     }

@@ -1,3 +1,4 @@
+// biome-ignore lint/correctness/noUndeclaredVariables: <explanation>
 Bun.serve({
   port: 8080,
   fetch(req, server) {

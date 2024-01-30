@@ -32,6 +32,8 @@ export const storage = {
   },
   removeAllCacheItems: () => {
     const allCacheKeys = storage.getAllCacheKeys();
-    allCacheKeys.forEach((key) => localStorage.removeItem(key));
+    for (const key of allCacheKeys) {
+      localStorage.removeItem(key);
+    }
   },
 };
