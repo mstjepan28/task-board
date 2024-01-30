@@ -1,8 +1,46 @@
 {
+  "organizeImports": {
+    "ignore": ["node_modules"]
+  },
   "formatter": {
+    "ignore": ["node_modules"],
     "formatWithErrors": true,
     "indentStyle": "space",
     "indentWidth": 2,
     "lineWidth": 120
+  },
+  "linter": {
+    "ignore": ["node_modules"],
+    "rules": {
+      "a11y": {
+        "noSvgWithoutTitle": { "level": "off" }
+      },
+      "complexity": {
+        "noBannedTypes": { "level": "error" },
+        "noExtraBooleanCast": { "level": "error" },
+        "noUselessFragments": { "level": "error" },
+        "useArrowFunction": { "level": "error" },
+        "useFlatMap": { "level": "error" },
+        "useOptionalChain": { "level": "error" }
+      },
+      "correctness": {
+        "useExhaustiveDependencies": { "level": "off" },
+        "useHookAtTopLevel": { "level": "error" },
+        "noUnreachable": { "level": "error" },
+        "noUndeclaredVariables": { "level": "error" }
+      },
+      "performance": {
+        "noAccumulatingSpread": { "level": "error" },
+        "noDelete": { "level": "error" }
+      },
+      "security": {},
+      "style": {
+        "useSelfClosingElements": { "level": "off" }
+      },
+      "suspicious": {
+        "noExplicitAny": { "level": "off" },
+        "noArrayIndexKey": { "level": "off" }
+      }
+    }
   }
 }

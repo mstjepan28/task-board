@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getTaskListByGroup, updateTask, updateTaskOrder } from "../../api/taskRequests";
 import { getTaskGroupList } from "../../api/taskGroupRequests";
+import { getTaskListByGroup, updateTask, updateTaskOrder } from "../../api/taskRequests";
 import { TTask } from "../../types/task";
 import { TTaskGroup } from "../../types/taskGroup";
 

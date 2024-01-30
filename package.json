@@ -10,7 +10,7 @@
     "test": "vitest",
     "dep-check": "yarn check-dependency-version-consistency .",
     "dep-check:fix": "yarn check-dependency-version-consistency . --fix",
-    "biome": "yarn dlx @biomejs/biome check --apply **/*.{tsx,ts,jsx,json}",
+    "biome": "biome check --apply **/*.{tsx,ts,jsx,json}",
     "check": "yarn run biome && yarn run vitest run && yarn run dep-check",
     "--- Misc. commands -----------------------------------------------": "",
     "module": "node ./scripts/create-new-module.js",

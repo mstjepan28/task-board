@@ -1,7 +1,7 @@
 import { storage } from "@services/storage";
 import { useEffect, useState } from "react";
-import { TTask } from "../types/task";
 import { updateTask, updateTaskOrder } from "../api/taskRequests";
+import { TTask } from "../types/task";
 
 export const useDropTask = (columnId: string) => {
   const [movedTask, setMovedTask] = useState<TTask | null>(null);
@@ -19,7 +19,7 @@ export const useDropTask = (columnId: string) => {
       "border",
       "border-dashed",
       "border-gray-100",
-      "bg-gray-800"
+      "bg-gray-800",
     );
 
     return skeletonPlaceholder;

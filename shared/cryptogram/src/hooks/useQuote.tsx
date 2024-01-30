@@ -1,7 +1,7 @@
-import { useMemo, useState } from "react";
-import { quoteList } from "../quotes/quoteList";
-import { caesarCipher } from "../encryption/caesarCipher";
 import { storage } from "@services/storage";
+import { useMemo, useState } from "react";
+import { caesarCipher } from "../encryption/caesarCipher";
+import { quoteList } from "../quotes/quoteList";
 
 type TPuzzle = Record<string, string>;
 
