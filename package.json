@@ -20,6 +20,7 @@
     "extract": "yarn workspace @shared/translations extract"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.5.3",
     "check-dependency-version-consistency": "^4.1.0",
     "vitest": "1.2.2"
   },
