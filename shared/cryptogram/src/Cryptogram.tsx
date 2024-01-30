@@ -42,7 +42,7 @@ export const Cryptogram = () => {
         }
 
         return (
-          <button key={index} className="text-white" onClick={() => setSelectedLetter(encryptedLetter)}>
+          <button key={index} type="button" className="text-white" onClick={() => setSelectedLetter(encryptedLetter)}>
             <div data-selected={isSelected} className="w-6 text-center data-[selected=true]:bg-white/10">
               {getLetterIfReveled(encryptedLetter)}
             </div>
