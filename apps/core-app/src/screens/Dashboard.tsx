@@ -15,6 +15,15 @@ export const Dashboard = () => {
           <Link to="/brick-breaker" className="[&.active]:underline [&.active]:font-medium">
             Brick breaker
           </Link>
+          <Link to="/cryptogram" className="[&.active]:underline [&.active]:font-medium">
+            Cryptogram
+          </Link>
+          <Link to="/live-chat" className="[&.active]:underline [&.active]:font-medium">
+            Live chat
+          </Link>
+          <Link to="/sudoku" className="[&.active]:underline [&.active]:font-medium">
+            Sudoku
+          </Link>
         </div>
 
         <div>
