@@ -1,9 +1,14 @@
-import { BrickBreaker } from "@shared/brick-breaker";
+import { RouterProvider } from "@tanstack/react-router";
+import { createMainRouter } from "./router/MainRouter";
+
+const router = createMainRouter();
+
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
 
 export const App = () => {
-  return (
-    <div className="h-[100svh] w-full flex items-center justify-center bg-gray-800">
-      <BrickBreaker />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 };
