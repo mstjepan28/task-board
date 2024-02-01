@@ -9,7 +9,7 @@ export const createMainRouter = () => {
   const indexRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: "/",
-    component: Dashboard,
+    component: () => <></>,
   });
 
   const taskBoard = createRoute({
