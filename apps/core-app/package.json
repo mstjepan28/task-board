@@ -12,11 +12,14 @@
     "@shared/live-chat": "workspace:^",
     "@shared/sudoku": "workspace:^",
     "@shared/text-editor": "workspace:^",
+    "@tanstack/react-router": "^1.15.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.48",
+    "@tanstack/router-devtools": "^1.15.7",
+    "@tanstack/router-vite-plugin": "1.15.4",
+    "@types/react": "^18.2.51",
     "@types/react-dom": "^18.2.18",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.17",
