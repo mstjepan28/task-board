@@ -1,9 +1,10 @@
-import { Outlet, createRootRoute, createRoute, createRouter } from "@tanstack/react-router";
-import { Dashboard } from "../screens/Dashboard";
+import { BrickBreaker } from "@shared/brick-breaker";
 import { TaskBoardScreen } from "@shared/task-board";
+import { createRootRoute, createRoute, createRouter } from "@tanstack/react-router";
+import { Dashboard } from "../screens/Dashboard";
 
 export const createMainRouter = () => {
-  const rootRoute = createRootRoute({ component: Outlet });
+  const rootRoute = createRootRoute({ component: Dashboard });
 
   const indexRoute = createRoute({
     getParentRoute: () => rootRoute,
@@ -12,11 +13,17 @@ export const createMainRouter = () => {
   });
 
   const taskBoard = createRoute({
-    getParentRoute: () => indexRoute,
+    getParentRoute: () => rootRoute,
     path: "/task-board",
     component: TaskBoardScreen,
   });
 
-  const routeTree = rootRoute.addChildren([indexRoute, taskBoard]);
+  const brickBreaker = createRoute({
+    getParentRoute: () => rootRoute,
+    path: "/brick-breaker",
+    component: BrickBreaker,
+  });
+
+  const routeTree = rootRoute.addChildren([indexRoute, taskBoard, brickBreaker]);
   return createRouter({ routeTree });
 };
