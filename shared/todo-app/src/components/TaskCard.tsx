@@ -5,5 +5,6 @@ interface IProps {
 }
 
 export const TaskCard = ({ task }: IProps) => {
+  console.log(task.status, task.description);
   return <div>{task.description}</div>;
 };

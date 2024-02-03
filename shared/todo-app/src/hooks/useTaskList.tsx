@@ -3,7 +3,7 @@ import { storage } from "@services/storage";
 import { TTask } from "../types/task";
 import { faker } from "@faker-js/faker";
 import dayjs from "dayjs";
-import { TTaskStatus } from "../enums/taskStatus";
+import { TTaskStatus, TaskStatus } from "../enums/taskStatus";
 
 export const useTaskList = () => {
   const [dataList, setDataList] = useState<TTask[]>([]);
@@ -14,7 +14,7 @@ export const useTaskList = () => {
         id: faker.string.uuid(),
         ordinalNumber: index + 1,
         description: faker.lorem.sentence(),
-        status: "pending",
+        status: TaskStatus.PENDING,
         createdAt: dayjs(),
         updatedAt: dayjs(),
       } satisfies TTask;
@@ -30,7 +30,6 @@ export const useTaskList = () => {
 
   const getTaskList = () => {
     const taskList = storage.getItem<TTask[]>("task-list");
-
     if (taskList) {
       setDataList(taskList);
       return;
@@ -40,19 +39,24 @@ export const useTaskList = () => {
   };
 
   const groupedTaskList = useMemo(() => {
-    return dataList.reduce(
-      (acc, task) => {
-        const { status } = task;
+    const initData = {
+      [TaskStatus.PENDING]: [],
+      [TaskStatus.IN_PROGRESS]: [],
+      [TaskStatus.CANCELED]: [],
+      [TaskStatus.FAILED]: [],
+      [TaskStatus.COMPLETED]: [],
+    } as Record<TTaskStatus, TTask[]>;
 
-        if (!acc[status]) {
-          acc[status] = [];
-        }
+    return dataList.reduce((acc, task) => {
+      const { status } = task;
 
-        acc[status].push(task);
-        return acc;
-      },
-      {} as Record<TTaskStatus, TTask[]>
-    );
+      if (!acc[status]) {
+        acc[status] = [];
+      }
+
+      acc[status].push(task);
+      return acc;
+    }, initData);
   }, [dataList]);
 
   useEffect(() => {
