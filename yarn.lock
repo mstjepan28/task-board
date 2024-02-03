@@ -29,7 +29,7 @@ __metadata:
     "@shared/brick-breaker": "workspace:^"
     "@shared/live-chat": "workspace:^"
     "@shared/sudoku": "workspace:^"
-    "@shared/text-editor": "workspace:^"
+    "@shared/todo-app": "workspace:^"
     "@tanstack/react-router": "npm:^1.15.7"
     "@tanstack/router-devtools": "npm:^1.15.7"
     "@tanstack/router-vite-plugin": "npm:1.15.4"
@@ -869,9 +869,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@shared/text-editor@workspace:^, @shared/text-editor@workspace:shared/text-editor":
+"@shared/text-editor@workspace:shared/text-editor":
   version: 0.0.0-use.local
   resolution: "@shared/text-editor@workspace:shared/text-editor"
+  dependencies:
+    react: "npm:^18.2.0"
+    react-dom: "npm:^18.2.0"
+  languageName: unknown
+  linkType: soft
+
+"@shared/todo-app@workspace:^, @shared/todo-app@workspace:shared/todo-app":
+  version: 0.0.0-use.local
+  resolution: "@shared/todo-app@workspace:shared/todo-app"
   dependencies:
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
