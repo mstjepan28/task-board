@@ -3,11 +3,7 @@ import { Cryptogram } from "@shared/cryptogram";
 import { Chat } from "@shared/live-chat";
 import { Sudoku } from "@shared/sudoku";
 import { TaskBoardScreen } from "@shared/todo-app";
-import {
-  createRootRoute,
-  createRoute,
-  createRouter,
-} from "@tanstack/react-router";
+import { createRootRoute, createRoute, createRouter } from "@tanstack/react-router";
 import { NavigationLayout } from "../layout/NavigationLayout";
 
 export const createMainRouter = () => {
@@ -49,13 +45,6 @@ export const createMainRouter = () => {
     component: Chat,
   });
 
-  const routeTree = rootRoute.addChildren([
-    indexRoute,
-    taskBoard,
-    brickBreaker,
-    cryptogram,
-    sudoku,
-    liveChat,
-  ]);
+  const routeTree = rootRoute.addChildren([indexRoute, taskBoard, brickBreaker, cryptogram, sudoku, liveChat]);
   return createRouter({ routeTree });
 };
