@@ -2,12 +2,12 @@ import { TCacheDataSignature } from "../enums/CacheDataSignature";
 import { CACHE_KEY_PREFIX, getCacheKey } from "../utils/getCacheKey";
 
 export const storage = {
-  getItem: (key: TCacheDataSignature) => {
+  getItem: <T = unknown>(key: TCacheDataSignature) => {
     const cacheKey = getCacheKey(key);
     const storageRes = localStorage.getItem(cacheKey);
 
     try {
-      return storageRes ? JSON.parse(storageRes) : null;
+      return storageRes ? (JSON.parse(storageRes) as T) : null;
     } catch (error) {
       return null;
     }
