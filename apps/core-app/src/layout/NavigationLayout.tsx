@@ -2,7 +2,7 @@ import { Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { NavLink } from "../components/NavLink";
 
-export const Dashboard = () => {
+export const NavigationLayout = () => {
   return (
     <>
       <div className="h-[100svh] w-full items-center justify-center bg-gray-800">
