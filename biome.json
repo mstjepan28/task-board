@@ -1,5 +1,6 @@
 {
   "organizeImports": {
+    "enabled": false,
     "ignore": ["node_modules"]
   },
   "formatter": {
