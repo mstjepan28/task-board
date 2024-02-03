@@ -1,10 +1,10 @@
 import { BrickBreaker } from "@shared/brick-breaker";
+import { Dashboard } from "../screens/Dashboard";
 import { Cryptogram } from "@shared/cryptogram";
 import { TaskBoardScreen } from "@shared/task-board";
 import { createRootRoute, createRoute, createRouter } from "@tanstack/react-router";
-import { Dashboard } from "../screens/Dashboard";
-import { Sudoku } from "@shared/sudoku";
 import { Chat } from "@shared/live-chat";
+import { Sudoku } from "@shared/sudoku";
 
 export const createMainRouter = () => {
   const rootRoute = createRootRoute({ component: Dashboard });

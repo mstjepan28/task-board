@@ -1,29 +1,18 @@
-import { Link, Outlet } from "@tanstack/react-router";
+import { Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import { NavLink } from "../components/NavLink";
 
 export const Dashboard = () => {
   return (
     <>
       <div className="h-[100svh] w-full items-center justify-center bg-gray-800">
         <div className="px-4 py-2 flex gap-x-4 text-white border-b mb-4">
-          <Link to="/" className="[&.active]:underline [&.active]:font-medium">
-            Home
-          </Link>
-          <Link to="/task-board" className="[&.active]:underline [&.active]:font-medium">
-            Task board
-          </Link>
-          <Link to="/brick-breaker" className="[&.active]:underline [&.active]:font-medium">
-            Brick breaker
-          </Link>
-          <Link to="/cryptogram" className="[&.active]:underline [&.active]:font-medium">
-            Cryptogram
-          </Link>
-          <Link to="/live-chat" className="[&.active]:underline [&.active]:font-medium">
-            Live chat
-          </Link>
-          <Link to="/sudoku" className="[&.active]:underline [&.active]:font-medium">
-            Sudoku
-          </Link>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/task-board">Task board</NavLink>
+          <NavLink to="/brick-breaker">Brick breaker</NavLink>
+          <NavLink to="/cryptogram">Cryptogram</NavLink>
+          <NavLink to="/live-chat">Live chat</NavLink>
+          <NavLink to="/sudoku">Sudoku</NavLink>
         </div>
 
         <div>
