@@ -7,7 +7,7 @@ export const TaskBoard = () => {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="flex basis-full gap-x-4 mx-8 my-4">
+      <div className="flex basis-full gap-x-4 px-8 py-4">
         <TaskColumn title="Pending" taskList={pending} />
         <TaskColumn title="In progress" taskList={in_progress} />
         <TaskColumn title="Canceled" taskList={canceled} />

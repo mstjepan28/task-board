@@ -1,4 +1,3 @@
-import { Dayjs } from "dayjs";
 import { TTaskStatus } from "../enums/taskStatus";
 
 export type TTask = {
@@ -6,6 +5,6 @@ export type TTask = {
   ordinalNumber: number;
   description: string;
   status: TTaskStatus;
-  createdAt: Dayjs;
-  updatedAt: Dayjs;
+  createdAt: string;
+  updatedAt: string;
 };
