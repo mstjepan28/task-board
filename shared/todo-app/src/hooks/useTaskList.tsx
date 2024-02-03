@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { storage } from "@services/storage";
 import { TTask } from "../types/task";
 import { faker } from "@faker-js/faker";
 import dayjs from "dayjs";
+import { TTaskStatus } from "../enums/taskStatus";
 
 export const useTaskList = () => {
   const [dataList, setDataList] = useState<TTask[]>([]);
@@ -38,9 +39,25 @@ export const useTaskList = () => {
     generateTaskList();
   };
 
+  const groupedTaskList = useMemo(() => {
+    return dataList.reduce(
+      (acc, task) => {
+        const { status } = task;
+
+        if (!acc[status]) {
+          acc[status] = [];
+        }
+
+        acc[status].push(task);
+        return acc;
+      },
+      {} as Record<TTaskStatus, TTask[]>
+    );
+  }, [dataList]);
+
   useEffect(() => {
     getTaskList();
   }, []);
 
-  return { dataList };
+  return { dataList, groupedTaskList };
 };
