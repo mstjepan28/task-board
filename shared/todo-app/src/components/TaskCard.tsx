@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { TTask } from "../types/task";
 
 interface IProps {
@@ -5,6 +6,16 @@ interface IProps {
 }
 
 export const TaskCard = ({ task }: IProps) => {
-  console.log(task.status, task.description);
-  return <div>{task.description}</div>;
+  return (
+    <div className="bg-white rounded-lg p-2">
+      <div>
+        <p className="text-sm font-medium">{task.description}</p>
+      </div>
+      <div className="flex justify-end mt-2">
+        <small className="italic">
+          {dayjs(task.createdAt).format("DD.MM.YYYY. HH:mm:ss")}
+        </small>
+      </div>
+    </div>
+  );
 };
