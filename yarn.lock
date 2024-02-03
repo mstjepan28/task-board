@@ -585,13 +585,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@faker-js/faker@npm:8.1.0":
-  version: 8.1.0
-  resolution: "@faker-js/faker@npm:8.1.0"
-  checksum: 10/908fdad518e52e01d4831b8f2e3c291bd7d9478a69dd105d0031486b7805003695159c36f52ef9c6dc1eb54fd2abe67ce44dd8bd79db6e9bf37f2737c8d2b59c
-  languageName: node
-  linkType: hard
-
 "@faker-js/faker@npm:^8.4.0":
   version: 8.4.0
   resolution: "@faker-js/faker@npm:8.4.0"
@@ -870,7 +863,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@shared/task-board@workspace:shared/task-board"
   dependencies:
-    "@faker-js/faker": "npm:8.1.0"
     "@services/storage": "workspace:^"
     react: "npm:^18.2.0"
   languageName: unknown
