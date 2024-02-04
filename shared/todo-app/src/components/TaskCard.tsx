@@ -1,13 +1,21 @@
 import dayjs from "dayjs";
 import { TTask } from "../types/task";
+import { useContext } from "react";
+import { MoveTaskContext } from "../context/moveTaskContext";
 
 interface IProps {
   task: TTask;
 }
 
 export const TaskCard = ({ task }: IProps) => {
+  const moveTask = useContext(MoveTaskContext);
+
+  const onDrag = () => {
+    moveTask.dragTask(task);
+  };
+
   return (
-    <div className="bg-white rounded-lg p-2">
+    <div onDrag={onDrag} className="bg-white rounded-lg p-2" draggable>
       <div>
         <p className="text-sm font-medium">{task.description}</p>
       </div>
