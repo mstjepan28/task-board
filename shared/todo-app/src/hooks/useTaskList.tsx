@@ -89,6 +89,7 @@ export const useTaskList = () => {
       return task;
     });
 
+    storage.setItem("task-list", updatedTaskList);
     movingTaskId.current = null;
 
     // @ts-ignore - startViewTransition is not yet in the types
