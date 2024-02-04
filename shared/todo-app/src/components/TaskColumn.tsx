@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { MoveTaskContext } from "../context/moveTaskContext";
+import { TaskListContext } from "../context/TaskListContext";
 import { TTask } from "../types/task";
 import { TaskCard } from "./TaskCard";
 
@@ -9,10 +9,9 @@ interface IProps {
 }
 
 export const TaskColumn = ({ title, taskList }: IProps) => {
-  const moveTask = useContext(MoveTaskContext);
+  const moveTask = useContext(TaskListContext);
 
-  const onDrop = (event: any) => {
-    console.log(event);
+  const onDrop = () => {
     moveTask.dropTask();
   };
 

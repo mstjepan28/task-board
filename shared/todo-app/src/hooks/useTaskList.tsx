@@ -1,13 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
-import { storage } from "@services/storage";
-import { TTask } from "../types/task";
 import { faker } from "@faker-js/faker";
+import { storage } from "@services/storage";
 import dayjs from "dayjs";
+import { DragEvent, useRef } from "react";
 import { TTaskStatus, TaskStatus } from "../enums/taskStatus";
+import { TTask } from "../types/task";
 
 export const useTaskList = () => {
-  const [dataList, setDataList] = useState<TTask[]>([]);
-
   const generateTaskList = () => {
     const generateTask = (_: unknown, index: number) => {
       const item = {
@@ -25,20 +23,21 @@ export const useTaskList = () => {
     const taskList = Array.from({ length: 10 }, generateTask);
 
     storage.setItem("task-list", taskList);
-    setDataList(taskList);
+    return taskList;
   };
 
   const getTaskList = () => {
     const taskList = storage.getItem<TTask[]>("task-list");
     if (taskList) {
-      setDataList(taskList);
-      return;
+      return taskList;
     }
 
-    generateTaskList();
+    return generateTaskList();
   };
 
-  const groupedTaskList = useMemo(() => {
+  const getGroupedTaskList = () => {
+    const taskList = getTaskList();
+
     const initData = {
       [TaskStatus.PENDING]: [],
       [TaskStatus.IN_PROGRESS]: [],
@@ -47,7 +46,7 @@ export const useTaskList = () => {
       [TaskStatus.COMPLETED]: [],
     } as Record<TTaskStatus, TTask[]>;
 
-    return dataList.reduce((acc, task) => {
+    return taskList.reduce((acc, task) => {
       const { status } = task;
 
       if (!acc[status]) {
@@ -57,11 +56,34 @@ export const useTaskList = () => {
       acc[status].push(task);
       return acc;
     }, initData);
-  }, [dataList]);
+  };
 
-  useEffect(() => {
-    getTaskList();
-  }, []);
+  // --- Handler moving tasks --- //
+  const movingTaskRef = useRef<TTask | null>(null);
 
-  return { dataList, groupedTaskList };
+  const dragTask = (task: TTask) => {
+    if (movingTaskRef.current?.id === task.id) {
+      return;
+    }
+
+    console.log("Task picked up");
+    movingTaskRef.current = task;
+  };
+
+  const dropTask = () => {
+    console.log("Task dropped");
+    movingTaskRef.current = null;
+  };
+
+  const dragTaskOver = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
+  return {
+    dragTask,
+    dropTask,
+    dragTaskOver,
+    getGroupedTaskList,
+  };
 };

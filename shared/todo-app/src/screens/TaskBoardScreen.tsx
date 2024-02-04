@@ -1,10 +1,10 @@
 import { TaskBoard } from "../components/TaskBoard";
-import { MoveTaskProvider } from "../context/moveTaskContext";
+import { TaskListProvider } from "../context/TaskListContext";
 
 export const TaskBoardScreen = () => {
   return (
-    <MoveTaskProvider>
+    <TaskListProvider>
       <TaskBoard />
-    </MoveTaskProvider>
+    </TaskListProvider>
   );
 };
