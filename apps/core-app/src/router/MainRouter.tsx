@@ -1,4 +1,5 @@
 import { BrickBreaker } from "@shared/brick-breaker";
+import { ChessScreen } from "@shared/chess";
 import { Cryptogram } from "@shared/cryptogram";
 import { Chat } from "@shared/live-chat";
 import { Sudoku } from "@shared/sudoku";
@@ -45,6 +46,12 @@ export const createMainRouter = () => {
     component: Chat,
   });
 
-  const routeTree = rootRoute.addChildren([indexRoute, taskBoard, brickBreaker, cryptogram, sudoku, liveChat]);
+  const chess = createRoute({
+    getParentRoute: () => rootRoute,
+    path: "/chess",
+    component: ChessScreen,
+  });
+
+  const routeTree = rootRoute.addChildren([indexRoute, taskBoard, brickBreaker, cryptogram, sudoku, liveChat, chess]);
   return createRouter({ routeTree });
 };

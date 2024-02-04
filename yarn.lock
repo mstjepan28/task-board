@@ -27,6 +27,7 @@ __metadata:
   resolution: "@apps/core-app@workspace:apps/core-app"
   dependencies:
     "@shared/brick-breaker": "workspace:^"
+    "@shared/chess": "workspace:^"
     "@shared/live-chat": "workspace:^"
     "@shared/sudoku": "workspace:^"
     "@shared/todo-app": "workspace:^"
@@ -828,6 +829,15 @@ __metadata:
     "@services/storage": "workspace:^"
     dayjs: "npm:^1.11.10"
     react: "npm:^18.2.0"
+  languageName: unknown
+  linkType: soft
+
+"@shared/chess@workspace:^, @shared/chess@workspace:shared/chess":
+  version: 0.0.0-use.local
+  resolution: "@shared/chess@workspace:shared/chess"
+  dependencies:
+    react: "npm:^18.2.0"
+    react-dom: "npm:^18.2.0"
   languageName: unknown
   linkType: soft
 
