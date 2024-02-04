@@ -15,8 +15,8 @@ export const useTaskList = () => {
         ordinalNumber: index + 1,
         description: faker.lorem.sentence(),
         status: TaskStatus.PENDING,
-        createdAt: dayjs(),
-        updatedAt: dayjs(),
+        createdAt: dayjs().toISOString(),
+        updatedAt: dayjs().toISOString(),
       } satisfies TTask;
 
       return item as TTask;
