@@ -11,7 +11,7 @@ export const TaskCard = ({ task }: IProps) => {
   const moveTask = useContext(TaskListContext);
 
   const onDrag = () => {
-    moveTask.dragTask(task);
+    moveTask.dragTask(task.id);
   };
 
   return (

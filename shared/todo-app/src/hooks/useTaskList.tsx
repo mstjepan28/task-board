@@ -64,29 +64,32 @@ export const useTaskList = () => {
   }, []);
 
   // --- Handler moving tasks --- //
-  const movingTaskRef = useRef<TTask | null>(null);
+  const movingTaskId = useRef<string | null>(null);
 
-  const dragTask = (task: TTask) => {
-    if (movingTaskRef.current?.id === task.id) {
-      return;
-    }
-
-    console.log("Task picked up");
-    movingTaskRef.current = task;
+  const dragTask = (taskId: string) => {
+    movingTaskId.current = taskId;
   };
 
   const dropTask = (newStatus: TTaskStatus) => {
-    const task = movingTaskRef.current?.id;
-
-    if (!task) {
+    const taskId = movingTaskId.current;
+    if (taskId === null) {
       console.error("Task not found");
-      movingTaskRef.current = null;
+      movingTaskId.current = null;
+
       return;
     }
 
-    console.log("newStatus: ", newStatus);
+    const updatedTaskList = taskList.map((task) => {
+      if (task.id === taskId) {
+        task.status = newStatus;
+        task.updatedAt = dayjs().toISOString();
+      }
 
-    movingTaskRef.current = null;
+      return task;
+    });
+
+    movingTaskId.current = null;
+    setTaskList(updatedTaskList);
   };
 
   const dragTaskOver = (event: DragEvent<HTMLDivElement>) => {

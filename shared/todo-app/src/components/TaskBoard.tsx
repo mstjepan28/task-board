@@ -6,8 +6,6 @@ import { TaskStatus } from "../enums/taskStatus";
 export const TaskBoard = () => {
   const { groupedTasks } = useContext(TaskListContext);
 
-  console.log(groupedTasks);
-
   return (
     <div className="h-full flex flex-col">
       <div className="flex basis-full gap-x-4 px-8 py-4">
