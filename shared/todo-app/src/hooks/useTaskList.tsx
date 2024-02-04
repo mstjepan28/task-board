@@ -1,11 +1,13 @@
 import { faker } from "@faker-js/faker";
 import { storage } from "@services/storage";
 import dayjs from "dayjs";
-import { DragEvent, useRef } from "react";
+import { DragEvent, useEffect, useMemo, useRef, useState } from "react";
 import { TTaskStatus, TaskStatus } from "../enums/taskStatus";
 import { TTask } from "../types/task";
 
 export const useTaskList = () => {
+  const [taskList, setTaskList] = useState<TTask[]>([]);
+
   const generateTaskList = () => {
     const generateTask = (_: unknown, index: number) => {
       const item = {
@@ -21,8 +23,8 @@ export const useTaskList = () => {
     };
 
     const taskList = Array.from({ length: 10 }, generateTask);
-
     storage.setItem("task-list", taskList);
+
     return taskList;
   };
 
@@ -35,10 +37,8 @@ export const useTaskList = () => {
     return generateTaskList();
   };
 
-  const getGroupedTaskList = () => {
-    const taskList = getTaskList();
-
-    const initData = {
+  const groupedTasks = useMemo(() => {
+    const initTaskGroup = {
       [TaskStatus.PENDING]: [],
       [TaskStatus.IN_PROGRESS]: [],
       [TaskStatus.CANCELED]: [],
@@ -55,8 +55,13 @@ export const useTaskList = () => {
 
       acc[status].push(task);
       return acc;
-    }, initData);
-  };
+    }, initTaskGroup);
+  }, [taskList]);
+
+  useEffect(() => {
+    const readTaskList = getTaskList();
+    setTaskList(readTaskList);
+  }, []);
 
   // --- Handler moving tasks --- //
   const movingTaskRef = useRef<TTask | null>(null);
@@ -71,7 +76,16 @@ export const useTaskList = () => {
   };
 
   const dropTask = (newStatus: TTaskStatus) => {
-    console.log("Task dropped: ", newStatus);
+    const task = movingTaskRef.current?.id;
+
+    if (!task) {
+      console.error("Task not found");
+      movingTaskRef.current = null;
+      return;
+    }
+
+    console.log("newStatus: ", newStatus);
+
     movingTaskRef.current = null;
   };
 
@@ -84,6 +98,6 @@ export const useTaskList = () => {
     dragTask,
     dropTask,
     dragTaskOver,
-    getGroupedTaskList,
+    groupedTasks,
   };
 };
