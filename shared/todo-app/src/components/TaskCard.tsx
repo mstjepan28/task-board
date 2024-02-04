@@ -23,13 +23,15 @@ export const TaskCard = ({ task }: IProps) => {
       style={{ viewTransitionName: cardId }}
       draggable
     >
-      <div>
-        <p className="text-sm font-medium">{task.description}</p>
-      </div>
-      <div className="flex justify-end mt-2">
-        <small className="italic">
-          {dayjs(task.createdAt).format("DD.MM.YYYY. HH:mm:ss")}
-        </small>
+      <div className="pointer-events-none">
+        <div>
+          <p className="text-sm font-medium">{task.description}</p>
+        </div>
+        <div className="flex justify-end mt-2">
+          <small className="italic">
+            {dayjs(task.createdAt).format("DD.MM.YYYY. HH:mm:ss")}
+          </small>
+        </div>
       </div>
     </div>
   );

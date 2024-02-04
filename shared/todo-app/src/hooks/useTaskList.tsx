@@ -64,7 +64,31 @@ export const useTaskList = () => {
     setTaskList(readTaskList);
   }, []);
 
+  // --- Generate ids --- //
+  const COL_PREFIX = "task-list" as const;
+  const TASK_PREFIX = "task" as const;
+
+  const getColumnId = (status: TTaskStatus) => {
+    return `${COL_PREFIX}-${status}` as const;
+  };
+
+  const getTaskId = (taskId: string) => {
+    return `${TASK_PREFIX}-${taskId}` as const;
+  };
+
   // --- Handler moving tasks --- //
+  const validateTargetElement = (targetElement: HTMLElement | null) => {
+    if (!targetElement) {
+      return { isColumn: false, isTask: false };
+    }
+
+    const elementId = targetElement.id;
+    return {
+      isColumn: elementId.startsWith(COL_PREFIX),
+      isTask: elementId.startsWith(TASK_PREFIX),
+    };
+  };
+
   const movingTaskId = useRef<string | null>(null);
 
   const dragTask = (taskId: string) => {
@@ -106,15 +130,11 @@ export const useTaskList = () => {
   ) => {
     event.preventDefault();
     event.stopPropagation();
-  };
 
-  // --- Generate ids --- //
-  const getColumnId = (status: TTaskStatus) => {
-    return `task-list-${status}` as const;
-  };
+    const targetElement = event.target as HTMLElement;
+    const { isColumn, isTask } = validateTargetElement(targetElement);
 
-  const getTaskId = (taskId: string) => {
-    return `task-${taskId}` as const;
+    console.log({ isColumn, isTask });
   };
 
   return {
