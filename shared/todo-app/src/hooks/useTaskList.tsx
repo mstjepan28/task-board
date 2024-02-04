@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import { DragEvent, useEffect, useMemo, useRef, useState } from "react";
 import { TTaskStatus, TaskStatus } from "../enums/taskStatus";
 import { TTask } from "../types/task";
+import { flushSync } from "react-dom";
 
 export const useTaskList = () => {
   const [taskList, setTaskList] = useState<TTask[]>([]);
@@ -89,7 +90,13 @@ export const useTaskList = () => {
     });
 
     movingTaskId.current = null;
-    setTaskList(updatedTaskList);
+
+    // @ts-ignore - startViewTransition is not yet in the types
+    document.startViewTransition(() => {
+      flushSync(() => {
+        setTaskList(updatedTaskList);
+      });
+    });
   };
 
   const dragTaskOver = (event: DragEvent<HTMLDivElement>) => {

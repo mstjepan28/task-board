@@ -15,7 +15,12 @@ export const TaskCard = ({ task }: IProps) => {
   };
 
   return (
-    <div onDrag={onDrag} className="bg-white rounded-lg p-2" draggable>
+    <div
+      draggable
+      onDrag={onDrag}
+      className="bg-white rounded-lg p-2"
+      style={{ viewTransitionName: `task-card-${task.id}` }}
+    >
       <div>
         <p className="text-sm font-medium">{task.description}</p>
       </div>
