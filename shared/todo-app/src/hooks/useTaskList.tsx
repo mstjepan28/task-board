@@ -70,8 +70,8 @@ export const useTaskList = () => {
     movingTaskRef.current = task;
   };
 
-  const dropTask = () => {
-    console.log("Task dropped");
+  const dropTask = (newStatus: TTaskStatus) => {
+    console.log("Task dropped: ", newStatus);
     movingTaskRef.current = null;
   };
 
