@@ -8,18 +8,20 @@ interface IProps {
 }
 
 export const TaskCard = ({ task }: IProps) => {
-  const moveTask = useContext(TaskListContext);
+  const { dragTask, getTaskId } = useContext(TaskListContext);
+  const cardId = getTaskId(task.id);
 
   const onDrag = () => {
-    moveTask.dragTask(task.id);
+    dragTask(task.id);
   };
 
   return (
     <div
-      draggable
+      id={cardId}
       onDrag={onDrag}
       className="bg-white rounded-lg p-2"
-      style={{ viewTransitionName: `task-card-${task.id}` }}
+      style={{ viewTransitionName: cardId }}
+      draggable
     >
       <div>
         <p className="text-sm font-medium">{task.description}</p>

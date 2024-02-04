@@ -2,9 +2,9 @@ import { faker } from "@faker-js/faker";
 import { storage } from "@services/storage";
 import dayjs from "dayjs";
 import { DragEvent, useEffect, useMemo, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { TTaskStatus, TaskStatus } from "../enums/taskStatus";
 import { TTask } from "../types/task";
-import { flushSync } from "react-dom";
 
 export const useTaskList = () => {
   const [taskList, setTaskList] = useState<TTask[]>([]);
@@ -100,9 +100,21 @@ export const useTaskList = () => {
     });
   };
 
-  const dragTaskOver = (event: DragEvent<HTMLDivElement>) => {
+  const dragTaskOver = (
+    event: DragEvent<HTMLDivElement>,
+    status: TTaskStatus
+  ) => {
     event.preventDefault();
     event.stopPropagation();
+  };
+
+  // --- Generate ids --- //
+  const getColumnId = (status: TTaskStatus) => {
+    return `task-list-${status}` as const;
+  };
+
+  const getTaskId = (taskId: string) => {
+    return `task-${taskId}` as const;
   };
 
   return {
@@ -110,5 +122,7 @@ export const useTaskList = () => {
     dropTask,
     dragTaskOver,
     groupedTasks,
+    getColumnId,
+    getTaskId,
   };
 };

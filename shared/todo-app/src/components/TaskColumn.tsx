@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { DragEvent, useContext, useMemo } from "react";
 import { TaskListContext } from "../context/TaskListContext";
 import { TTask } from "../types/task";
 import { TaskCard } from "./TaskCard";
@@ -10,11 +10,8 @@ interface IProps {
 }
 
 export const TaskColumn = ({ status, taskList }: IProps) => {
-  const moveTask = useContext(TaskListContext);
-
-  const onDrop = () => {
-    moveTask.dropTask(status);
-  };
+  const { dropTask, dragTaskOver, getColumnId } = useContext(TaskListContext);
+  const columnId = getColumnId(status);
 
   const title = useMemo(() => {
     return {
@@ -26,12 +23,21 @@ export const TaskColumn = ({ status, taskList }: IProps) => {
     }[status];
   }, []);
 
+  const onDrop = () => {
+    dropTask(status);
+  };
+
+  const onDragOver = (event: DragEvent<HTMLDivElement>) => {
+    dragTaskOver(event, status);
+  };
+
   return (
     <div className="basis-full px-2 rounded-md bg-white/10 border border-white">
       <div className="text-white font-semibold border-b p-2">{title}</div>
       <div
+        id={columnId}
         onDrop={onDrop}
-        onDragOver={moveTask.dragTaskOver}
+        onDragOver={onDragOver}
         className="h-full space-y-2 py-4"
       >
         {taskList.map((task) => (
