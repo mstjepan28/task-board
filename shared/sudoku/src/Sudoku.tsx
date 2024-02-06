@@ -5,6 +5,7 @@ export const Sudoku = () => {
 
   const [board, setBoard] = useState<number[][]>([]);
   const [selected, setSelected] = useState<number[] | null[]>([null, null]);
+  const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
 
   // --- check if cell selected ---
 
@@ -57,6 +58,7 @@ export const Sudoku = () => {
     const newBoard = Array.from({ length: 9 }).map(() => {
       return Array.from({ length: 9 }, () => EMPTY_CELL);
     });
+
     setBoard(newBoard);
   };
 
@@ -65,10 +67,14 @@ export const Sudoku = () => {
   const renderBoardRow = (boardRow: number[], rowIndex: number) => {
     return boardRow.map((cell, colIndex) => {
       const key = `${rowIndex}-${colIndex}`;
-      const selectCell = () => setSelected([rowIndex, colIndex]);
+      const selectCell = () => {
+        setSelected([rowIndex, colIndex]);
+        setSelectedNumber(cell);
+      };
 
       const isSelectedCell = isPrimarySelect(rowIndex, colIndex);
       const isSelected = checkIfCellSelected(rowIndex, colIndex);
+      const isSameNumber = selectedNumber !== EMPTY_CELL && cell === selectedNumber;
 
       return (
         <button
@@ -79,12 +85,12 @@ export const Sudoku = () => {
             w-8 h-8 flex justify-center items-center 
             cursor-pointer select-none text-xl
             border-r border-b border-gray-600 transition-all duration-150
-            hover:bg-gray-200
-            focus:outline-none
+            hover:bg-gray-200 focus:outline-none
             ${(colIndex + 1) % 3 === 0 && "!border-r-2 border-r-black"}
             ${(rowIndex + 1) % 3 === 0 && "!border-b-2 border-b-black"}
             ${isSelectedCell && "!bg-gray-100"}
             ${isSelected ? "bg-gray-300" : "bg-white/10"}
+            ${isSameNumber ? "font-semibold bg-blue-100" : ""}
           `}
         >
           {cell !== EMPTY_CELL && cell}
@@ -108,6 +114,7 @@ export const Sudoku = () => {
     const boardCopy = [...board];
     boardCopy[row][col] = number;
 
+    setSelectedNumber(number);
     setBoard(boardCopy);
   };
 
@@ -186,11 +193,12 @@ export const Sudoku = () => {
   return (
     <div
       onKeyDownCapture={(event) => handleKeyPress(event.key)}
-      className="w-full flex flex-col justify-center items-center gap-y-4"
+      className="w-full h-full flex flex-col justify-center items-center gap-y-4"
     >
       <div className="rounded-lg p-4 bg-gray-300">
         <div className="grid grid-cols-9 border-t-2 border-l-2 border-gray-900 bg-white">{renderBoard()}</div>
       </div>
+
       <div className="rounded-lg px-4 py-3 bg-gray-300">
         <div className="grid grid-cols-9 gap-x-1">{renderNumbers()}</div>
       </div>
