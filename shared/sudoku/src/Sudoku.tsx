@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 export const Sudoku = () => {
   const EMPTY_CELL = -1;
 
-  const [board, setBoard] = useState<number[][]>([]);
-  const [selected, setSelected] = useState<number[] | null[]>([null, null]);
   const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
+  const [selected, setSelected] = useState<number[] | null[]>([null, null]);
+
+  const [board, setBoard] = useState<number[][]>([]);
 
   // --- check if cell selected ---
 
@@ -64,6 +65,25 @@ export const Sudoku = () => {
 
   // --- render board ---
 
+  const getCellBgColor = (rowIndex: number, colIndex: number, value: number) => {
+    const isSameValueSelected = selectedNumber !== EMPTY_CELL && value === selectedNumber;
+    if (isSameValueSelected) {
+      return "font-semibold bg-blue-100";
+    }
+
+    const isSelectedCell = isPrimarySelect(rowIndex, colIndex);
+    if (isSelectedCell) {
+      return "bg-gray-100";
+    }
+
+    const isSelected = checkIfCellSelected(rowIndex, colIndex);
+    if (isSelected) {
+      return "bg-gray-300";
+    }
+
+    return "bg-white/10";
+  };
+
   const renderBoardRow = (boardRow: number[], rowIndex: number) => {
     return boardRow.map((cell, colIndex) => {
       const key = `${rowIndex}-${colIndex}`;
@@ -72,9 +92,7 @@ export const Sudoku = () => {
         setSelectedNumber(cell);
       };
 
-      const isSelectedCell = isPrimarySelect(rowIndex, colIndex);
-      const isSelected = checkIfCellSelected(rowIndex, colIndex);
-      const isSameNumber = selectedNumber !== EMPTY_CELL && cell === selectedNumber;
+      const cellBgColor = getCellBgColor(rowIndex, colIndex, cell);
 
       return (
         <button
@@ -88,9 +106,7 @@ export const Sudoku = () => {
             hover:bg-gray-200 focus:outline-none
             ${(colIndex + 1) % 3 === 0 && "!border-r-2 border-r-black"}
             ${(rowIndex + 1) % 3 === 0 && "!border-b-2 border-b-black"}
-            ${isSelectedCell && "!bg-gray-100"}
-            ${isSelected ? "bg-gray-300" : "bg-white/10"}
-            ${isSameNumber ? "font-semibold bg-blue-100" : ""}
+            ${cellBgColor}
           `}
         >
           {cell !== EMPTY_CELL && cell}
