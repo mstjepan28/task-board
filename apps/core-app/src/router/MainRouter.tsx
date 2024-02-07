@@ -1,5 +1,5 @@
+import { BoidsSimulations } from "@shared/boids-simulation";
 import { BrickBreaker } from "@shared/brick-breaker";
-import { ChessScreen } from "@shared/chess";
 import { Cryptogram } from "@shared/cryptogram";
 import { Chat } from "@shared/live-chat";
 import { Sudoku } from "@shared/sudoku";
@@ -48,8 +48,8 @@ export const createMainRouter = () => {
 
   const chess = createRoute({
     getParentRoute: () => rootRoute,
-    path: "/chess",
-    component: ChessScreen,
+    path: "/boids",
+    component: BoidsSimulations,
   });
 
   const routeTree = rootRoute.addChildren([indexRoute, taskBoard, brickBreaker, cryptogram, sudoku, liveChat, chess]);

@@ -26,8 +26,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@apps/core-app@workspace:apps/core-app"
   dependencies:
+    "@shared/boids-simulation": "workspace:^"
     "@shared/brick-breaker": "workspace:^"
-    "@shared/chess": "workspace:^"
     "@shared/live-chat": "workspace:^"
     "@shared/sudoku": "workspace:^"
     "@shared/todo-app": "workspace:^"
@@ -822,9 +822,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@shared/brick-breaker@workspace:^, @shared/brick-breaker@workspace:shared/brick-breaker":
+"@shared/boids-simulation@workspace:^, @shared/boids-simulation@workspace:shared/boids-simulation":
   version: 0.0.0-use.local
-  resolution: "@shared/brick-breaker@workspace:shared/brick-breaker"
+  resolution: "@shared/boids-simulation@workspace:shared/boids-simulation"
   dependencies:
     "@services/storage": "workspace:^"
     dayjs: "npm:^1.11.10"
@@ -832,12 +832,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@shared/chess@workspace:^, @shared/chess@workspace:shared/chess":
+"@shared/brick-breaker@workspace:^, @shared/brick-breaker@workspace:shared/brick-breaker":
   version: 0.0.0-use.local
-  resolution: "@shared/chess@workspace:shared/chess"
+  resolution: "@shared/brick-breaker@workspace:shared/brick-breaker"
   dependencies:
+    "@services/storage": "workspace:^"
+    dayjs: "npm:^1.11.10"
     react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
   languageName: unknown
   linkType: soft
 
