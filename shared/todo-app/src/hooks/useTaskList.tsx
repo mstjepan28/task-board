@@ -116,18 +116,20 @@ export const useTaskList = () => {
     storage.setItem("task-list", updatedTaskList);
     movingTaskId.current = null;
 
-    // @ts-ignore - startViewTransition is not yet in the types
-    document.startViewTransition(() => {
-      flushSync(() => {
-        setTaskList(updatedTaskList);
+    // @ts-ignore
+    if (typeof document.startViewTransition === "function") {
+      // @ts-ignore
+      document.startViewTransition(() => {
+        flushSync(() => {
+          setTaskList(updatedTaskList);
+        });
       });
-    });
+    } else {
+      setTaskList(updatedTaskList);
+    }
   };
 
-  const dragTaskOver = (
-    event: DragEvent<HTMLDivElement>,
-    status: TTaskStatus
-  ) => {
+  const dragTaskOver = (event: DragEvent<HTMLDivElement>, status: TTaskStatus) => {
     event.preventDefault();
     event.stopPropagation();
 
