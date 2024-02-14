@@ -7,6 +7,7 @@ import * as cryptogramModule from "@shared/cryptogram";
 
 export const createMainRouter = () => {
   const rootRoute = createRootRoute({ component: NavigationLayout });
+  type TRootRoute = typeof rootRoute;
 
   const indexRoute = createRoute({
     getParentRoute: () => rootRoute,
@@ -14,10 +15,10 @@ export const createMainRouter = () => {
     component: () => <></>,
   });
 
-  const todoRouter = todoModule.createModuleRouter<typeof rootRoute>(rootRoute);
-  const sudokuRouter = sudokuModule.createModuleRouter<typeof rootRoute>(rootRoute);
-  const chatRouter = chatModule.createModuleRouter<typeof rootRoute>(rootRoute);
-  const cryptogramRouter = cryptogramModule.createModuleRouter<typeof rootRoute>(rootRoute);
+  const todoRouter = todoModule.createModuleRouter<TRootRoute>(rootRoute);
+  const sudokuRouter = sudokuModule.createModuleRouter<TRootRoute>(rootRoute);
+  const chatRouter = chatModule.createModuleRouter<TRootRoute>(rootRoute);
+  const cryptogramRouter = cryptogramModule.createModuleRouter<TRootRoute>(rootRoute);
 
   const routerGroup = [indexRoute, todoRouter, sudokuRouter, chatRouter, cryptogramRouter].flat();
   return createRouter({ routeTree: rootRoute.addChildren(routerGroup) });
