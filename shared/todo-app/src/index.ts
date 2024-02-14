@@ -1,1 +1,1 @@
-export { TaskBoardScreen } from "./screens/TaskBoardScreen";
+export { createModuleRouter } from "./router/router";

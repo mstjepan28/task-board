@@ -3,23 +3,18 @@ import { BrickBreaker } from "@shared/brick-breaker";
 import { Cryptogram } from "@shared/cryptogram";
 import { Chat } from "@shared/live-chat";
 import { Sudoku } from "@shared/sudoku";
-import { TaskBoardScreen } from "@shared/todo-app";
+import { createModuleRouter } from "@shared/todo-app";
 import { createRootRoute, createRoute, createRouter } from "@tanstack/react-router";
 import { NavigationLayout } from "../layout/NavigationLayout";
 
 export const createMainRouter = () => {
   const rootRoute = createRootRoute({ component: NavigationLayout });
+  const todoRouter = createModuleRouter<typeof rootRoute>(rootRoute);
 
   const indexRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: "/",
     component: () => <></>,
-  });
-
-  const taskBoard = createRoute({
-    getParentRoute: () => rootRoute,
-    path: "/task-board",
-    component: TaskBoardScreen,
   });
 
   const brickBreaker = createRoute({
@@ -52,6 +47,14 @@ export const createMainRouter = () => {
     component: BoidsSimulations,
   });
 
-  const routeTree = rootRoute.addChildren([indexRoute, taskBoard, brickBreaker, cryptogram, sudoku, liveChat, chess]);
+  const routeTree = rootRoute.addChildren([
+    indexRoute,
+    ...todoRouter,
+    brickBreaker,
+    cryptogram,
+    sudoku,
+    liveChat,
+    chess,
+  ]);
   return createRouter({ routeTree });
 };
