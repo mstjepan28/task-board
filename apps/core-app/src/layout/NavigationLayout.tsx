@@ -11,11 +11,9 @@ export const NavigationLayout = () => {
       <div className="px-4 py-2 flex gap-x-4 text-white border-t">
         <NavLink to="/">Home</NavLink>
         <NavLink to="/task-board">Task board</NavLink>
-        <NavLink to="/brick-breaker">Brick breaker</NavLink>
         <NavLink to="/cryptogram">Cryptogram</NavLink>
-        <NavLink to="/live-chat">Live chat</NavLink>
+        <NavLink to="/chat">Live chat</NavLink>
         <NavLink to="/sudoku">Sudoku</NavLink>
-        <NavLink to="/boids">Boids</NavLink>
       </div>
     </div>
   );

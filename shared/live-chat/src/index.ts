@@ -1,1 +1,1 @@
-export { Chat } from "./screens/Chat";
+export { createModuleRouter } from "./router/router";

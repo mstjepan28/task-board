@@ -1,1 +1,0 @@
-export { BoidsSimulations } from "./BoidsSimulations";

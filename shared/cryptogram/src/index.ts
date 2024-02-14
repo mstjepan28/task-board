@@ -1,1 +1,1 @@
-export { Cryptogram } from "./Cryptogram";
+export { createModuleRouter } from "./router/router";

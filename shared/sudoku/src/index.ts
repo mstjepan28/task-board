@@ -1,1 +1,1 @@
-export { Sudoku } from "./Sudoku";
+export { createModuleRouter } from "./router/router";

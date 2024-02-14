@@ -129,7 +129,7 @@ export const useTaskList = () => {
     }
   };
 
-  const dragTaskOver = (event: DragEvent<HTMLDivElement>, status: TTaskStatus) => {
+  const dragTaskOver = (event: DragEvent<HTMLDivElement>, _status: TTaskStatus) => {
     event.preventDefault();
     event.stopPropagation();
 
