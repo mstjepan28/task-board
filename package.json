@@ -7,8 +7,11 @@
     "services/*"
   ],
   "scripts": {
+    "--- Client commands ---------------------------------------------": "",
     "dev": "yarn workspace @apps/core-app dev",
-    "dev:build": "yarn workspace @apps/core-app build",
+    "build": "yarn workspace @apps/core-app build",
+    "analyze": "yarn workspace @apps/core-app analyze",
+    "--- Server commands ----------------------------------------------": "",
     "server": "yarn workspace @services/chat-server start",
     "--- Validation commands ------------------------------------------": "",
     "test": "vitest",
