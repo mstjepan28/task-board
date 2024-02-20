@@ -846,15 +846,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@shared/task-board@workspace:shared/task-board":
-  version: 0.0.0-use.local
-  resolution: "@shared/task-board@workspace:shared/task-board"
-  dependencies:
-    "@services/storage": "workspace:^"
-    react: "npm:^18.2.0"
-  languageName: unknown
-  linkType: soft
-
 "@shared/todo-app@workspace:^, @shared/todo-app@workspace:shared/todo-app":
   version: 0.0.0-use.local
   resolution: "@shared/todo-app@workspace:shared/todo-app"
