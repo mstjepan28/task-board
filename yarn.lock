@@ -29,20 +29,19 @@ __metadata:
     "@shared/live-chat": "workspace:^"
     "@shared/sudoku": "workspace:^"
     "@shared/todo-app": "workspace:^"
-    "@tanstack/react-router": "npm:^1.15.7"
-    "@tanstack/router-devtools": "npm:^1.15.7"
-    "@tanstack/router-vite-plugin": "npm:1.15.4"
-    "@types/react": "npm:^18.2.51"
-    "@types/react-dom": "npm:^18.2.18"
+    "@tanstack/react-router": "npm:^1.16.6"
+    "@tanstack/router-devtools": "npm:^1.16.6"
+    "@types/react": "npm:^18.2.57"
+    "@types/react-dom": "npm:^18.2.19"
     "@vitejs/plugin-react": "npm:^4.2.1"
     autoprefixer: "npm:^10.4.17"
-    postcss: "npm:^8.4.33"
+    postcss: "npm:^8.4.35"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     tailwindcss: "npm:^3.4.1"
     typescript: "npm:^5.3.3"
-    vite: "npm:^5.0.12"
-    vite-bundle-visualizer: "npm:1.0.0"
+    vite: "npm:^5.1.3"
+    vite-bundle-visualizer: "npm:1.0.1"
   languageName: unknown
   linkType: soft
 
@@ -845,8 +844,8 @@ __metadata:
   resolution: "@shared/todo-app@workspace:shared/todo-app"
   dependencies:
     "@services/storage": "workspace:^"
-    "@tanstack/react-router": "npm:^1.15.7"
-    dayjs: "npm:1.11.10"
+    "@tanstack/react-router": "npm:^1.16.6"
+    dayjs: "npm:^1.11.10"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
   languageName: unknown
@@ -859,25 +858,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/history@npm:1.12.16":
-  version: 1.12.16
-  resolution: "@tanstack/history@npm:1.12.16"
-  checksum: 10/fcf4b1bf1819dcf1749369255959ff5a7937e1c7e076d8574324adc9caf46e69d7643b1828998b9ba36e88bf993ddbf34494983da42c91dd90afba37cb51df4c
+"@tanstack/history@npm:1.15.13":
+  version: 1.15.13
+  resolution: "@tanstack/history@npm:1.15.13"
+  checksum: 10/5d3c52db4c495ba965c31caafadfeba7e5bb514f79048426808fa581bfa26db9825ee8a3bca52ca55dfa91ed98455d388e0a2707df940cfe2d77f8e0aaa19fe6
   languageName: node
   linkType: hard
 
-"@tanstack/react-router@npm:1.15.7, @tanstack/react-router@npm:^1.15.7":
-  version: 1.15.7
-  resolution: "@tanstack/react-router@npm:1.15.7"
+"@tanstack/react-router@npm:1.16.6, @tanstack/react-router@npm:^1.16.6":
+  version: 1.16.6
+  resolution: "@tanstack/react-router@npm:1.16.6"
   dependencies:
-    "@tanstack/history": "npm:1.12.16"
+    "@tanstack/history": "npm:1.15.13"
     "@tanstack/react-store": "npm:^0.2.1"
     tiny-invariant: "npm:^1.3.1"
     tiny-warning: "npm:^1.0.3"
   peerDependencies:
     react: ">=16"
     react-dom: ">=16"
-  checksum: 10/efdf562003b1b953c73654a09f0f2fde1167bd2bf75bad3dfd97498c40ce9caac31c2c29b9bbfd16d28f29f2eb9d473d0ad4b097e9e6351254486fdb9b64d39b
+  checksum: 10/c58b470b9aaf880660833b4b10324c10d3c78278f92517b93fd3155882ecce61580edeca898ad7675007deca7726fb55bedac8e119b0f242132c26936b9a80ce
   languageName: node
   linkType: hard
 
@@ -894,35 +893,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-devtools@npm:^1.15.7":
-  version: 1.15.7
-  resolution: "@tanstack/router-devtools@npm:1.15.7"
+"@tanstack/router-devtools@npm:^1.16.6":
+  version: 1.16.6
+  resolution: "@tanstack/router-devtools@npm:1.16.6"
   dependencies:
-    "@tanstack/react-router": "npm:1.15.7"
+    "@tanstack/react-router": "npm:1.16.6"
     date-fns: "npm:^2.29.1"
   peerDependencies:
     react: ">=16"
     react-dom: ">=16"
-  checksum: 10/c2930479780c653033de28156116e5d99dffe8b99a4ca7ef98ed32b654e84eb99cc793afebe5336c5dd455384b0f1c584a0c21346966b0e5468b4ea963d46a50
-  languageName: node
-  linkType: hard
-
-"@tanstack/router-generator@npm:1.15.4":
-  version: 1.15.4
-  resolution: "@tanstack/router-generator@npm:1.15.4"
-  dependencies:
-    prettier: "npm:^3.1.1"
-    zod: "npm:^3.22.4"
-  checksum: 10/9b2cf152205b71e88afa3e7a825b9809d1b1b57be2ee5c10f016ddd63e7078bf9e54adbc50f7dc021846b593d20e02780357c38bce7ac9738bb91d9417c04a3a
-  languageName: node
-  linkType: hard
-
-"@tanstack/router-vite-plugin@npm:1.15.4":
-  version: 1.15.4
-  resolution: "@tanstack/router-vite-plugin@npm:1.15.4"
-  dependencies:
-    "@tanstack/router-generator": "npm:1.15.4"
-  checksum: 10/3cba78f37a650ff63b8e43f64499c10931b0b05cf331373e82355f528d7a09ce1dbeb33aa994ae94f4058f8cc8026ab5eae00644904413a1b1e0a8d387e7b386
+  checksum: 10/cfd259394997822a039dcc66180c4cc7ad31477184f5768e2065e9e19a96c541d1c2f4aefd8a71e864f83d4312a30eafd5b5d96c54a89645eb5954105def204a
   languageName: node
   linkType: hard
 
@@ -1011,12 +991,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.2.18":
-  version: 18.2.18
-  resolution: "@types/react-dom@npm:18.2.18"
+"@types/react-dom@npm:^18.2.19":
+  version: 18.2.19
+  resolution: "@types/react-dom@npm:18.2.19"
   dependencies:
     "@types/react": "npm:*"
-  checksum: 10/4ef7725b4cebd4a32e049097ddfdfd855a178e63ead97ab6d3084872e7d6c1acd71aa923488123cd1015f0e0b11489d2b44f674a1df8fe82d7827eabbec6dbf1
+  checksum: 10/98eb760ce78f1016d97c70f605f0b1a53873a548d3c2192b40c897f694fd9c8bb12baeada16581a9c7b26f5022c1d2613547be98284d8f1b82d1611b1e3e7df0
   languageName: node
   linkType: hard
 
@@ -1031,14 +1011,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^18.2.51":
-  version: 18.2.51
-  resolution: "@types/react@npm:18.2.51"
+"@types/react@npm:^18.2.57":
+  version: 18.2.57
+  resolution: "@types/react@npm:18.2.57"
   dependencies:
     "@types/prop-types": "npm:*"
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10/af2935027172ea40695b90b02e98520a097160fa8517f6022e2e2cf8518017e0b84991cc34ee8d72cd91dcb7c5404784d4bada7a4836edf2727c3d6703c16ff8
+  checksum: 10/beee45a8ee48862fb5101f6ebdd89ccc20c5a6df29dcd2315560bc3b57ea3af8d09a8e9bb1c58063a70f9010e0d2c7bd300819438e2ca62810285c3d7275ab5a
   languageName: node
   linkType: hard
 
@@ -1643,7 +1623,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:1.11.10, dayjs@npm:^1.11.10":
+"dayjs@npm:^1.11.10":
   version: 1.11.10
   resolution: "dayjs@npm:1.11.10"
   checksum: 10/27e8f5bc01c0a76f36c656e62ab7f08c2e7b040b09e613cd4844abf03fb258e0350f0a83b02c887b84d771c1f11e092deda0beef8c6df2a1afbc3f6c1fade279
@@ -3111,23 +3091,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.32, postcss@npm:^8.4.33":
-  version: 8.4.33
-  resolution: "postcss@npm:8.4.33"
+"postcss@npm:^8.4.35":
+  version: 8.4.35
+  resolution: "postcss@npm:8.4.35"
   dependencies:
     nanoid: "npm:^3.3.7"
     picocolors: "npm:^1.0.0"
     source-map-js: "npm:^1.0.2"
-  checksum: 10/e22a4594c255f26117f38419fb494d7ecab0f596cd409f7aadc8a6173abf180ed7ea970cd13fd366ab12b5840be901d2a09b25197700c2ebcb5a8077326bf519
-  languageName: node
-  linkType: hard
-
-"prettier@npm:^3.1.1":
-  version: 3.2.4
-  resolution: "prettier@npm:3.2.4"
-  bin:
-    prettier: bin/prettier.cjs
-  checksum: 10/e2b735d0552501b3a7ac8bd3ba3b6de2920bb35bd4cd02d08cb9057ebe3e96d83b9a7e4b903d987b7530a50223b12c74d107c154337236ae2c68156ba1e65cd2
+  checksum: 10/93a7ce50cd6188f5f486a9ca98950ad27c19dfed996c45c414fa242944497e4d084a8760d3537f078630226f2bd3c6ab84b813b488740f4432e7c7039cd73a20
   languageName: node
   linkType: hard
 
@@ -3921,9 +3892,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-bundle-visualizer@npm:1.0.0":
-  version: 1.0.0
-  resolution: "vite-bundle-visualizer@npm:1.0.0"
+"vite-bundle-visualizer@npm:1.0.1":
+  version: 1.0.1
+  resolution: "vite-bundle-visualizer@npm:1.0.1"
   dependencies:
     cac: "npm:^6.7.14"
     import-from-esm: "npm:^1.3.3"
@@ -3931,7 +3902,7 @@ __metadata:
     tmp: "npm:^0.2.1"
   bin:
     vite-bundle-visualizer: bin.js
-  checksum: 10/515cd13b19309ed18005bd2ed70b4388d43d64c5c295f0793884a107aff58f63af0701295d8b5725e8bb87c460c2e7ac9ecc787a9281470a72577ec76cd1b63e
+  checksum: 10/70d09f5fe15eedca3206bc9f0562142ce6117e8768dc90a891d9605086d4ba4e25eab6bcd21d7dceb4cfe6abc2627f7814d22ba0425e2f24154f76a8b988d909
   languageName: node
   linkType: hard
 
@@ -3990,13 +3961,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^5.0.12":
-  version: 5.0.12
-  resolution: "vite@npm:5.0.12"
+"vite@npm:^5.1.3":
+  version: 5.1.3
+  resolution: "vite@npm:5.1.3"
   dependencies:
     esbuild: "npm:^0.19.3"
     fsevents: "npm:~2.3.3"
-    postcss: "npm:^8.4.32"
+    postcss: "npm:^8.4.35"
     rollup: "npm:^4.2.0"
   peerDependencies:
     "@types/node": ^18.0.0 || >=20.0.0
@@ -4026,7 +3997,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10/ed0bb26a0d0c8e1dae0b70af9e36adffd7e15d80297443fe4da762596dc81570bad7f0291f590a57c1553f5e435338d8c7ffc483bd9431a95c09d9ac90665fad
+  checksum: 10/6ba2223157e2cc2fa62dff9004ccba20fc409c6baf7354c64ed0f8e4bcd853092d08d06ec4dec37143e794a96e061879a870d85bad4f1eb9ee5c6d0a13cef30f
   languageName: node
   linkType: hard
 
@@ -4192,12 +4163,5 @@ __metadata:
   version: 1.0.0
   resolution: "yocto-queue@npm:1.0.0"
   checksum: 10/2cac84540f65c64ccc1683c267edce396b26b1e931aa429660aefac8fbe0188167b7aee815a3c22fa59a28a58d898d1a2b1825048f834d8d629f4c2a5d443801
-  languageName: node
-  linkType: hard
-
-"zod@npm:^3.22.4":
-  version: 3.22.4
-  resolution: "zod@npm:3.22.4"
-  checksum: 10/73622ca36a916f785cf528fe612a884b3e0f183dbe6b33365a7d0fc92abdbedf7804c5e2bd8df0a278e1472106d46674281397a3dd800fa9031dc3429758c6ac
   languageName: node
   linkType: hard
