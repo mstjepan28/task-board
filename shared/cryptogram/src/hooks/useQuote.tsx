@@ -6,7 +6,7 @@ import { quoteList } from "../quotes/quoteList";
 type TPuzzle = Record<string, string>;
 
 export const useQuote = (cipherOffset: number) => {
-  const initialRound = storage.getItem("cryptogram-round-key") || 0;
+  const initialRound = storage.getItem<number>("cryptogram-round-key") || 0;
   const [round, setRound] = useState(initialRound);
 
   const { quote, author, encryptedQuote, solution } = useMemo(() => {
@@ -15,19 +15,17 @@ export const useQuote = (cipherOffset: number) => {
     const quote = selectedQuote.quote.toLowerCase();
     const author = selectedQuote.author;
 
-    const solution = quote.split("").reduce(
-      (acc, letter) => {
-        if (!letter.match(/[a-z]/i)) {
-          return acc;
-        }
-
-        const encrypted = caesarCipher(letter, cipherOffset);
-
-        acc[encrypted] = letter;
+    const initState = {} as Record<string, string>;
+    const solution = quote.split("").reduce((acc, letter) => {
+      if (!letter.match(/[a-z]/i)) {
         return acc;
-      },
-      {} as Record<string, string>,
-    ) as TPuzzle;
+      }
+
+      const encrypted = caesarCipher(letter, cipherOffset);
+
+      acc[encrypted] = letter;
+      return acc;
+    }, initState) as TPuzzle;
 
     const encryptedQuote = quote.split("").map((letter) => caesarCipher(letter, cipherOffset));
 
