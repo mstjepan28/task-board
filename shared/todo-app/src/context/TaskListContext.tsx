@@ -7,9 +7,5 @@ export const TaskListContext = createContext<TUseTask>({} as TUseTask);
 export const TaskListProvider = ({ children }: { children: ReactNode }) => {
   const taskListHandler = useTaskList();
 
-  return (
-    <TaskListContext.Provider value={taskListHandler}>
-      {children}
-    </TaskListContext.Provider>
-  );
+  return <TaskListContext.Provider value={taskListHandler}>{children}</TaskListContext.Provider>;
 };

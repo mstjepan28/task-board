@@ -28,9 +28,7 @@ export const TaskCard = ({ task }: IProps) => {
           <p className="text-sm font-medium">{task.description}</p>
         </div>
         <div className="flex justify-end mt-2">
-          <small className="italic">
-            {dayjs(task.createdAt).format("DD.MM.YYYY. HH:mm:ss")}
-          </small>
+          <small className="italic">{dayjs(task.createdAt).format("DD.MM.YYYY. HH:mm:ss")}</small>
         </div>
       </div>
     </div>
