@@ -1,4 +1,3 @@
-import { faker } from "@faker-js/faker";
 import { storage } from "@services/storage";
 import dayjs from "dayjs";
 import { DragEvent, useEffect, useMemo, useRef, useState } from "react";
@@ -11,10 +10,12 @@ export const useTaskList = () => {
 
   const generateTaskList = () => {
     const generateTask = (_: unknown, index: number) => {
+      const ordinalNumber = index + 1;
+
       const item = {
-        id: faker.string.uuid(),
-        ordinalNumber: index + 1,
-        description: faker.lorem.sentence(),
+        id: `${Date.now()}-${Math.random() * 1000}`.replace(".", ""),
+        ordinalNumber: ordinalNumber,
+        description: `Task description #${ordinalNumber}`,
         status: TaskStatus.PENDING,
         createdAt: dayjs().toISOString(),
         updatedAt: dayjs().toISOString(),
