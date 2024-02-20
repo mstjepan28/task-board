@@ -26,8 +26,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@apps/core-app@workspace:apps/core-app"
   dependencies:
-    "@shared/boids-simulation": "workspace:^"
-    "@shared/brick-breaker": "workspace:^"
     "@shared/live-chat": "workspace:^"
     "@shared/sudoku": "workspace:^"
     "@shared/todo-app": "workspace:^"
@@ -810,35 +808,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@services/chat-server@workspace:services/chat-server"
   dependencies:
-    bun-types: "npm:latest"
-  peerDependencies:
-    typescript: ^5.3.2
+    bun-types: "npm:1.0.28"
   languageName: unknown
   linkType: soft
 
 "@services/storage@workspace:^, @services/storage@workspace:services/storage":
   version: 0.0.0-use.local
   resolution: "@services/storage@workspace:services/storage"
-  languageName: unknown
-  linkType: soft
-
-"@shared/boids-simulation@workspace:^, @shared/boids-simulation@workspace:shared/boids-simulation":
-  version: 0.0.0-use.local
-  resolution: "@shared/boids-simulation@workspace:shared/boids-simulation"
-  dependencies:
-    "@services/storage": "workspace:^"
-    dayjs: "npm:^1.11.10"
-    react: "npm:^18.2.0"
-  languageName: unknown
-  linkType: soft
-
-"@shared/brick-breaker@workspace:^, @shared/brick-breaker@workspace:shared/brick-breaker":
-  version: 0.0.0-use.local
-  resolution: "@shared/brick-breaker@workspace:shared/brick-breaker"
-  dependencies:
-    "@services/storage": "workspace:^"
-    dayjs: "npm:^1.11.10"
-    react: "npm:^18.2.0"
   languageName: unknown
   linkType: soft
 
@@ -879,21 +855,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@shared/text-editor@workspace:shared/text-editor":
-  version: 0.0.0-use.local
-  resolution: "@shared/text-editor@workspace:shared/text-editor"
-  dependencies:
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-  languageName: unknown
-  linkType: soft
-
 "@shared/todo-app@workspace:^, @shared/todo-app@workspace:shared/todo-app":
   version: 0.0.0-use.local
   resolution: "@shared/todo-app@workspace:shared/todo-app"
   dependencies:
     "@faker-js/faker": "npm:^8.4.0"
     "@services/storage": "workspace:^"
+    "@tanstack/react-router": "npm:^1.15.7"
     dayjs: "npm:1.11.10"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
@@ -1043,6 +1011,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:*, @types/node@npm:~20.11.3":
+  version: 20.11.19
+  resolution: "@types/node@npm:20.11.19"
+  dependencies:
+    undici-types: "npm:~5.26.4"
+  checksum: 10/c7f4705d6c84aa21679ad180c33c13ca9567f650e66e14bcee77c7c43d14619c7cd3b4d7b2458947143030b7b1930180efa6d12d999b45366abff9fed7a17472
+  languageName: node
+  linkType: hard
+
 "@types/prop-types@npm:*":
   version: 15.7.11
   resolution: "@types/prop-types@npm:15.7.11"
@@ -1085,6 +1062,15 @@ __metadata:
   version: 0.16.8
   resolution: "@types/scheduler@npm:0.16.8"
   checksum: 10/6c091b096daa490093bf30dd7947cd28e5b2cd612ec93448432b33f724b162587fed9309a0acc104d97b69b1d49a0f3fc755a62282054d62975d53d7fd13472d
+  languageName: node
+  linkType: hard
+
+"@types/ws@npm:~8.5.10":
+  version: 8.5.10
+  resolution: "@types/ws@npm:8.5.10"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 10/9b414dc5e0b6c6f1ea4b1635b3568c58707357f68076df9e7cd33194747b7d1716d5189c0dbdd68c8d2521b148e88184cf881bac7429eb0e5c989b001539ed31
   languageName: node
   linkType: hard
 
@@ -1399,10 +1385,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bun-types@npm:latest":
-  version: 1.0.14
-  resolution: "bun-types@npm:1.0.14"
-  checksum: 10/b7f08f72c1a2fe29d1727710fb7d3d87ab58b532202f0b763a2fc4b1e4cbcd2872c2550d676ea82998dbea42866c96b8680b923de3cac1f2d6c35a578b142c31
+"bun-types@npm:1.0.28":
+  version: 1.0.28
+  resolution: "bun-types@npm:1.0.28"
+  dependencies:
+    "@types/node": "npm:~20.11.3"
+    "@types/ws": "npm:~8.5.10"
+  checksum: 10/cae35dd9fb30cc8660405d180209018222bae407dff31244384df1896e001fb0dbdcf462f6e902fc4787bbf79fe6bf4ea9e9d9c0e560351e4ad2b50ef759e2e3
   languageName: node
   linkType: hard
 
@@ -3768,6 +3757,13 @@ __metadata:
   version: 1.3.2
   resolution: "ufo@npm:1.3.2"
   checksum: 10/7133290d495e2b3f9416de69982019e81cff40d28cfd3a07accff1122ee52f23d9165e495a140a1b34b183244e88fc4001cb649591385ecbad1d3d0d2264fa6e
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~5.26.4":
+  version: 5.26.5
+  resolution: "undici-types@npm:5.26.5"
+  checksum: 10/0097779d94bc0fd26f0418b3a05472410408877279141ded2bd449167be1aed7ea5b76f756562cb3586a07f251b90799bab22d9019ceba49c037c76445f7cddd
   languageName: node
   linkType: hard
 
