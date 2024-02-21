@@ -66,7 +66,7 @@ export const useTaskList = () => {
   }, []);
 
   // --- Generate ids --- //
-  const COL_PREFIX = "task-list" as const;
+  const COL_PREFIX = "column" as const;
   const TASK_PREFIX = "task" as const;
 
   const getColumnId = (status: TTaskStatus) => {
@@ -77,20 +77,28 @@ export const useTaskList = () => {
     return `${TASK_PREFIX}-${taskId}` as const;
   };
 
-  // --- Handler moving tasks --- //
-  const validateTargetElement = (targetElement: HTMLElement | null) => {
-    if (!targetElement) {
-      return { isColumn: false, isTask: false };
+  // --- Helpers --- //
+  const resetOrdinalNumbers = (taskList: TTask[]) => {
+    const groupCount = {
+      [TaskStatus.PENDING]: 0,
+      [TaskStatus.IN_PROGRESS]: 0,
+      [TaskStatus.CANCELED]: 0,
+      [TaskStatus.FAILED]: 0,
+      [TaskStatus.COMPLETED]: 0,
+    } as Record<TTaskStatus, number>;
+
+    for (const task of taskList) {
+      groupCount[task.status] += 1;
+      task.ordinalNumber = groupCount[task.status];
     }
 
-    const elementId = targetElement.id;
-    return {
-      isColumn: elementId.startsWith(COL_PREFIX),
-      isTask: elementId.startsWith(TASK_PREFIX),
-    };
+    return taskList;
   };
 
+  // --- Handler moving tasks --- //
+
   const movingTaskId = useRef<string | null>(null);
+  const movingTaskOrdinal = useRef<number | null>(null);
 
   const dragTask = (taskId: string) => {
     movingTaskId.current = taskId;
@@ -109,12 +117,15 @@ export const useTaskList = () => {
       if (task.id === taskId) {
         task.status = newStatus;
         task.updatedAt = dayjs().toISOString();
+        task.ordinalNumber = movingTaskOrdinal.current ?? task.ordinalNumber;
       }
 
       return task;
     });
 
-    storage.setItem("task-list", updatedTaskList);
+    const updatedOrdinalTaskList = resetOrdinalNumbers(updatedTaskList);
+
+    storage.setItem("task-list", updatedOrdinalTaskList);
     movingTaskId.current = null;
 
     // @ts-ignore
@@ -135,9 +146,17 @@ export const useTaskList = () => {
     event.stopPropagation();
 
     const targetElement = event.target as HTMLElement;
-    const { isColumn, isTask } = validateTargetElement(targetElement);
+    const isTask = targetElement.id.startsWith(TASK_PREFIX);
 
-    console.log({ isColumn, isTask });
+    if (!isTask) {
+      return;
+    }
+
+    const { top, height } = targetElement.getBoundingClientRect();
+    const isUpperHalf = event.clientY - top < height / 2;
+
+    const targetOrdinal = Number(targetElement.getAttribute("data-ordinal"));
+    movingTaskOrdinal.current = isUpperHalf ? targetOrdinal : targetOrdinal + 1;
   };
 
   return {

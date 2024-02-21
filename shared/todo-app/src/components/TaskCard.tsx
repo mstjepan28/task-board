@@ -11,14 +11,11 @@ export const TaskCard = ({ task }: IProps) => {
   const { dragTask, getTaskId } = useContext(TaskListContext);
   const cardId = getTaskId(task.id);
 
-  const onDrag = () => {
-    dragTask(task.id);
-  };
-
   return (
     <div
       id={cardId}
-      onDrag={onDrag}
+      data-ordinal={task.ordinalNumber}
+      onDrag={() => dragTask(task.id)}
       className="bg-white rounded-lg p-2"
       style={{ viewTransitionName: cardId }}
       draggable
@@ -27,7 +24,7 @@ export const TaskCard = ({ task }: IProps) => {
         <div>
           <p className="text-sm font-medium">{task.description}</p>
         </div>
-        <div className="flex justify-end mt-2">
+        <div className="flex text-end mt-2">
           <small className="italic">{dayjs(task.createdAt).format("DD.MM.YYYY. HH:mm:ss")}</small>
         </div>
       </div>
