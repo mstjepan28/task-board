@@ -16,11 +16,11 @@ export const TaskCard = ({ task }: IProps) => {
       id={cardId}
       data-ordinal={task.ordinalNumber}
       onDrag={() => dragTask(task.id)}
-      className="bg-white rounded-lg p-2"
       style={{ viewTransitionName: cardId }}
+      className="px-2 py-1"
       draggable
     >
-      <div className="pointer-events-none">
+      <div className="pointer-events-none bg-white rounded-lg p-2">
         {task.ordinalNumber}
         <div>
           <p className="text-sm font-medium">{task.description}</p>

@@ -32,10 +32,10 @@ export const TaskColumn = ({ status, taskList }: IProps) => {
   };
 
   return (
-    <div className="basis-full px-2 rounded-md bg-white/10 border border-white">
-      <div className="text-white font-semibold border-b p-2">{title}</div>
+    <div className="basis-full rounded-md bg-white/10 border border-white">
+      <div className="text-white font-semibold border-b px-4 py-2">{title}</div>
 
-      <div id={columnId} onDrop={onDrop} onDragOver={onDragOver} className="h-full space-y-2 py-4">
+      <div id={columnId} onDrop={onDrop} onDragOver={onDragOver} className="h-full py-4">
         {taskList.map((task) => (
           <TaskCard key={task.id} task={task} />
         ))}
