@@ -21,6 +21,7 @@ export const TaskCard = ({ task }: IProps) => {
       draggable
     >
       <div className="pointer-events-none">
+        {task.ordinalNumber}
         <div>
           <p className="text-sm font-medium">{task.description}</p>
         </div>

@@ -65,7 +65,7 @@ export const useTaskList = () => {
     setTaskList(readTaskList);
   }, []);
 
-  // --- Generate ids --- //
+  // ------ Generate ids ----------- //
   const COL_PREFIX = "column" as const;
   const TASK_PREFIX = "task" as const;
 
@@ -77,7 +77,7 @@ export const useTaskList = () => {
     return `${TASK_PREFIX}-${taskId}` as const;
   };
 
-  // --- Helpers --- //
+  // ------ Helpers ---------------- //
   const resetOrdinalNumbers = (taskList: TTask[]) => {
     const groupCount = {
       [TaskStatus.PENDING]: 0,
@@ -95,7 +95,45 @@ export const useTaskList = () => {
     return taskList;
   };
 
-  // --- Handler moving tasks --- //
+  // ------ Placeholder ------------ //
+  const PLACEHOLDER_ID = "placeholder-elem" as const;
+  const placeholder = useRef({
+    elementId: null as string | null,
+    isUpperHalf: false,
+  });
+
+  const checkIfPlaceholderStillValid = (target: HTMLElement, isUpperHalf: boolean) => {
+    const isSameTarget = placeholder.current.elementId === target.id;
+    const isSameHalf = placeholder.current.isUpperHalf === isUpperHalf;
+
+    return isSameTarget && isSameHalf;
+  };
+
+  const destroyPlaceholder = () => {
+    const placeholderElement = document.getElementById(PLACEHOLDER_ID);
+    if (placeholderElement) {
+      placeholderElement.remove();
+    }
+
+    placeholder.current.elementId = null;
+    placeholder.current.isUpperHalf = false;
+  };
+  const createPlaceholder = (targetElement: HTMLElement, isUpperHalf: boolean) => {
+    const placeholderElement = document.createElement("div");
+    placeholderElement.id = PLACEHOLDER_ID;
+    placeholderElement.classList.add("h-8", "border", "rounded-lg", "border-dashed", "border-gray-300");
+
+    if (isUpperHalf) {
+      targetElement.before(placeholderElement);
+    } else {
+      targetElement.after(placeholderElement);
+    }
+
+    placeholder.current.elementId = targetElement.id;
+    placeholder.current.isUpperHalf = isUpperHalf;
+  };
+
+  // ------ Handler moving tasks --- //
 
   const movingTaskId = useRef<string | null>(null);
   const movingTaskOrdinal = useRef<number | null>(null);
@@ -139,6 +177,8 @@ export const useTaskList = () => {
     } else {
       setTaskList(updatedTaskList);
     }
+
+    destroyPlaceholder();
   };
 
   const dragTaskOver = (event: DragEvent<HTMLDivElement>, _status: TTaskStatus) => {
@@ -147,7 +187,6 @@ export const useTaskList = () => {
 
     const targetElement = event.target as HTMLElement;
     const isTask = targetElement.id.startsWith(TASK_PREFIX);
-
     if (!isTask) {
       return;
     }
@@ -157,6 +196,14 @@ export const useTaskList = () => {
 
     const targetOrdinal = Number(targetElement.getAttribute("data-ordinal"));
     movingTaskOrdinal.current = isUpperHalf ? targetOrdinal : targetOrdinal + 1;
+
+    const isOldPlaceholderValid = checkIfPlaceholderStillValid(targetElement, isUpperHalf);
+    if (isOldPlaceholderValid) {
+      return;
+    }
+
+    destroyPlaceholder();
+    createPlaceholder(targetElement, isUpperHalf);
   };
 
   return {
