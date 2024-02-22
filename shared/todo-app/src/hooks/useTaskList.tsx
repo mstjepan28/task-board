@@ -158,6 +158,8 @@ export const useTaskList = () => {
       return task;
     });
 
+    updatedTaskList.sort((a, b) => a.ordinalNumber - b.ordinalNumber);
+
     const updatedOrdinalTaskList = resetOrdinalNumbers(updatedTaskList);
 
     storage.setItem("task-list", updatedOrdinalTaskList);
@@ -202,6 +204,8 @@ export const useTaskList = () => {
 
   const dragOverColumn = (targetElement: HTMLElement) => {
     destroyPlaceholder();
+
+    movingTaskOrdinal.current = Infinity;
 
     const placeholderElement = createPlaceholder(targetElement);
     targetElement.appendChild(placeholderElement);
