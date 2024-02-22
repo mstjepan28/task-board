@@ -99,7 +99,7 @@ export const useTaskList = () => {
   const PLACEHOLDER_ID = "placeholder-elem" as const;
   const placeholder = useRef({
     elementId: null as string | null,
-    isUpperHalf: false,
+    isUpperHalf: false as boolean | undefined,
   });
 
   const checkIfPlaceholderStillValid = (target: HTMLElement, isUpperHalf: boolean) => {
@@ -118,19 +118,16 @@ export const useTaskList = () => {
     placeholder.current.elementId = null;
     placeholder.current.isUpperHalf = false;
   };
-  const createPlaceholder = (targetElement: HTMLElement, isUpperHalf: boolean) => {
+
+  const createPlaceholder = (targetElement: HTMLElement, isUpperHalf?: boolean | undefined) => {
     const placeholderElement = document.createElement("div");
     placeholderElement.id = PLACEHOLDER_ID;
-    placeholderElement.classList.add("h-8", "border", "rounded-lg", "border-dashed", "border-gray-300");
-
-    if (isUpperHalf) {
-      targetElement.before(placeholderElement);
-    } else {
-      targetElement.after(placeholderElement);
-    }
+    placeholderElement.classList.add("h-8", "border", "rounded-lg", "mx-2", "my-1", "border-dashed", "border-gray-300");
 
     placeholder.current.elementId = targetElement.id;
     placeholder.current.isUpperHalf = isUpperHalf;
+
+    return placeholderElement;
   };
 
   // ------ Handler moving tasks --- //
@@ -181,18 +178,9 @@ export const useTaskList = () => {
     destroyPlaceholder();
   };
 
-  const dragTaskOver = (event: DragEvent<HTMLDivElement>, _status: TTaskStatus) => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    const targetElement = event.target as HTMLElement;
-    const isTask = targetElement.id.startsWith(TASK_PREFIX);
-    if (!isTask) {
-      return;
-    }
-
+  const dragOverTask = (targetElement: HTMLElement, clientY: number) => {
     const { top, height } = targetElement.getBoundingClientRect();
-    const isUpperHalf = event.clientY - top < height / 2;
+    const isUpperHalf = clientY - top < height / 2;
 
     const targetOrdinal = Number(targetElement.getAttribute("data-ordinal"));
     movingTaskOrdinal.current = isUpperHalf ? targetOrdinal : targetOrdinal + 1;
@@ -203,7 +191,32 @@ export const useTaskList = () => {
     }
 
     destroyPlaceholder();
-    createPlaceholder(targetElement, isUpperHalf);
+    const placeholderElement = createPlaceholder(targetElement, isUpperHalf);
+
+    if (isUpperHalf) {
+      targetElement.before(placeholderElement);
+    } else {
+      targetElement.after(placeholderElement);
+    }
+  };
+
+  const dragOverColumn = (targetElement: HTMLElement) => {
+    destroyPlaceholder();
+
+    const placeholderElement = createPlaceholder(targetElement);
+    targetElement.appendChild(placeholderElement);
+  };
+
+  const dragTaskOver = (event: DragEvent<HTMLDivElement>, _status: TTaskStatus) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const targetElement = event.target as HTMLElement;
+    if (targetElement.id.startsWith(TASK_PREFIX)) {
+      dragOverTask(targetElement, event.clientY);
+    } else if (targetElement.id.startsWith(COL_PREFIX)) {
+      dragOverColumn(targetElement);
+    }
   };
 
   return {
