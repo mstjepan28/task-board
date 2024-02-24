@@ -5,19 +5,22 @@ import { TaskListContext } from "../context/TaskListContext";
 
 interface IProps {
   task: TTask;
+  onClick?: () => void;
 }
 
-export const TaskCard = ({ task }: IProps) => {
+export const TaskCard = ({ task, onClick }: IProps) => {
   const { dragTask, getTaskId } = useContext(TaskListContext);
   const cardId = getTaskId(task.id);
 
   return (
-    <div
+    <button
       id={cardId}
+      type="button"
+      onClick={onClick}
       data-ordinal={task.ordinalNumber}
       onDrag={() => dragTask(task.id)}
       style={{ viewTransitionName: cardId }}
-      className="px-2 py-1"
+      className="w-full text-start px-2 py-1"
       draggable
     >
       <div className="pointer-events-none bg-white rounded-lg p-2">
@@ -28,6 +31,6 @@ export const TaskCard = ({ task }: IProps) => {
           <small className="italic">{dayjs(task.createdAt).format("DD.MM.YYYY. HH:mm:ss")}</small>
         </div>
       </div>
-    </div>
+    </button>
   );
 };

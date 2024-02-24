@@ -7,9 +7,10 @@ import { TTaskStatus, TaskStatus } from "../enums/taskStatus";
 interface IProps {
   status: TTaskStatus;
   taskList: TTask[];
+  onTaskClick: (task: TTask) => void;
 }
 
-export const TaskColumn = ({ status, taskList }: IProps) => {
+export const TaskColumn = ({ status, taskList, onTaskClick }: IProps) => {
   const { dropTask, dragTaskOver, getColumnId } = useContext(TaskListContext);
   const columnId = getColumnId(status);
 
@@ -31,14 +32,22 @@ export const TaskColumn = ({ status, taskList }: IProps) => {
     dragTaskOver(event, status);
   };
 
+  const renderTaskList = () => {
+    return taskList.map((task) => {
+      const onClick = () => {
+        onTaskClick(task);
+      };
+
+      return <TaskCard key={task.id} task={task} onClick={onClick} />;
+    });
+  };
+
   return (
     <div className="basis-full flex flex-col rounded-md bg-white/10 border border-white">
       <div className="text-white font-semibold border-b px-4 py-2">{title}</div>
 
       <div id={columnId} onDrop={onDrop} onDragOver={onDragOver} className="basis-full">
-        {taskList.map((task) => (
-          <TaskCard key={task.id} task={task} />
-        ))}
+        {renderTaskList()}
       </div>
     </div>
   );
