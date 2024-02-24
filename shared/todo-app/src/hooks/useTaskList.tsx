@@ -184,6 +184,9 @@ export const useTaskList = () => {
     const { top, height } = targetElement.getBoundingClientRect();
     const isUpperHalf = clientY - top < height / 2;
 
+    /**
+     * we use +/- 0.1 to avoid the duplicate ordinal numbers in the same column
+     */
     const targetOrdinal = Number(targetElement.getAttribute("data-ordinal"));
     movingTaskOrdinal.current = isUpperHalf ? targetOrdinal - 0.1 : targetOrdinal + 0.1;
 
