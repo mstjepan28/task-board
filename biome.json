@@ -14,6 +14,7 @@
     "ignore": ["node_modules"],
     "rules": {
       "a11y": {
+        "useKeyWithClickEvents": { "level": "off" },
         "noSvgWithoutTitle": { "level": "off" }
       },
       "complexity": {
