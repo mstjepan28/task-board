@@ -4,7 +4,7 @@ import { NavLink } from "../components/NavLink";
 export const NavigationLayout = () => {
   return (
     <div className="h-full flex flex-col bg-gray-950">
-      <div className="basis-full max-h-full overflow-y-scroll ">
+      <div className="basis-full max-h-full overflow-y-scroll">
         <Outlet />
       </div>
 
