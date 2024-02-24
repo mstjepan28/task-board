@@ -185,7 +185,7 @@ export const useTaskList = () => {
     const isUpperHalf = clientY - top < height / 2;
 
     const targetOrdinal = Number(targetElement.getAttribute("data-ordinal"));
-    movingTaskOrdinal.current = isUpperHalf ? targetOrdinal : targetOrdinal + 1;
+    movingTaskOrdinal.current = isUpperHalf ? targetOrdinal - 0.1 : targetOrdinal + 0.1;
 
     const isOldPlaceholderValid = checkIfPlaceholderStillValid(targetElement, isUpperHalf);
     if (isOldPlaceholderValid) {
