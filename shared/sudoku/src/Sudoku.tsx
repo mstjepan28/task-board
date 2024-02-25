@@ -70,10 +70,10 @@ export const Sudoku = () => {
 
     const isSelected = checkIfCellSelected(rowIndex, colIndex);
     if (isSelected) {
-      return "bg-gray-300";
+      return "bg-blue-50";
     }
 
-    return "bg-white/10";
+    return "bg-white";
   };
 
   const renderBoardRow = (boardRow: number[], rowIndex: number) => {
