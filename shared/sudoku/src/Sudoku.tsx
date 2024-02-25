@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { generateSudokuGame } from "./utils/generateSudoku";
 import { TBoard } from "./types/sudoku";
+import { generateSudokuGame } from "./utils/generateSudoku";
 import { loadGame, saveGame } from "./utils/saveLoadGame";
 
 export const Sudoku = () => {
@@ -13,6 +13,34 @@ export const Sudoku = () => {
 
   const initBoard = useRef<TBoard>([]);
   const gameSolution = useRef<TBoard>([]);
+
+  // --- check if number placement is valid ---
+  const checkIfNumberIsValid = (row: number, col: number, number: number) => {
+    return checkIfRowIsValid(row, number) && checkIfColIsValid(col, number) && checkIfSectionIsValid(row, col, number);
+  };
+
+  const checkIfRowIsValid = (row: number, number: number) => {
+    return !board[row].includes(number);
+  };
+
+  const checkIfColIsValid = (col: number, number: number) => {
+    return !board.some((row) => row[col] === number);
+  };
+
+  const checkIfSectionIsValid = (row: number, col: number, number: number) => {
+    const rowStart = Math.floor(row / 3) * 3;
+    const colStart = Math.floor(col / 3) * 3;
+
+    for (let i = rowStart; i < rowStart + 3; i++) {
+      for (let j = colStart; j < colStart + 3; j++) {
+        if (board[i][j] === number) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  };
 
   // --- check if cell selected ---
 
@@ -61,9 +89,22 @@ export const Sudoku = () => {
 
   // --- render board ---
 
-  const getCellBgColor = (rowIndex: number, colIndex: number, value: number) => {
-    const isDefaultCell = initBoard.current[rowIndex][colIndex] !== EMPTY_CELL;
-    const textColor = isDefaultCell ? "text-blue-700" : "text-gray-950";
+  const getCellStyle = (rowIndex: number, colIndex: number, value: number) => {
+    const getTextColor = () => {
+      const isDefaultCell = initBoard.current[rowIndex][colIndex] !== EMPTY_CELL;
+      if (isDefaultCell) {
+        return "text-blue-700";
+      }
+
+      const isNumberIsValid = checkIfNumberIsValid(rowIndex, colIndex, value);
+      if (!isNumberIsValid) {
+        return "text-red-600";
+      }
+
+      return "text-gray-950";
+    };
+
+    const textColor = getTextColor();
 
     const isSameValueSelected = selectedNumber !== EMPTY_CELL && value === selectedNumber;
     if (isSameValueSelected) {
@@ -91,7 +132,7 @@ export const Sudoku = () => {
         setSelectedNumber(cell);
       };
 
-      const cellBgColor = getCellBgColor(rowIndex, colIndex, cell);
+      const cellStyle = getCellStyle(rowIndex, colIndex, cell);
 
       return (
         <button
@@ -105,7 +146,7 @@ export const Sudoku = () => {
             hover:bg-gray-200 focus:outline-none
             ${(colIndex + 1) % 3 === 0 && "!border-r-2 border-r-black"}
             ${(rowIndex + 1) % 3 === 0 && "!border-b-2 border-b-black"}
-            ${cellBgColor}
+            ${cellStyle}
           `}
         >
           {cell !== EMPTY_CELL && cell}
