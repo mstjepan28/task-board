@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { TBoard } from "./types/sudoku";
 import { generateSudokuGame } from "./utils/generateSudoku";
 import { clearGame, loadGame, saveGame } from "./utils/saveLoadGame";
+import { deepCopy } from "./utils/deepCopy";
 
 export const Sudoku = () => {
   const EMPTY_CELL = -1;
@@ -261,13 +262,12 @@ export const Sudoku = () => {
   const createNewGame = () => {
     const generatedGame = generateSudokuGame("easy");
 
-    // setBoard(generatedGame.puzzle);
-    setBoard(generatedGame.solution);
+    setBoard(generatedGame.puzzle);
     gameSolution.current = generatedGame.solution;
-    initBoard.current = JSON.parse(JSON.stringify(generatedGame.puzzle));
+    initBoard.current = deepCopy(generatedGame.puzzle);
 
     saveGame({
-      board: generatedGame.solution,
+      board: generatedGame.puzzle,
       initBoard: initBoard.current,
       solution: gameSolution.current,
     });
@@ -281,11 +281,13 @@ export const Sudoku = () => {
   };
 
   const resetGame = () => {
-    setBoard(initBoard.current);
+    const initBoardState = deepCopy(initBoard.current);
+
+    setBoard(initBoardState);
 
     saveGame({
-      board: initBoard.current,
-      initBoard: initBoard.current,
+      board: initBoardState,
+      initBoard: initBoardState,
       solution: gameSolution.current,
     });
   };
@@ -308,17 +310,22 @@ export const Sudoku = () => {
   }, []);
 
   return (
-    <div
-      onKeyDownCapture={(event) => handleKeyPress(event.key)}
-      className="w-full h-full flex flex-col justify-center items-center gap-y-4"
-    >
-      <div className="rounded-lg p-4 bg-gray-300">
-        <div className="grid grid-cols-9 border-t-2 border-l-2 border-gray-900 bg-white">{renderBoard()}</div>
-      </div>
+    <>
+      <button type="button" onClick={resetGame} className="absolute top-0 right-0 flex items-center py-2 px-4">
+        <span className="text-xs text-white/25">Clear Game</span>
+      </button>
+      <div
+        onKeyDownCapture={(event) => handleKeyPress(event.key)}
+        className="w-full h-full flex flex-col justify-center items-center gap-y-4"
+      >
+        <div className="rounded-lg p-4 bg-gray-300">
+          <div className="grid grid-cols-9 border-t-2 border-l-2 border-gray-900 bg-white">{renderBoard()}</div>
+        </div>
 
-      <div className="rounded-lg px-4 py-3 bg-gray-300">
-        <div className="grid grid-cols-9 gap-x-1">{renderNumbers()}</div>
+        <div className="rounded-lg px-4 py-3 bg-gray-300">
+          <div className="grid grid-cols-9 gap-x-1">{renderNumbers()}</div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
