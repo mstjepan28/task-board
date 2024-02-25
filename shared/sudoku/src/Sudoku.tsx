@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { generateSudokuGame } from "./utils/generateSudoku";
+
+type TBoard = number[][];
 
 export const Sudoku = () => {
   const EMPTY_CELL = -1;
@@ -7,8 +9,10 @@ export const Sudoku = () => {
   const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
   const [selected, setSelected] = useState<number[] | null[]>([null, null]);
 
-  const [board, setBoard] = useState<number[][]>([]);
-  const [_solution, setSolution] = useState<number[][]>([]);
+  const [board, setBoard] = useState<TBoard>([]);
+  const [_solution, setSolution] = useState<TBoard>([]);
+
+  const initBoard = useRef<TBoard>([]);
 
   // --- check if cell selected ---
 
@@ -58,22 +62,25 @@ export const Sudoku = () => {
   // --- render board ---
 
   const getCellBgColor = (rowIndex: number, colIndex: number, value: number) => {
+    const isDefaultCell = initBoard.current[rowIndex][colIndex] !== EMPTY_CELL;
+    const textColor = isDefaultCell ? "text-blue-600" : "text-black";
+
     const isSameValueSelected = selectedNumber !== EMPTY_CELL && value === selectedNumber;
     if (isSameValueSelected) {
-      return "font-semibold bg-blue-100";
+      return `font-semibold bg-blue-100 ${textColor}`;
     }
 
     const isSelectedCell = isPrimarySelect(rowIndex, colIndex);
     if (isSelectedCell) {
-      return "bg-gray-100";
+      return `bg-gray-100 ${textColor}`;
     }
 
     const isSelected = checkIfCellSelected(rowIndex, colIndex);
     if (isSelected) {
-      return "bg-blue-50";
+      return `bg-blue-50 ${textColor}`;
     }
 
-    return "bg-white";
+    return `bg-white ${textColor}`;
   };
 
   const renderBoardRow = (boardRow: number[], rowIndex: number) => {
@@ -119,10 +126,15 @@ export const Sudoku = () => {
       return;
     }
 
+    if (initBoard.current[row][col] !== EMPTY_CELL) {
+      return;
+    }
+
     const boardCopy = [...board];
     boardCopy[row][col] = number;
 
     setSelectedNumber(number);
+
     setBoard(boardCopy);
   };
 
@@ -192,13 +204,13 @@ export const Sudoku = () => {
     }
   };
 
-  // --- ui ---
-
   useEffect(() => {
     const generatedGame = generateSudokuGame("easy");
 
     setBoard(generatedGame.puzzle);
     setSolution(generatedGame.solution);
+
+    initBoard.current = JSON.parse(JSON.stringify(generatedGame.puzzle));
   }, []);
 
   return (
