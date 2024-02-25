@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { TBoard } from "./types/sudoku";
 import { generateSudokuGame } from "./utils/generateSudoku";
-import { loadGame, saveGame } from "./utils/saveLoadGame";
+import { clearGame, loadGame, saveGame } from "./utils/saveLoadGame";
 
 export const Sudoku = () => {
   const EMPTY_CELL = -1;
@@ -97,6 +97,7 @@ export const Sudoku = () => {
       }
 
       const isNumberIsValid = checkIfNumberIsValid(rowIndex, colIndex, value);
+      console.log("isNumberIsValid", isNumberIsValid);
       if (!isNumberIsValid) {
         return "text-red-600";
       }
@@ -177,6 +178,13 @@ export const Sudoku = () => {
     setSelectedNumber(number);
     setBoard(boardCopy);
 
+    const gameFinished = checkForWin();
+
+    if (gameFinished) {
+      alert("You won!");
+      clearCurrentGame();
+    }
+
     saveGame({
       board: boardCopy,
       initBoard: initBoard.current,
@@ -253,15 +261,38 @@ export const Sudoku = () => {
   const createNewGame = () => {
     const generatedGame = generateSudokuGame("easy");
 
-    setBoard(generatedGame.puzzle);
+    // setBoard(generatedGame.puzzle);
+    setBoard(generatedGame.solution);
     gameSolution.current = generatedGame.solution;
     initBoard.current = JSON.parse(JSON.stringify(generatedGame.puzzle));
 
     saveGame({
-      board: generatedGame.puzzle,
+      board: generatedGame.solution,
       initBoard: initBoard.current,
       solution: gameSolution.current,
     });
+  };
+
+  const checkForWin = () => {
+    const flatBoard = board.flat();
+    const flatSolution = gameSolution.current.flat();
+
+    return flatBoard.every((cell, index) => cell === flatSolution[index]);
+  };
+
+  const resetGame = () => {
+    setBoard(initBoard.current);
+
+    saveGame({
+      board: initBoard.current,
+      initBoard: initBoard.current,
+      solution: gameSolution.current,
+    });
+  };
+
+  const clearCurrentGame = () => {
+    clearGame();
+    createNewGame();
   };
 
   useEffect(() => {

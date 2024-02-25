@@ -8,3 +8,7 @@ export const saveGame = (game: TSaveGame) => {
 export const loadGame = () => {
   return storage.getItem<TSaveGame>("sudoku-game");
 };
+
+export const clearGame = () => {
+  storage.removeItem("sudoku-game");
+};
