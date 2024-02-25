@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { generateSudokuGame } from "./utils/generateSudoku";
-
-type TBoard = number[][];
+import { TBoard } from "./types/sudoku";
+import { loadGame, saveGame } from "./utils/saveLoadGame";
 
 export const Sudoku = () => {
   const EMPTY_CELL = -1;
@@ -10,9 +10,9 @@ export const Sudoku = () => {
   const [selected, setSelected] = useState<number[] | null[]>([null, null]);
 
   const [board, setBoard] = useState<TBoard>([]);
-  const [_solution, setSolution] = useState<TBoard>([]);
 
   const initBoard = useRef<TBoard>([]);
+  const gameSolution = useRef<TBoard>([]);
 
   // --- check if cell selected ---
 
@@ -63,7 +63,7 @@ export const Sudoku = () => {
 
   const getCellBgColor = (rowIndex: number, colIndex: number, value: number) => {
     const isDefaultCell = initBoard.current[rowIndex][colIndex] !== EMPTY_CELL;
-    const textColor = isDefaultCell ? "text-blue-600" : "text-black";
+    const textColor = isDefaultCell ? "text-blue-700" : "text-gray-950";
 
     const isSameValueSelected = selectedNumber !== EMPTY_CELL && value === selectedNumber;
     if (isSameValueSelected) {
@@ -134,8 +134,13 @@ export const Sudoku = () => {
     boardCopy[row][col] = number;
 
     setSelectedNumber(number);
-
     setBoard(boardCopy);
+
+    saveGame({
+      board: boardCopy,
+      initBoard: initBoard.current,
+      solution: gameSolution.current,
+    });
   };
 
   const renderNumbers = () => {
@@ -204,13 +209,30 @@ export const Sudoku = () => {
     }
   };
 
-  useEffect(() => {
+  const createNewGame = () => {
     const generatedGame = generateSudokuGame("easy");
 
     setBoard(generatedGame.puzzle);
-    setSolution(generatedGame.solution);
-
+    gameSolution.current = generatedGame.solution;
     initBoard.current = JSON.parse(JSON.stringify(generatedGame.puzzle));
+
+    saveGame({
+      board: generatedGame.puzzle,
+      initBoard: initBoard.current,
+      solution: gameSolution.current,
+    });
+  };
+
+  useEffect(() => {
+    const loadedGame = loadGame();
+    if (!loadedGame) {
+      createNewGame();
+      return;
+    }
+
+    setBoard(loadedGame.board);
+    initBoard.current = loadedGame.initBoard;
+    gameSolution.current = loadedGame.solution;
   }, []);
 
   return (
