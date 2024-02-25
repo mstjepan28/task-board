@@ -836,6 +836,7 @@ __metadata:
     "@services/storage": "workspace:^"
     dayjs: "npm:^1.11.10"
     react: "npm:^18.2.0"
+    sudoku-gen: "npm:1.0.2"
   languageName: unknown
   linkType: soft
 
@@ -3616,6 +3617,13 @@ __metadata:
     sucrase: bin/sucrase
     sucrase-node: bin/sucrase-node
   checksum: 10/3f18c8db09fee863fc930b64bad738d8710d7aa56ecf900849e159f12ead68c09565ae7d5cef8341123950a035e95ed4d0f8474418623fb702164f4853bab57f
+  languageName: node
+  linkType: hard
+
+"sudoku-gen@npm:1.0.2":
+  version: 1.0.2
+  resolution: "sudoku-gen@npm:1.0.2"
+  checksum: 10/ef96c9f6fbc07d97ab09d0c1827f9d5b605506d95e818ef125f5e7f1e2c373f41afc99ca1ff3a47b352196907e0b34b803cc9c408111ae5a5ab92676f849a895
   languageName: node
   linkType: hard
 

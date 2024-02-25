@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { generateSudokuGame } from "./utils/generateSudoku";
 
 export const Sudoku = () => {
   const EMPTY_CELL = -1;
@@ -7,6 +8,7 @@ export const Sudoku = () => {
   const [selected, setSelected] = useState<number[] | null[]>([null, null]);
 
   const [board, setBoard] = useState<number[][]>([]);
+  const [_solution, setSolution] = useState<number[][]>([]);
 
   // --- check if cell selected ---
 
@@ -51,16 +53,6 @@ export const Sudoku = () => {
     }
 
     return cellRow === selected[0] && cellCol === selected[1];
-  };
-
-  // --- generate board ---
-
-  const generateBoard = () => {
-    const newBoard = Array.from({ length: 9 }).map(() => {
-      return Array.from({ length: 9 }, () => EMPTY_CELL);
-    });
-
-    setBoard(newBoard);
   };
 
   // --- render board ---
@@ -203,7 +195,10 @@ export const Sudoku = () => {
   // --- ui ---
 
   useEffect(() => {
-    generateBoard();
+    const generatedGame = generateSudokuGame("easy");
+
+    setBoard(generatedGame.puzzle);
+    setSolution(generatedGame.solution);
   }, []);
 
   return (

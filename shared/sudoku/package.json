@@ -6,6 +6,7 @@
   "dependencies": {
     "@services/storage": "workspace:^",
     "dayjs": "^1.11.10",
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "sudoku-gen": "1.0.2"
   }
 }
