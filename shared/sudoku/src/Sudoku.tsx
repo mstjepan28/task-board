@@ -17,15 +17,29 @@ export const Sudoku = () => {
 
   // --- check if number placement is valid ---
   const checkIfNumberIsValid = (row: number, col: number, number: number) => {
-    return checkIfRowIsValid(row, number) && checkIfColIsValid(col, number) && checkIfSectionIsValid(row, col, number);
+    return (
+      checkIfRowIsValid(row, col, number) &&
+      checkIfColIsValid(row, col, number) &&
+      checkIfSectionIsValid(row, col, number)
+    );
   };
 
-  const checkIfRowIsValid = (row: number, number: number) => {
-    return !board[row].includes(number);
+  const checkIfRowIsValid = (row: number, col: number, number: number) => {
+    return !board[row].some((cell, index) => {
+      if (index === col) {
+        return false;
+      }
+      return cell === number;
+    });
   };
 
-  const checkIfColIsValid = (col: number, number: number) => {
-    return !board.some((row) => row[col] === number);
+  const checkIfColIsValid = (row: number, col: number, number: number) => {
+    return !board.some((curRow, index) => {
+      if (index === row) {
+        return false;
+      }
+      return curRow[col] === number;
+    });
   };
 
   const checkIfSectionIsValid = (row: number, col: number, number: number) => {
@@ -34,6 +48,10 @@ export const Sudoku = () => {
 
     for (let i = rowStart; i < rowStart + 3; i++) {
       for (let j = colStart; j < colStart + 3; j++) {
+        if (i === row && j === col) {
+          continue;
+        }
+
         if (board[i][j] === number) {
           return false;
         }
@@ -91,6 +109,10 @@ export const Sudoku = () => {
   // --- render board ---
 
   const getCellStyle = (rowIndex: number, colIndex: number, value: number) => {
+    if (value === EMPTY_CELL) {
+      return "bg-white";
+    }
+
     const getTextColor = () => {
       const isDefaultCell = initBoard.current[rowIndex][colIndex] !== EMPTY_CELL;
       if (isDefaultCell) {
@@ -98,7 +120,6 @@ export const Sudoku = () => {
       }
 
       const isNumberIsValid = checkIfNumberIsValid(rowIndex, colIndex, value);
-      console.log("isNumberIsValid", isNumberIsValid);
       if (!isNumberIsValid) {
         return "text-red-600";
       }
