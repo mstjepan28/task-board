@@ -811,6 +811,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@services/utils@workspace:^, @services/utils@workspace:services/utils":
+  version: 0.0.0-use.local
+  resolution: "@services/utils@workspace:services/utils"
+  languageName: unknown
+  linkType: soft
+
 "@shared/cryptogram@workspace:shared/cryptogram":
   version: 0.0.0-use.local
   resolution: "@shared/cryptogram@workspace:shared/cryptogram"
@@ -834,6 +840,7 @@ __metadata:
   resolution: "@shared/sudoku@workspace:shared/sudoku"
   dependencies:
     "@services/storage": "workspace:^"
+    "@services/utils": "workspace:^"
     dayjs: "npm:^1.11.10"
     react: "npm:^18.2.0"
     sudoku-gen: "npm:1.0.2"

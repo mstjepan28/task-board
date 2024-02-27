@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { TBoard } from "./types/sudoku";
 import { generateSudokuGame } from "./utils/generateSudoku";
 import { clearGame, loadGame, saveGame } from "./utils/saveLoadGame";
-import { deepCopy } from "./utils/deepCopy";
+import { deepCopy } from "@services/utils";
 
 export const Sudoku = () => {
   const EMPTY_CELL = -1;

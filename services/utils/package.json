@@ -1,0 +1,6 @@
+{
+  "name": "@services/utils",
+  "private": true,
+  "version": "1",
+  "main": "./src"
+}
