@@ -19,28 +19,34 @@ export const TaskBoard = () => {
       <CreateEditTaskDrawer baseRef={baseRef} />
 
       <div className="h-full flex flex-col">
-        <div className="flex basis-full gap-x-4 px-8 py-4">
-          <TaskColumn
-            status={TaskStatus.PENDING}
-            taskList={groupedTasks[TaskStatus.PENDING]}
-            onTaskClick={openDrawer}
-          />
-          <TaskColumn
-            status={TaskStatus.IN_PROGRESS}
-            taskList={groupedTasks[TaskStatus.IN_PROGRESS]}
-            onTaskClick={openDrawer}
-          />
-          <TaskColumn
-            status={TaskStatus.CANCELED}
-            taskList={groupedTasks[TaskStatus.CANCELED]}
-            onTaskClick={openDrawer}
-          />
-          <TaskColumn status={TaskStatus.FAILED} onTaskClick={openDrawer} taskList={groupedTasks[TaskStatus.FAILED]} />
-          <TaskColumn
-            status={TaskStatus.COMPLETED}
-            taskList={groupedTasks[TaskStatus.COMPLETED]}
-            onTaskClick={openDrawer}
-          />
+        <div className="basis-full">
+          <div className="h-full flex gap-x-4 px-8 py-4">
+            <TaskColumn
+              status={TaskStatus.PENDING}
+              taskList={groupedTasks[TaskStatus.PENDING]}
+              onTaskClick={openDrawer}
+            />
+            <TaskColumn
+              status={TaskStatus.IN_PROGRESS}
+              taskList={groupedTasks[TaskStatus.IN_PROGRESS]}
+              onTaskClick={openDrawer}
+            />
+            <TaskColumn
+              status={TaskStatus.CANCELED}
+              taskList={groupedTasks[TaskStatus.CANCELED]}
+              onTaskClick={openDrawer}
+            />
+            <TaskColumn
+              status={TaskStatus.FAILED}
+              onTaskClick={openDrawer}
+              taskList={groupedTasks[TaskStatus.FAILED]}
+            />
+            <TaskColumn
+              status={TaskStatus.COMPLETED}
+              taskList={groupedTasks[TaskStatus.COMPLETED]}
+              onTaskClick={openDrawer}
+            />
+          </div>
         </div>
       </div>
     </>
