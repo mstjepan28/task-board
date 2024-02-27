@@ -6,6 +6,7 @@ import { TTask } from "../types/task";
 import { TaskColumn } from "./TaskColumn";
 import { CreateEditTaskDrawer } from "./drawer/CreateEditTaskDrawer";
 import { Button, Searchbar } from "@services/ui-library";
+import { DeleteButton } from "./DeleteButton";
 
 export const TaskBoard = () => {
   const { groupedTasks } = useContext(TaskListContext);
@@ -24,7 +25,7 @@ export const TaskBoard = () => {
           <div className="flex items-stretch gap-x-4">
             <Searchbar />
             <Button className="hover:bg-blue-600 transition-all">Create</Button>
-            <Button className="hover:bg-red-600 transition-all">Delete</Button>
+            <DeleteButton />
           </div>
 
           <div className="basis-full flex gap-x-4 ">

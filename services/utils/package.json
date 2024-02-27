@@ -2,5 +2,11 @@
   "name": "@services/utils",
   "private": true,
   "version": "1",
-  "main": "./src"
+  "main": "./src",
+  "dependencies": {
+    "throttle-debounce": "5.0.0"
+  },
+  "devDependencies": {
+    "@types/throttle-debounce": "5.0.2"
+  }
 }
