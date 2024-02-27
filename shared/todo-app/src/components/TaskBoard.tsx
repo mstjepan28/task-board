@@ -5,6 +5,7 @@ import { TOverlayRef } from "../types/overlay";
 import { TTask } from "../types/task";
 import { TaskColumn } from "./TaskColumn";
 import { CreateEditTaskDrawer } from "./drawer/CreateEditTaskDrawer";
+import { Button, Searchbar } from "@services/ui-library";
 
 export const TaskBoard = () => {
   const { groupedTasks } = useContext(TaskListContext);
@@ -19,8 +20,14 @@ export const TaskBoard = () => {
       <CreateEditTaskDrawer baseRef={baseRef} />
 
       <div className="h-full flex flex-col">
-        <div className="basis-full">
-          <div className="h-full flex gap-x-4 px-8 py-4">
+        <div className="basis-full flex-col flex px-8 py-4 space-y-4">
+          <div className="flex items-stretch gap-x-4">
+            <Searchbar />
+            <Button className="hover:bg-blue-600 transition-all">Create</Button>
+            <Button className="hover:bg-red-600 transition-all">Delete</Button>
+          </div>
+
+          <div className="basis-full flex gap-x-4 ">
             <TaskColumn
               status={TaskStatus.PENDING}
               taskList={groupedTasks[TaskStatus.PENDING]}

@@ -268,7 +268,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.21.0":
+"@babel/runtime@npm:^7.21.0, @babel/runtime@npm:^7.23.7":
   version: 7.23.9
   resolution: "@babel/runtime@npm:7.23.9"
   dependencies:
@@ -811,6 +811,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@services/ui-library@workspace:^, @services/ui-library@workspace:services/ui-library":
+  version: 0.0.0-use.local
+  resolution: "@services/ui-library@workspace:services/ui-library"
+  dependencies:
+    react: "npm:^18.2.0"
+    react-dom: "npm:^18.2.0"
+    tailwind-merge: "npm:^2.2.1"
+  languageName: unknown
+  linkType: soft
+
 "@services/utils@workspace:^, @services/utils@workspace:services/utils":
   version: 0.0.0-use.local
   resolution: "@services/utils@workspace:services/utils"
@@ -852,6 +862,7 @@ __metadata:
   resolution: "@shared/todo-app@workspace:shared/todo-app"
   dependencies:
     "@services/storage": "workspace:^"
+    "@services/ui-library": "workspace:^"
     "@tanstack/react-router": "npm:^1.16.6"
     dayjs: "npm:^1.11.10"
     react: "npm:^18.2.0"
@@ -3660,6 +3671,15 @@ __metadata:
     string-width: "npm:^4.2.3"
     strip-ansi: "npm:^6.0.1"
   checksum: 10/512c4f2bfb6f46f4d5ced19943ae5db1a5163eac1f23ce752625eb49715f84217c1c62bc2d017eb8985b37e0f85731108f654df809c0b34cca1678a672e7ea20
+  languageName: node
+  linkType: hard
+
+"tailwind-merge@npm:^2.2.1":
+  version: 2.2.1
+  resolution: "tailwind-merge@npm:2.2.1"
+  dependencies:
+    "@babel/runtime": "npm:^7.23.7"
+  checksum: 10/3d8aecfa03c077472a038f25e95504ca47c1e7549ab843a854a690509098caac4e2e57790a7cadda4054fd07ec31421980a7afac33547013cf22299788625e72
   languageName: node
   linkType: hard
 

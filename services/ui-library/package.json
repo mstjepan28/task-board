@@ -1,0 +1,11 @@
+{
+  "name": "@services/ui-library",
+  "private": true,
+  "version": "1",
+  "main": "./src",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwind-merge": "^2.2.1"
+  }
+}
