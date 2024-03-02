@@ -1,3 +1,4 @@
+import { Button, InputField } from "@services/ui-library";
 import { FormEvent, useMemo } from "react";
 import { TTask } from "../../types/task";
 
@@ -15,6 +16,11 @@ export const TaskForm = ({ initData, onClose }: IProps) => {
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const formData = new FormData(event.target as HTMLFormElement);
+    const formValues = Object.fromEntries(formData.entries());
+    console.log(JSON.stringify(formValues, null, 2));
+
     onClose();
   };
 
@@ -28,7 +34,13 @@ export const TaskForm = ({ initData, onClose }: IProps) => {
         <span className="text-lg">{title}</span>
       </div>
 
-      <div></div>
+      <div className="grid gap-y-4">
+        <InputField label="Input field" name="field#1" />
+      </div>
+
+      <div className="flex justify-end pt-4">
+        <Button type="submit">Submit</Button>
+      </div>
     </form>
   );
 };
