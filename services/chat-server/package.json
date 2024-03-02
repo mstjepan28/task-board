@@ -6,6 +6,6 @@
     "start": "bun --hot ./src/index.ts"
   },
   "devDependencies": {
-    "bun-types": "1.0.28"
+    "bun-types": "1.0.29"
   }
 }
