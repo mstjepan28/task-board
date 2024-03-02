@@ -43,10 +43,15 @@ export const TaskColumn = ({ status, taskList, onTaskClick }: IProps) => {
   };
 
   return (
-    <div className="basis-full flex flex-col rounded-md bg-white/10 border border-white">
+    <div className="basis-full flex flex-col rounded-md border border-white">
       <div className="text-white font-semibold border-b px-4 py-2">{title}</div>
 
-      <div id={columnId} onDrop={onDrop} onDragOver={onDragOver} className="basis-full">
+      <div
+        id={columnId}
+        onDrop={onDrop}
+        onDragOver={onDragOver}
+        className="basis-full"
+      >
         {renderTaskList()}
       </div>
     </div>

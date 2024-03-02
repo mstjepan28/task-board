@@ -20,7 +20,7 @@ export const TaskCard = ({ task, onClick }: IProps) => {
       data-ordinal={task.ordinalNumber}
       onDrag={() => dragTask(task.id)}
       style={{ viewTransitionName: cardId }}
-      className="w-full text-start px-2 py-1"
+      className="w-full text-start p-2"
       draggable
     >
       <div className="pointer-events-none bg-white rounded-lg p-2">
@@ -28,7 +28,9 @@ export const TaskCard = ({ task, onClick }: IProps) => {
           <p className="text-sm font-medium">{task.description}</p>
         </div>
         <div className="flex text-end mt-2">
-          <small className="italic">{dayjs(task.createdAt).format("DD.MM.YYYY. HH:mm:ss")}</small>
+          <small className="italic">
+            {dayjs(task.createdAt).format("DD.MM.YYYY. HH:mm:ss")}
+          </small>
         </div>
       </div>
     </button>
