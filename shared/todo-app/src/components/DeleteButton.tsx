@@ -1,6 +1,8 @@
-import { DragEvent, useRef } from "react";
+import { DragEvent, useContext, useRef } from "react";
+import { TaskListContext } from "../context/TaskListContext";
 
 export const DeleteButton = () => {
+  const { deleteTask } = useContext(TaskListContext);
   const deleteZoneRef = useRef<HTMLDivElement>(null);
 
   const expandDeleteZone = (event: DragEvent<HTMLDivElement>) => {
@@ -15,8 +17,10 @@ export const DeleteButton = () => {
     deleteZoneRef.current?.classList.remove("w-36");
   };
 
-  const deleteItem = () => {
-    console.log("implement delete");
+  const onDropInDeleteZone = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    deleteTask();
+
     hideDeleteZone();
   };
 
@@ -31,7 +35,7 @@ export const DeleteButton = () => {
 
         <div
           ref={deleteZoneRef}
-          onDrop={deleteItem}
+          onDrop={onDropInDeleteZone}
           className="
             w-0 flex justify-center items-center overflow-hidden 
             aspect-square bg-red-600 rounded-lg transition-all 

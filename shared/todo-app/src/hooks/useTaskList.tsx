@@ -226,6 +226,23 @@ export const useTaskList = () => {
     }
   };
 
+  const deleteTask = () => {
+    const taskId = movingTaskId.current;
+    if (taskId === null) {
+      console.error("Task not found");
+      movingTaskId.current = null;
+
+      return;
+    }
+
+    const updatedTaskList = taskList.filter((task) => task.id !== taskId);
+    storage.setItem("task-list", updatedTaskList);
+    movingTaskId.current = null;
+
+    setTaskList(updatedTaskList);
+    destroyPlaceholder();
+  };
+
   return {
     dragTask,
     dropTask,
@@ -233,5 +250,6 @@ export const useTaskList = () => {
     groupedTasks,
     getColumnId,
     getTaskId,
+    deleteTask,
   };
 };
