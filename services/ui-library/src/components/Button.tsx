@@ -5,11 +5,16 @@ interface IProps {
   type?: "button" | "submit" | "reset" | undefined;
   children?: ReactNode | undefined;
   className?: string | undefined;
+  onClick?: () => void;
 }
 
-export const Button = ({ type, children, className }: IProps) => {
+export const Button = ({ type, onClick, children, className }: IProps) => {
   return (
-    <button type={type || "button"} className={twMerge("border rounded-lg text-white px-2 py-1", className || "")}>
+    <button
+      onClick={onClick}
+      type={type || "button"}
+      className={twMerge("border rounded-lg text-white px-2 py-1", className || "")}
+    >
       {children}
     </button>
   );
