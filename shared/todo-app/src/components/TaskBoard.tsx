@@ -24,10 +24,7 @@ export const TaskBoard = () => {
         <div className="basis-full flex-col flex px-8 py-4 space-y-4">
           <div className="flex items-stretch gap-x-4">
             <Searchbar />
-            <Button
-              onClick={() => openDrawer()}
-              className="hover:bg-blue-600 transition-all"
-            >
+            <Button onClick={() => openDrawer()} className="hover:bg-blue-600 transition-all">
               Create
             </Button>
             <DeleteButton />

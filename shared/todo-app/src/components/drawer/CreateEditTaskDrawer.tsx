@@ -6,14 +6,11 @@ import { TTask } from "../../types/task";
 
 export const CreateEditTaskDrawer = ({ baseRef }: IOverlayElement) => {
   const closeModal = () => baseRef?.current?.close() || (() => console.error("baseRef is not defined"));
-  const [selectedTask, setSelectedTask] = useState<TTask>({} as TTask);
 
-  const onOpen = (task?: unknown | undefined) => {
-    if (!task) {
-      return;
-    }
+  const [selectedTask, setSelectedTask] = useState<TTask | undefined>(undefined);
 
-    setSelectedTask(task as TTask);
+  const onOpen = (task?: unknown) => {
+    setSelectedTask(task as TTask | undefined);
   };
 
   return (

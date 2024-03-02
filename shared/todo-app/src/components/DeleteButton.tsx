@@ -25,11 +25,7 @@ export const DeleteButton = () => {
   };
 
   return (
-    <div
-      className="relative flex"
-      onDragOver={expandDeleteZone}
-      onDragLeave={hideDeleteZone}
-    >
+    <div className="relative flex" onDragOver={expandDeleteZone} onDragLeave={hideDeleteZone}>
       <span className="invisible px-2 max-h-0">Delete</span>
 
       <div className="z-10 top-0 right-0 absolute flex flex-col items-end">
@@ -46,9 +42,7 @@ export const DeleteButton = () => {
             duration-1000 top-1 relative
           "
         >
-          <span className="whitespace-nowrap text-white text-xs">
-            Drop here to delete
-          </span>
+          <span className="whitespace-nowrap text-white text-xs">Drop here to delete</span>
         </div>
       </div>
     </div>
