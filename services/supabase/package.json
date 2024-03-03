@@ -1,0 +1,9 @@
+{
+  "name": "@services/supabase",
+  "private": true,
+  "version": "1",
+  "main": "./src",
+  "dependencies": {
+    "@supabase/supabase-js": "2.39.7"
+  }
+}
