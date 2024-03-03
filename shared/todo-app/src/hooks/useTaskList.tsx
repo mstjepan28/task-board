@@ -1,4 +1,5 @@
 import { storage } from "@services/storage";
+import { supabase } from "@services/supabase";
 import dayjs from "dayjs";
 import { DragEvent, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
@@ -242,6 +243,18 @@ export const useTaskList = () => {
     setTaskList(updatedTaskList);
     destroyPlaceholder();
   };
+
+  useEffect(() => {
+    const getTodos = async () => {
+      const { data: todos } = await supabase.from("todos").select();
+
+      if (todos && todos.length > 1) {
+        console.log("todos", todos);
+      }
+    };
+
+    getTodos();
+  }, []);
 
   return {
     dragTask,

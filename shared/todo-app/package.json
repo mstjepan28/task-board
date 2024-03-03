@@ -3,9 +3,10 @@
   "main": "./src",
   "dependencies": {
     "@services/storage": "workspace:^",
+    "@services/supabase": "workspace:^",
     "@services/ui-library": "workspace:^",
     "@services/utils": "workspace:^",
-    "@tanstack/react-router": "^1.18.1",
+    "@tanstack/react-router": "^1.18.3",
     "dayjs": "^1.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
