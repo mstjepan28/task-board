@@ -1,5 +1,6 @@
 import { Button, TextArea } from "@services/ui-library";
-import { FormEvent, useMemo } from "react";
+import { FormEvent, useContext, useMemo } from "react";
+import { TaskListContext } from "../../context/TaskListContext";
 import { TTask } from "../../types/task";
 
 interface IProps {
@@ -8,6 +9,7 @@ interface IProps {
 }
 
 export const TaskForm = ({ initData, onClose }: IProps) => {
+  const { createTask } = useContext(TaskListContext);
   const isEdit = initData?.id !== undefined;
 
   const title = useMemo(() => {
@@ -19,8 +21,11 @@ export const TaskForm = ({ initData, onClose }: IProps) => {
 
     const formData = new FormData(event.target as HTMLFormElement);
     const formValues = Object.fromEntries(formData.entries());
-    console.log(JSON.stringify(formValues, null, 2));
 
+    const description = formValues.description as string;
+    createTask("pending", description);
+
+    event.currentTarget.reset();
     onClose();
   };
 

@@ -244,17 +244,32 @@ export const useTaskList = () => {
     destroyPlaceholder();
   };
 
-  useEffect(() => {
-    const getTodos = async () => {
-      const { data: todos } = await supabase.from("todos").select();
+  const createTask = async (status: TTaskStatus, description: string) => {
+    const ordinalNumber = groupedTasks[status].length + 1;
 
-      if (todos && todos.length > 1) {
-        console.log("todos", todos);
-      }
-    };
+    const newTask = {
+      ordinalNumber: ordinalNumber,
+      description: description,
+      status: status,
+    } as TTask;
 
-    getTodos();
-  }, []);
+    const res = await supabase.from("tasks").insert([newTask]);
+    console.log(res);
+
+    const updatedTaskList = [...taskList, newTask];
+    storage.setItem("task-list", updatedTaskList);
+    setTaskList(updatedTaskList);
+  };
+
+  // useEffect(() => {
+  //   const getTodos = async () => {
+  //     const res = await supabase.from("tasks").select();
+
+  //     console.log("todos", res);
+  //   };
+
+  //   getTodos();
+  // }, []);
 
   return {
     dragTask,
@@ -264,5 +279,6 @@ export const useTaskList = () => {
     getColumnId,
     getTaskId,
     deleteTask,
+    createTask,
   };
 };
