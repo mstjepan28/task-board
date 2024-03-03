@@ -1,4 +1,4 @@
-import { Button, InputField } from "@services/ui-library";
+import { Button, TextArea } from "@services/ui-library";
 import { FormEvent, useMemo } from "react";
 import { TTask } from "../../types/task";
 
@@ -35,7 +35,7 @@ export const TaskForm = ({ initData, onClose }: IProps) => {
       </div>
 
       <div className="grid gap-y-4">
-        <InputField label="Input field" name="field#1" />
+        <TextArea label="Input field" name="description" />
       </div>
 
       <div className="flex justify-end pt-4">
