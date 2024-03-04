@@ -19,7 +19,7 @@ export const TaskCard = ({ task, onClick }: IProps) => {
       type="button"
       onClick={onClick}
       data-ordinal={task.ordinalNumber}
-      onDrag={() => dragTask(task.id)}
+      onDrag={() => dragTask(task)}
       style={{ viewTransitionName: cardId }}
       className="w-full text-start p-2"
       draggable

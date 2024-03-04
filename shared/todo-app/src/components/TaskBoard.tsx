@@ -1,12 +1,12 @@
+import { Button, Searchbar } from "@services/ui-library";
 import { useContext, useRef } from "react";
 import { TaskListContext } from "../context/TaskListContext";
 import { TaskStatus } from "../enums/taskStatus";
 import { TOverlayRef } from "../types/overlay";
 import { TTask } from "../types/task";
+import { DeleteButton } from "./DeleteButton";
 import { TaskColumn } from "./TaskColumn";
 import { CreateEditTaskDrawer } from "./drawer/CreateEditTaskDrawer";
-import { Button, Searchbar } from "@services/ui-library";
-import { DeleteButton } from "./DeleteButton";
 
 export const TaskBoard = () => {
   const { groupedTasks } = useContext(TaskListContext);
@@ -24,7 +24,10 @@ export const TaskBoard = () => {
         <div className="basis-full flex-col flex px-8 py-4 space-y-4">
           <div className="flex items-stretch gap-x-4">
             <Searchbar />
-            <Button onClick={() => openDrawer()} className="hover:bg-blue-600 transition-all">
+            <Button
+              onClick={() => openDrawer()}
+              className="hover:bg-blue-600 transition-all"
+            >
               Create
             </Button>
             <DeleteButton />
