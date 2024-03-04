@@ -204,7 +204,6 @@ export const useTaskList = () => {
   // ------------------------------------------------- //
   // ------------ Handle task crud ------------------- //
   // ------------------------------------------------- //
-
   const createTask = async (status: TTaskStatus, description: string) => {
     const ordinalNumber = groupedTasks[status].length + 1;
 
@@ -220,7 +219,7 @@ export const useTaskList = () => {
     setTaskList([...taskList, newTask]);
   };
 
-  const deleteTask = () => {
+  const deleteTask = async () => {
     const taskId = movingTaskId.current;
     if (taskId === null) {
       console.error("Task not found");
@@ -229,11 +228,13 @@ export const useTaskList = () => {
       return;
     }
 
-    const updatedTaskList = taskList.filter((task) => task.id !== taskId);
-    movingTaskId.current = null;
+    await supabase.from("tasks").delete().eq("id", taskId);
 
+    const updatedTaskList = taskList.filter((task) => task.id !== taskId);
     setTaskList(updatedTaskList);
+
     destroyPlaceholder();
+    movingTaskId.current = null;
   };
 
   const readTaskList = async () => {
