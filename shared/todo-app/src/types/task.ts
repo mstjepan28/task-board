@@ -5,6 +5,6 @@ export type TTask = {
   ordinalNumber: number;
   description: string;
   status: TTaskStatus;
-  createdAt: string;
-  updatedAt: string;
+  created_at: string;
+  updated_at: string;
 };

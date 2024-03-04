@@ -1,44 +1,16 @@
-import { storage } from "@services/storage";
 import { supabase } from "@services/supabase";
 import dayjs from "dayjs";
 import { DragEvent, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { TTaskStatus, TaskStatus } from "../enums/taskStatus";
 import { TTask } from "../types/task";
+import { COL_PREFIX, TASK_PREFIX } from "../utils/helpers";
 
 export const useTaskList = () => {
   const [taskList, setTaskList] = useState<TTask[]>([]);
 
-  const generateTaskList = () => {
-    const generateTask = (_: unknown, index: number) => {
-      const ordinalNumber = index + 1;
-
-      const item = {
-        id: `${Date.now()}-${Math.random() * 1000}`.replace(".", ""),
-        ordinalNumber: ordinalNumber,
-        description: `Task description #${ordinalNumber}`,
-        status: TaskStatus.PENDING,
-        createdAt: dayjs().toISOString(),
-        updatedAt: dayjs().toISOString(),
-      } satisfies TTask;
-
-      return item as TTask;
-    };
-
-    const taskList = Array.from({ length: 10 }, generateTask);
-    storage.setItem("task-list", taskList);
-
-    return taskList;
-  };
-
-  const getTaskList = () => {
-    const taskList = storage.getItem<TTask[]>("task-list");
-    if (taskList) {
-      return taskList;
-    }
-
-    return generateTaskList();
-  };
+  const movingTaskId = useRef<string | null>(null);
+  const movingTaskOrdinal = useRef<number | null>(null);
 
   const groupedTasks = useMemo(() => {
     const initTaskGroup = {
@@ -61,25 +33,22 @@ export const useTaskList = () => {
     }, initTaskGroup);
   }, [taskList]);
 
-  useEffect(() => {
-    const readTaskList = getTaskList();
-    setTaskList(readTaskList);
-  }, []);
+  // ------------------------------------------------- //
+  // ------------------- Helpers --------------------- //
+  // ------------------------------------------------- //
+  const updateTaskListData = (taskId: string, newStatus: TTaskStatus) => {
+    const updatedTaskList = taskList.map((task) => {
+      if (task.id === taskId) {
+        task.status = newStatus;
+        task.updated_at = dayjs().toISOString();
+        task.ordinalNumber = movingTaskOrdinal.current ?? task.ordinalNumber;
+      }
 
-  // ------ Generate ids ----------- //
-  const COL_PREFIX = "column" as const;
-  const TASK_PREFIX = "task" as const;
+      return task;
+    });
 
-  const getColumnId = (status: TTaskStatus) => {
-    return `${COL_PREFIX}-${status}` as const;
-  };
+    updatedTaskList.sort((a, b) => a.ordinalNumber - b.ordinalNumber);
 
-  const getTaskId = (taskId: string) => {
-    return `${TASK_PREFIX}-${taskId}` as const;
-  };
-
-  // ------ Helpers ---------------- //
-  const resetOrdinalNumbers = (taskList: TTask[]) => {
     const groupCount = {
       [TaskStatus.PENDING]: 0,
       [TaskStatus.IN_PROGRESS]: 0,
@@ -88,22 +57,39 @@ export const useTaskList = () => {
       [TaskStatus.COMPLETED]: 0,
     } as Record<TTaskStatus, number>;
 
-    for (const task of taskList) {
+    for (const task of updatedTaskList) {
       groupCount[task.status] += 1;
       task.ordinalNumber = groupCount[task.status];
     }
 
-    return taskList;
+    return updatedTaskList;
   };
 
-  // ------ Placeholder ------------ //
+  const updateTaskListUi = (updatedTaskList: TTask[]) => {
+    // @ts-ignore
+    if (typeof document.startViewTransition === "function") {
+      // @ts-ignore
+      document.startViewTransition(() => {
+        flushSync(() => setTaskList(updatedTaskList));
+      });
+    } else {
+      setTaskList(updatedTaskList);
+    }
+  };
+
+  // ------------------------------------------------- //
+  // ------------ Handle placeholder ----------------- //
+  // ------------------------------------------------- //
   const PLACEHOLDER_ID = "placeholder-elem" as const;
   const placeholder = useRef({
     elementId: null as string | null,
     isUpperHalf: false as boolean | undefined,
   });
 
-  const checkIfPlaceholderStillValid = (target: HTMLElement, isUpperHalf: boolean) => {
+  const checkIfPlaceholderStillValid = (
+    target: HTMLElement,
+    isUpperHalf: boolean
+  ) => {
     const isSameTarget = placeholder.current.elementId === target.id;
     const isSameHalf = placeholder.current.isUpperHalf === isUpperHalf;
 
@@ -120,10 +106,21 @@ export const useTaskList = () => {
     placeholder.current.isUpperHalf = false;
   };
 
-  const createPlaceholder = (targetElement: HTMLElement, isUpperHalf?: boolean | undefined) => {
+  const createPlaceholder = (
+    targetElement: HTMLElement,
+    isUpperHalf?: boolean | undefined
+  ) => {
     const placeholderElement = document.createElement("div");
     placeholderElement.id = PLACEHOLDER_ID;
-    placeholderElement.classList.add("h-8", "border", "rounded-lg", "mx-2", "my-1", "border-dashed", "border-gray-300");
+    placeholderElement.classList.add(
+      "h-8",
+      "border",
+      "rounded-lg",
+      "mx-2",
+      "my-1",
+      "border-dashed",
+      "border-gray-300"
+    );
 
     placeholder.current.elementId = targetElement.id;
     placeholder.current.isUpperHalf = isUpperHalf;
@@ -131,53 +128,25 @@ export const useTaskList = () => {
     return placeholderElement;
   };
 
-  // ------ Handler moving tasks --- //
-
-  const movingTaskId = useRef<string | null>(null);
-  const movingTaskOrdinal = useRef<number | null>(null);
-
+  // ------------------------------------------------- //
+  // ------------ Handle drag and drop --------------- //
+  // ------------------------------------------------- //
   const dragTask = (taskId: string) => {
     movingTaskId.current = taskId;
   };
 
   const dropTask = (newStatus: TTaskStatus) => {
-    const taskId = movingTaskId.current;
-    if (taskId === null) {
+    if (movingTaskId.current === null) {
       console.error("Task not found");
       movingTaskId.current = null;
 
       return;
     }
 
-    const updatedTaskList = taskList.map((task) => {
-      if (task.id === taskId) {
-        task.status = newStatus;
-        task.updatedAt = dayjs().toISOString();
-        task.ordinalNumber = movingTaskOrdinal.current ?? task.ordinalNumber;
-      }
+    const updatedTaskList = updateTaskListData(movingTaskId.current, newStatus);
+    updateTaskListUi(updatedTaskList);
 
-      return task;
-    });
-
-    updatedTaskList.sort((a, b) => a.ordinalNumber - b.ordinalNumber);
-
-    const updatedOrdinalTaskList = resetOrdinalNumbers(updatedTaskList);
-
-    storage.setItem("task-list", updatedOrdinalTaskList);
     movingTaskId.current = null;
-
-    // @ts-ignore
-    if (typeof document.startViewTransition === "function") {
-      // @ts-ignore
-      document.startViewTransition(() => {
-        flushSync(() => {
-          setTaskList(updatedTaskList);
-        });
-      });
-    } else {
-      setTaskList(updatedTaskList);
-    }
-
     destroyPlaceholder();
   };
 
@@ -189,9 +158,14 @@ export const useTaskList = () => {
      * we use +/- 0.1 to avoid the duplicate ordinal numbers in the same column
      */
     const targetOrdinal = Number(targetElement.getAttribute("data-ordinal"));
-    movingTaskOrdinal.current = isUpperHalf ? targetOrdinal - 0.1 : targetOrdinal + 0.1;
+    movingTaskOrdinal.current = isUpperHalf
+      ? targetOrdinal - 0.1
+      : targetOrdinal + 0.1;
 
-    const isOldPlaceholderValid = checkIfPlaceholderStillValid(targetElement, isUpperHalf);
+    const isOldPlaceholderValid = checkIfPlaceholderStillValid(
+      targetElement,
+      isUpperHalf
+    );
     if (isOldPlaceholderValid) {
       return;
     }
@@ -215,7 +189,7 @@ export const useTaskList = () => {
     targetElement.appendChild(placeholderElement);
   };
 
-  const dragTaskOver = (event: DragEvent<HTMLDivElement>, _status: TTaskStatus) => {
+  const dragTaskOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();
 
@@ -225,6 +199,25 @@ export const useTaskList = () => {
     } else if (targetElement.id.startsWith(COL_PREFIX)) {
       dragOverColumn(targetElement);
     }
+  };
+
+  // ------------------------------------------------- //
+  // ------------ Handle task crud ------------------- //
+  // ------------------------------------------------- //
+
+  const createTask = async (status: TTaskStatus, description: string) => {
+    const ordinalNumber = groupedTasks[status].length + 1;
+
+    const newTask = {
+      ordinalNumber: ordinalNumber,
+      description: description,
+      status: status,
+    } as TTask;
+
+    await supabase.from("tasks").insert([newTask]);
+
+    newTask.id = `task-${Date.now()}`;
+    setTaskList([...taskList, newTask]);
   };
 
   const deleteTask = () => {
@@ -237,47 +230,26 @@ export const useTaskList = () => {
     }
 
     const updatedTaskList = taskList.filter((task) => task.id !== taskId);
-    storage.setItem("task-list", updatedTaskList);
     movingTaskId.current = null;
 
     setTaskList(updatedTaskList);
     destroyPlaceholder();
   };
 
-  const createTask = async (status: TTaskStatus, description: string) => {
-    const ordinalNumber = groupedTasks[status].length + 1;
-
-    const newTask = {
-      ordinalNumber: ordinalNumber,
-      description: description,
-      status: status,
-    } as TTask;
-
-    const res = await supabase.from("tasks").insert([newTask]);
-    console.log(res);
-
-    const updatedTaskList = [...taskList, newTask];
-    storage.setItem("task-list", updatedTaskList);
-    setTaskList(updatedTaskList);
+  const readTaskList = async () => {
+    const { data } = await supabase.from("tasks").select("*");
+    setTaskList(data as TTask[]);
   };
 
-  // useEffect(() => {
-  //   const getTodos = async () => {
-  //     const res = await supabase.from("tasks").select();
-
-  //     console.log("todos", res);
-  //   };
-
-  //   getTodos();
-  // }, []);
+  useEffect(() => {
+    readTaskList();
+  }, []);
 
   return {
     dragTask,
     dropTask,
     dragTaskOver,
     groupedTasks,
-    getColumnId,
-    getTaskId,
     deleteTask,
     createTask,
   };

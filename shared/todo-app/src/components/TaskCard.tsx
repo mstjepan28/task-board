@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import { TTask } from "../types/task";
 import { useContext } from "react";
 import { TaskListContext } from "../context/TaskListContext";
+import { getTaskId } from "../utils/helpers";
 
 interface IProps {
   task: TTask;
@@ -9,7 +10,7 @@ interface IProps {
 }
 
 export const TaskCard = ({ task, onClick }: IProps) => {
-  const { dragTask, getTaskId } = useContext(TaskListContext);
+  const { dragTask } = useContext(TaskListContext);
   const cardId = getTaskId(task.id);
 
   return (
@@ -28,7 +29,9 @@ export const TaskCard = ({ task, onClick }: IProps) => {
           <p className="text-sm font-medium">{task.description}</p>
         </div>
         <div className="flex text-end mt-2">
-          <small className="italic">{dayjs(task.createdAt).format("DD.MM.YYYY. HH:mm:ss")}</small>
+          <small className="italic">
+            {dayjs(task.created_at).format("DD.MM.YYYY. HH:mm:ss")}
+          </small>
         </div>
       </div>
     </button>
