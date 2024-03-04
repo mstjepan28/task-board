@@ -9,7 +9,7 @@ import { COL_PREFIX, TASK_PREFIX } from "../utils/helpers";
 export const useTaskList = () => {
   const [taskList, setTaskList] = useState<TTask[]>([]);
 
-  const movingTaskId = useRef<string | null>(null);
+  const movingTask = useRef<TTask | null>(null);
   const movingTaskOrdinal = useRef<number | null>(null);
 
   const groupedTasks = useMemo(() => {
@@ -36,9 +36,9 @@ export const useTaskList = () => {
   // ------------------------------------------------- //
   // ------------------- Helpers --------------------- //
   // ------------------------------------------------- //
-  const updateTaskListData = (taskId: string, newStatus: TTaskStatus) => {
+  const updateTaskListData = (movedTask: TTask, newStatus: TTaskStatus) => {
     const updatedTaskList = taskList.map((task) => {
-      if (task.id === taskId) {
+      if (task.id === movedTask.id) {
         task.status = newStatus;
         task.updated_at = dayjs().toISOString();
         task.ordinalNumber = movingTaskOrdinal.current ?? task.ordinalNumber;
@@ -131,22 +131,28 @@ export const useTaskList = () => {
   // ------------------------------------------------- //
   // ------------ Handle drag and drop --------------- //
   // ------------------------------------------------- //
-  const dragTask = (taskId: string) => {
-    movingTaskId.current = taskId;
+  const dragTask = (task: TTask) => {
+    movingTask.current = task;
   };
 
   const dropTask = (newStatus: TTaskStatus) => {
-    if (movingTaskId.current === null) {
+    const movedTask = movingTask.current;
+    if (movedTask === null) {
       console.error("Task not found");
-      movingTaskId.current = null;
+      movingTask.current = null;
 
       return;
     }
 
-    const updatedTaskList = updateTaskListData(movingTaskId.current, newStatus);
+    const oldStatus = movedTask.status;
+    const affectedStatuses = [oldStatus, newStatus];
+
+    const updatedTaskList = updateTaskListData(movedTask, newStatus);
+    updateTaskList(affectedStatuses, movedTask.ordinalNumber);
+
     updateTaskListUi(updatedTaskList);
 
-    movingTaskId.current = null;
+    movingTask.current = null;
     destroyPlaceholder();
   };
 
@@ -219,27 +225,44 @@ export const useTaskList = () => {
     setTaskList([...taskList, newTask]);
   };
 
+  const readTaskList = async () => {
+    const { data } = await supabase.from("tasks").select("*");
+    setTaskList(data as TTask[]);
+  };
+
+  const updateTaskList = async (
+    updatedStatuses: TTaskStatus[],
+    ordinalNumber: number
+  ) => {
+    const impactedTaskList = taskList.filter((task) => {
+      const didMoveDown = task.ordinalNumber >= ordinalNumber;
+      const inSameStatus = updatedStatuses.includes(task.status);
+
+      return didMoveDown && inSameStatus;
+    });
+
+    for (const task of impactedTaskList) {
+      const updatedTask = { ...task, ordinalNumber: task.ordinalNumber + 1 };
+      await supabase.from("tasks").update(updatedTask).eq("id", task.id);
+    }
+  };
+
   const deleteTask = async () => {
-    const taskId = movingTaskId.current;
-    if (taskId === null) {
+    const movedTask = movingTask.current;
+    if (movedTask === null) {
       console.error("Task not found");
-      movingTaskId.current = null;
+      movingTask.current = null;
 
       return;
     }
 
-    await supabase.from("tasks").delete().eq("id", taskId);
+    await supabase.from("tasks").delete().eq("id", movedTask.id);
 
-    const updatedTaskList = taskList.filter((task) => task.id !== taskId);
+    const updatedTaskList = taskList.filter((task) => task.id !== movedTask.id);
     setTaskList(updatedTaskList);
 
     destroyPlaceholder();
-    movingTaskId.current = null;
-  };
-
-  const readTaskList = async () => {
-    const { data } = await supabase.from("tasks").select("*");
-    setTaskList(data as TTask[]);
+    movingTask.current = null;
   };
 
   useEffect(() => {
@@ -247,10 +270,15 @@ export const useTaskList = () => {
   }, []);
 
   return {
+    // --- DATA ---
+    groupedTasks,
+
+    // --- DRAG AND DROP ---
     dragTask,
     dropTask,
     dragTaskOver,
-    groupedTasks,
+
+    // --- CRUD ---
     deleteTask,
     createTask,
   };
