@@ -3,6 +3,7 @@ import { TBoard } from "./types/sudoku";
 import { generateSudokuGame } from "./utils/generateSudoku";
 import { clearGame, loadGame, saveGame } from "./utils/saveLoadGame";
 import { deepCopy } from "@services/utils";
+import { ActionButton } from "./components/ActionButton";
 
 export const Sudoku = () => {
   const EMPTY_CELL = -1;
@@ -75,7 +76,12 @@ export const Sudoku = () => {
     const colStart = Math.floor(selectedCol / 3) * 3;
     const colEnd = colStart + 3;
 
-    return cellRow >= rowStart && cellRow < rowEnd && cellCol >= colStart && cellCol < colEnd;
+    return (
+      cellRow >= rowStart &&
+      cellRow < rowEnd &&
+      cellCol >= colStart &&
+      cellCol < colEnd
+    );
   };
 
   const checkIfRowSelected = (cellRow: number) => {
@@ -95,7 +101,11 @@ export const Sudoku = () => {
   };
 
   const checkIfCellSelected = (cellRow: number, cellCol: number) => {
-    return checkIfRowSelected(cellRow) || checkIfColSelected(cellCol) || checkIfSectionSelected(cellRow, cellCol);
+    return (
+      checkIfRowSelected(cellRow) ||
+      checkIfColSelected(cellCol) ||
+      checkIfSectionSelected(cellRow, cellCol)
+    );
   };
 
   const isPrimarySelect = (cellRow: number, cellCol: number) => {
@@ -114,7 +124,8 @@ export const Sudoku = () => {
     }
 
     const getTextColor = () => {
-      const isDefaultCell = initBoard.current[rowIndex][colIndex] !== EMPTY_CELL;
+      const isDefaultCell =
+        initBoard.current[rowIndex][colIndex] !== EMPTY_CELL;
       if (isDefaultCell) {
         return "text-blue-700";
       }
@@ -129,7 +140,8 @@ export const Sudoku = () => {
 
     const textColor = getTextColor();
 
-    const isSameValueSelected = selectedNumber !== EMPTY_CELL && value === selectedNumber;
+    const isSameValueSelected =
+      selectedNumber !== EMPTY_CELL && value === selectedNumber;
     if (isSameValueSelected) {
       return `font-semibold bg-blue-100 ${textColor}`;
     }
@@ -330,17 +342,28 @@ export const Sudoku = () => {
     gameSolution.current = loadedGame.solution;
   }, []);
 
+  /**
+   * [
+   *  [x,y,old,new],
+   *  [x,y,old,new],
+   *  [x,y,old,new],
+   * ]
+   */
+
   return (
     <>
-      <button type="button" onClick={resetGame} className="absolute top-0 right-0 flex items-center py-2 px-4">
-        <span className="text-xs text-white/25">Clear Game</span>
-      </button>
+      <div className="items-end absolute top-0 right-0 py-2 px-4 flex flex-col gap-y-1">
+        <ActionButton label="Clear button" onClick={resetGame} />
+      </div>
+
       <div
         onKeyDownCapture={(event) => handleKeyPress(event.key)}
         className="w-full h-full flex flex-col justify-center items-center gap-y-4"
       >
         <div className="rounded-lg p-4 bg-gray-300">
-          <div className="grid grid-cols-9 border-t-2 border-l-2 border-gray-900 bg-white">{renderBoard()}</div>
+          <div className="grid grid-cols-9 border-t-2 border-l-2 border-gray-900 bg-white">
+            {renderBoard()}
+          </div>
         </div>
 
         <div className="rounded-lg px-4 py-3 bg-gray-300">
