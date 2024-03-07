@@ -4,7 +4,8 @@
   "version": "1",
   "main": "./src",
   "dependencies": {
-    "throttle-debounce": "5.0.0"
+    "throttle-debounce": "5.0.0",
+    "react": "18.2.0"
   },
   "devDependencies": {
     "@types/throttle-debounce": "5.0.2"
