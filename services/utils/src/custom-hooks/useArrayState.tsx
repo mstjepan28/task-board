@@ -19,5 +19,9 @@ export const useArrayState = <T,>(initialState: T[]) => {
     setState([]);
   };
 
-  return { state, push, remove, pop, clear };
+  const set = (newState: T[]) => {
+    setState(newState);
+  };
+
+  return { state, set, push, remove, pop, clear };
 };
