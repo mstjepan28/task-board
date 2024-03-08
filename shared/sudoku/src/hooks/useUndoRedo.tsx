@@ -16,15 +16,13 @@ export const useUndoRedo = () => {
   const moveStack = useArrayState<TMove>([]);
 
   const pushMove = (move: TMove) => {
-    if (moveStack.state.length > MAX_STACK_SIZE) {
-      const newStack = [...moveStack.state, move];
+    const newStack = [...moveStack.state, move];
+    if (newStack.length + 1 > MAX_STACK_SIZE) {
       newStack.shift();
-
-      moveStack.set(newStack);
-      return;
     }
 
-    moveStack.push(move);
+    storage.setItem("sudoku-move-stack", newStack);
+    moveStack.set(newStack);
   };
 
   const undo = (board: TBoard, setBoard: (newBoard: TBoard) => void) => {
