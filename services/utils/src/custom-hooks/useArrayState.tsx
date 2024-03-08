@@ -8,7 +8,11 @@ export const useArrayState = <T,>(initialState: T[]) => {
   };
 
   const pop = () => {
-    setState((prev) => prev.slice(0, -1));
+    const newState = [...state];
+    const lastElem = newState.pop();
+
+    setState(newState);
+    return lastElem;
   };
 
   const remove = (index: number) => {

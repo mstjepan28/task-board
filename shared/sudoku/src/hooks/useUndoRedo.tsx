@@ -1,6 +1,7 @@
 import { storage } from "@services/storage";
-import { useArrayState } from "@services/utils";
+import { deepCopy, useArrayState } from "@services/utils";
 import { useEffect } from "react";
+import { TBoard } from "../types/sudoku";
 
 type TMove = {
   x: number;
@@ -16,8 +17,26 @@ export const useUndoRedo = () => {
 
   const pushMove = (move: TMove) => {
     if (moveStack.state.length > MAX_STACK_SIZE) {
+      const newStack = [...moveStack.state, move];
+      newStack.shift();
+
+      moveStack.set(newStack);
+      return;
     }
+
     moveStack.push(move);
+  };
+
+  const undo = (board: TBoard, setBoard: (newBoard: TBoard) => void) => {
+    const lastMove = moveStack.pop();
+    if (!lastMove) {
+      return;
+    }
+
+    const newBoard = deepCopy(board);
+    newBoard[lastMove.x][lastMove.y] = lastMove.old;
+
+    setBoard(newBoard);
   };
 
   useEffect(() => {
@@ -27,5 +46,5 @@ export const useUndoRedo = () => {
     }
   }, []);
 
-  return { pushMove };
+  return { pushMove, undo };
 };
