@@ -86,10 +86,7 @@ export const useTaskList = () => {
     isUpperHalf: false as boolean | undefined,
   });
 
-  const checkIfPlaceholderStillValid = (
-    target: HTMLElement,
-    isUpperHalf: boolean
-  ) => {
+  const checkIfPlaceholderStillValid = (target: HTMLElement, isUpperHalf: boolean) => {
     const isSameTarget = placeholder.current.elementId === target.id;
     const isSameHalf = placeholder.current.isUpperHalf === isUpperHalf;
 
@@ -106,21 +103,10 @@ export const useTaskList = () => {
     placeholder.current.isUpperHalf = false;
   };
 
-  const createPlaceholder = (
-    targetElement: HTMLElement,
-    isUpperHalf?: boolean | undefined
-  ) => {
+  const createPlaceholder = (targetElement: HTMLElement, isUpperHalf?: boolean | undefined) => {
     const placeholderElement = document.createElement("div");
     placeholderElement.id = PLACEHOLDER_ID;
-    placeholderElement.classList.add(
-      "h-8",
-      "border",
-      "rounded-lg",
-      "mx-2",
-      "my-1",
-      "border-dashed",
-      "border-gray-300"
-    );
+    placeholderElement.classList.add("h-8", "border", "rounded-lg", "mx-2", "my-1", "border-dashed", "border-gray-300");
 
     placeholder.current.elementId = targetElement.id;
     placeholder.current.isUpperHalf = isUpperHalf;
@@ -164,14 +150,9 @@ export const useTaskList = () => {
      * we use +/- 0.1 to avoid the duplicate ordinal numbers in the same column
      */
     const targetOrdinal = Number(targetElement.getAttribute("data-ordinal"));
-    movingTaskOrdinal.current = isUpperHalf
-      ? targetOrdinal - 0.1
-      : targetOrdinal + 0.1;
+    movingTaskOrdinal.current = isUpperHalf ? targetOrdinal - 0.1 : targetOrdinal + 0.1;
 
-    const isOldPlaceholderValid = checkIfPlaceholderStillValid(
-      targetElement,
-      isUpperHalf
-    );
+    const isOldPlaceholderValid = checkIfPlaceholderStillValid(targetElement, isUpperHalf);
     if (isOldPlaceholderValid) {
       return;
     }
@@ -230,10 +211,7 @@ export const useTaskList = () => {
     setTaskList(data as TTask[]);
   };
 
-  const updateTaskList = async (
-    updatedStatuses: TTaskStatus[],
-    ordinalNumber: number
-  ) => {
+  const updateTaskList = async (updatedStatuses: TTaskStatus[], ordinalNumber: number) => {
     const impactedTaskList = taskList.filter((task) => {
       const didMoveDown = task.ordinalNumber >= ordinalNumber;
       const inSameStatus = updatedStatuses.includes(task.status);

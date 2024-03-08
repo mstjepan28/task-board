@@ -76,12 +76,7 @@ export const Sudoku = () => {
     const colStart = Math.floor(selectedCol / 3) * 3;
     const colEnd = colStart + 3;
 
-    return (
-      cellRow >= rowStart &&
-      cellRow < rowEnd &&
-      cellCol >= colStart &&
-      cellCol < colEnd
-    );
+    return cellRow >= rowStart && cellRow < rowEnd && cellCol >= colStart && cellCol < colEnd;
   };
 
   const checkIfRowSelected = (cellRow: number) => {
@@ -101,11 +96,7 @@ export const Sudoku = () => {
   };
 
   const checkIfCellSelected = (cellRow: number, cellCol: number) => {
-    return (
-      checkIfRowSelected(cellRow) ||
-      checkIfColSelected(cellCol) ||
-      checkIfSectionSelected(cellRow, cellCol)
-    );
+    return checkIfRowSelected(cellRow) || checkIfColSelected(cellCol) || checkIfSectionSelected(cellRow, cellCol);
   };
 
   const isPrimarySelect = (cellRow: number, cellCol: number) => {
@@ -124,8 +115,7 @@ export const Sudoku = () => {
     }
 
     const getTextColor = () => {
-      const isDefaultCell =
-        initBoard.current[rowIndex][colIndex] !== EMPTY_CELL;
+      const isDefaultCell = initBoard.current[rowIndex][colIndex] !== EMPTY_CELL;
       if (isDefaultCell) {
         return "text-blue-700";
       }
@@ -140,8 +130,7 @@ export const Sudoku = () => {
 
     const textColor = getTextColor();
 
-    const isSameValueSelected =
-      selectedNumber !== EMPTY_CELL && value === selectedNumber;
+    const isSameValueSelected = selectedNumber !== EMPTY_CELL && value === selectedNumber;
     if (isSameValueSelected) {
       return `font-semibold bg-blue-100 ${textColor}`;
     }
@@ -361,9 +350,7 @@ export const Sudoku = () => {
         className="w-full h-full flex flex-col justify-center items-center gap-y-4"
       >
         <div className="rounded-lg p-4 bg-gray-300">
-          <div className="grid grid-cols-9 border-t-2 border-l-2 border-gray-900 bg-white">
-            {renderBoard()}
-          </div>
+          <div className="grid grid-cols-9 border-t-2 border-l-2 border-gray-900 bg-white">{renderBoard()}</div>
         </div>
 
         <div className="rounded-lg px-4 py-3 bg-gray-300">

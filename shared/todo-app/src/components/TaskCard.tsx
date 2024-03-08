@@ -29,9 +29,7 @@ export const TaskCard = ({ task, onClick }: IProps) => {
           <p className="text-sm font-medium">{task.description}</p>
         </div>
         <div className="flex text-end mt-2">
-          <small className="italic">
-            {dayjs(task.created_at).format("DD.MM.YYYY. HH:mm:ss")}
-          </small>
+          <small className="italic">{dayjs(task.created_at).format("DD.MM.YYYY. HH:mm:ss")}</small>
         </div>
       </div>
     </button>
