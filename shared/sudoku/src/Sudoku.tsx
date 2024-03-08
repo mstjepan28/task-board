@@ -1,9 +1,10 @@
+import { deepCopy } from "@services/utils";
 import { useEffect, useRef, useState } from "react";
+import { ActionButton } from "./components/ActionButton";
+import { useUndoRedo } from "./hooks/useUndoRedo";
 import { TBoard } from "./types/sudoku";
 import { generateSudokuGame } from "./utils/generateSudoku";
 import { clearGame, loadGame, saveGame } from "./utils/saveLoadGame";
-import { deepCopy } from "@services/utils";
-import { ActionButton } from "./components/ActionButton";
 
 export const Sudoku = () => {
   const EMPTY_CELL = -1;
@@ -319,6 +320,8 @@ export const Sudoku = () => {
     createNewGame();
   };
 
+  const { undo } = useUndoRedo();
+
   useEffect(() => {
     const loadedGame = loadGame();
     if (!loadedGame) {
@@ -331,18 +334,11 @@ export const Sudoku = () => {
     gameSolution.current = loadedGame.solution;
   }, []);
 
-  /**
-   * [
-   *  [x,y,old,new],
-   *  [x,y,old,new],
-   *  [x,y,old,new],
-   * ]
-   */
-
   return (
     <>
       <div className="items-end absolute top-0 right-0 py-2 px-4 flex flex-col gap-y-1">
-        <ActionButton label="Clear button" onClick={resetGame} />
+        <ActionButton label="Clear game" onClick={resetGame} />
+        <ActionButton label="Undo" onClick={() => undo(board, setBoard)} />
       </div>
 
       <div
