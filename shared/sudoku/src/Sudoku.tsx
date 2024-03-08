@@ -17,6 +17,8 @@ export const Sudoku = () => {
   const initBoard = useRef<TBoard>([]);
   const gameSolution = useRef<TBoard>([]);
 
+  const { undo, pushMove } = useUndoRedo();
+
   // --- check if number placement is valid ---
   const checkIfNumberIsValid = (row: number, col: number, number: number) => {
     return (
@@ -214,6 +216,13 @@ export const Sudoku = () => {
       initBoard: initBoard.current,
       solution: gameSolution.current,
     });
+
+    pushMove({
+      x: row,
+      y: col,
+      old: selectedNumber || EMPTY_CELL,
+      new: number,
+    });
   };
 
   const renderNumbers = () => {
@@ -319,8 +328,6 @@ export const Sudoku = () => {
     clearGame();
     createNewGame();
   };
-
-  const { undo } = useUndoRedo();
 
   useEffect(() => {
     const loadedGame = loadGame();
