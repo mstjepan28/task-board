@@ -25,16 +25,17 @@ export const useUndoRedo = () => {
     moveStack.set(newStack);
   };
 
-  const undo = (board: TBoard, setBoard: (newBoard: TBoard) => void) => {
+  const undo = (board: TBoard) => {
     const lastMove = moveStack.pop();
     if (!lastMove) {
-      return;
+      return board;
     }
 
     const newBoard = deepCopy(board);
     newBoard[lastMove.x][lastMove.y] = lastMove.old;
 
-    setBoard(newBoard);
+    moveStack.set(moveStack.state);
+    return newBoard;
   };
 
   useEffect(() => {
