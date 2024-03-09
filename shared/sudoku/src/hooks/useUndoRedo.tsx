@@ -26,7 +26,8 @@ export const useUndoRedo = () => {
   };
 
   const undo = (board: TBoard) => {
-    const lastMove = moveStack.pop();
+    const newMoveStack = [...moveStack.state];
+    const lastMove = newMoveStack.pop();
     if (!lastMove) {
       return board;
     }
@@ -34,7 +35,9 @@ export const useUndoRedo = () => {
     const newBoard = deepCopy(board);
     newBoard[lastMove.x][lastMove.y] = lastMove.old;
 
-    moveStack.set(moveStack.state);
+    storage.setItem("sudoku-move-stack", newMoveStack);
+    moveStack.set(newMoveStack);
+
     return newBoard;
   };
 
