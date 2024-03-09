@@ -113,10 +113,6 @@ export const Sudoku = () => {
   // --- render board ---
 
   const getCellStyle = (rowIndex: number, colIndex: number, value: number) => {
-    if (value === EMPTY_CELL) {
-      return "bg-white";
-    }
-
     const getTextColor = () => {
       const isDefaultCell = initBoard.current[rowIndex][colIndex] !== EMPTY_CELL;
       if (isDefaultCell) {
@@ -130,7 +126,6 @@ export const Sudoku = () => {
 
       return "text-gray-950";
     };
-
     const textColor = getTextColor();
 
     const isSameValueSelected = selectedNumber !== EMPTY_CELL && value === selectedNumber;
@@ -140,12 +135,12 @@ export const Sudoku = () => {
 
     const isSelectedCell = isPrimarySelect(rowIndex, colIndex);
     if (isSelectedCell) {
-      return `bg-gray-100 ${textColor}`;
+      return `bg-blue-300 ${textColor}`;
     }
 
     const isSelected = checkIfCellSelected(rowIndex, colIndex);
     if (isSelected) {
-      return `bg-blue-50 ${textColor}`;
+      return `bg-blue-200 ${textColor}`;
     }
 
     return `bg-white ${textColor}`;
@@ -167,10 +162,9 @@ export const Sudoku = () => {
           type="button"
           onClick={selectCell}
           className={`
-            w-8 h-8 flex justify-center items-center 
-            cursor-pointer select-none text-xl
-            border-r border-b border-gray-600 transition-all duration-150
-            hover:bg-gray-200 focus:outline-none
+            w-8 h-8 flex justify-center items-center cursor-pointer select-none 
+            text-xl border-r border-b border-gray-600 transition-all duration-150
+            hover:bg-blue-300 focus:outline-none
             ${(colIndex + 1) % 3 === 0 && "!border-r-2 border-r-black"}
             ${(rowIndex + 1) % 3 === 0 && "!border-b-2 border-b-black"}
             ${cellStyle}
@@ -205,7 +199,6 @@ export const Sudoku = () => {
     setBoard(boardCopy);
 
     const gameFinished = checkForWin();
-
     if (gameFinished) {
       alert("You won!");
       clearCurrentGame();
@@ -233,10 +226,9 @@ export const Sudoku = () => {
           type="button"
           onClick={() => handleNumberSelect(index + 1)}
           className={`
-          w-8 h-8 flex justify-center items-center
-          cursor-pointer select-none text-xl
-          rounded-lg border border-gray-600 transition-all duration-150
-          bg-white hover:bg-gray-200
+            w-8 h-8 flex justify-center items-center cursor-pointer 
+            select-none text-xl rounded-lg border border-gray-600 
+            transition-all duration-150 bg-white hover:bg-gray-200
           `}
         >
           {index + 1}
