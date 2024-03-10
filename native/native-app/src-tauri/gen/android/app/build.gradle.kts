@@ -15,13 +15,33 @@ android {
         versionCode = 1
         versionName = "1.0"
     }
+    productFlavors {
+        create("debugFlavor") {
+            dimension = "version"
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-DEBUG"
+        }
+        create("releaseFlavor") {
+            dimension = "version"
+        }
+    }
+    signingConfigs {
+        create("release") {
+            keyPassword = "password"
+            storePassword = "password"
+            keyAlias = "signature_release"
+            storeFile = file("./signature_release.jks")
+        }
+    }
     buildTypes {
         getByName("debug") {
             manifestPlaceholders["usesCleartextTraffic"] = "true"
+            productFlavors.add(productFlavors.getByName("debugFlavor"))
             isDebuggable = true
             isJniDebuggable = true
             isMinifyEnabled = false
-            packaging {                jniLibs.keepDebugSymbols.add("*/arm64-v8a/*.so")
+            packaging {
+                jniLibs.keepDebugSymbols.add("*/arm64-v8a/*.so")
                 jniLibs.keepDebugSymbols.add("*/armeabi-v7a/*.so")
                 jniLibs.keepDebugSymbols.add("*/x86/*.so")
                 jniLibs.keepDebugSymbols.add("*/x86_64/*.so")
@@ -29,6 +49,8 @@ android {
         }
         getByName("release") {
             isMinifyEnabled = true
+            signingConfig = signingConfigs.getByName("release")
+            productFlavors.add(productFlavors.getByName("releaseFlavor"))
             proguardFiles(
                 *fileTree(".") { include("**/*.pro") }
                     .plus(getDefaultProguardFile("proguard-android-optimize.txt"))
