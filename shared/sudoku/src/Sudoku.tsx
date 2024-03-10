@@ -2,9 +2,9 @@ import { deepCopy } from "@services/utils";
 import { useEffect, useRef, useState } from "react";
 import { ActionButton } from "./components/ActionButton";
 import { useUndoRedo } from "./hooks/useUndoRedo";
-import { TBoard } from "./types/sudoku";
 import { generateSudokuGame } from "./utils/generateSudoku";
 import { clearGame, loadGame, saveGame } from "./utils/saveLoadGame";
+import type { TBoard } from "./types/sudoku";
 
 export const Sudoku = () => {
   const EMPTY_CELL = -1;
@@ -162,7 +162,7 @@ export const Sudoku = () => {
           type="button"
           onClick={selectCell}
           className={`
-            w-8 h-8 flex justify-center items-center cursor-pointer select-none 
+            w-10 aspect-square flex justify-center items-center cursor-pointer select-none 
             text-xl border-r border-b border-gray-600 transition-all duration-150
             hover:bg-blue-300 focus:outline-none
             ${(colIndex + 1) % 3 === 0 && "!border-r-2 border-r-black"}
@@ -226,8 +226,8 @@ export const Sudoku = () => {
           type="button"
           onClick={() => handleNumberSelect(index + 1)}
           className={`
-            w-8 h-8 flex justify-center items-center cursor-pointer 
-            select-none text-xl rounded-lg border border-gray-600 
+            w-8 aspect-square flex justify-center items-center cursor-pointer 
+            select-none text-xl rounded-md border border-gray-600 
             transition-all duration-150 bg-white hover:bg-gray-200
           `}
         >
@@ -256,7 +256,7 @@ export const Sudoku = () => {
     setSelected([newRow, newCol]);
   };
 
-  const handleKeyPress = (key: string) => {
+  const handleKeyPress = (key: string | "Backspace") => {
     const isNumber = !Number.isNaN(Number(key));
     if (isNumber) {
       handleNumberSelect(Number(key));
@@ -353,14 +353,29 @@ export const Sudoku = () => {
 
       <div
         onKeyDownCapture={(event) => handleKeyPress(event.key)}
-        className="w-full h-full flex flex-col justify-center items-center gap-y-4"
+        className="w-full h-full flex flex-col justify-center items-center gap-y-4 px-4"
       >
-        <div className="rounded-lg p-4 bg-gray-300">
+        <div className="flex flex-col gap-y-4 p-4 rounded-lg border bg-gray-300">
           <div className="grid grid-cols-9 border-t-2 border-l-2 border-gray-900 bg-white">{renderBoard()}</div>
-        </div>
 
-        <div className="rounded-lg px-4 py-3 bg-gray-300">
-          <div className="grid grid-cols-9 gap-x-1">{renderNumbers()}</div>
+          <div className="flex justify-between gap-x-1">{renderNumbers()}</div>
+
+          <div className="flex justify-end gap-x-2">
+            <button
+              type="button"
+              onClick={handleUndoMove}
+              className="rounded-md bg-white font-medium text-sm border px-4 py-1"
+            >
+              Undo
+            </button>
+            <button
+              type="button"
+              onClick={() => handleKeyPress("Backspace")}
+              className="rounded-md bg-white font-medium text-sm border px-4 py-1"
+            >
+              Delete
+            </button>
+          </div>
         </div>
       </div>
     </>
