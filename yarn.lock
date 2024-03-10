@@ -23,13 +23,12 @@ __metadata:
     "@shared/sudoku": "workspace:^"
     "@shared/todo-app": "workspace:^"
     "@tailwindcss/vite": "npm:next"
-    "@tanstack/react-router": "npm:^1.19.1"
-    "@tanstack/router-devtools": "npm:^1.19.1"
+    "@tanstack/react-router": "npm:^1.19.2"
+    "@tanstack/router-devtools": "npm:^1.19.2"
     "@types/react": "npm:^18.2.64"
     "@types/react-dom": "npm:^18.2.21"
     "@vitejs/plugin-react": "npm:^4.2.1"
     autoprefixer: "npm:^10.4.18"
-    postcss: "npm:^8.4.35"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     tailwindcss: "npm:next"
@@ -333,18 +332,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@biomejs/biome@npm:1.5.3":
-  version: 1.5.3
-  resolution: "@biomejs/biome@npm:1.5.3"
+"@biomejs/biome@npm:1.6.0":
+  version: 1.6.0
+  resolution: "@biomejs/biome@npm:1.6.0"
   dependencies:
-    "@biomejs/cli-darwin-arm64": "npm:1.5.3"
-    "@biomejs/cli-darwin-x64": "npm:1.5.3"
-    "@biomejs/cli-linux-arm64": "npm:1.5.3"
-    "@biomejs/cli-linux-arm64-musl": "npm:1.5.3"
-    "@biomejs/cli-linux-x64": "npm:1.5.3"
-    "@biomejs/cli-linux-x64-musl": "npm:1.5.3"
-    "@biomejs/cli-win32-arm64": "npm:1.5.3"
-    "@biomejs/cli-win32-x64": "npm:1.5.3"
+    "@biomejs/cli-darwin-arm64": "npm:1.6.0"
+    "@biomejs/cli-darwin-x64": "npm:1.6.0"
+    "@biomejs/cli-linux-arm64": "npm:1.6.0"
+    "@biomejs/cli-linux-arm64-musl": "npm:1.6.0"
+    "@biomejs/cli-linux-x64": "npm:1.6.0"
+    "@biomejs/cli-linux-x64-musl": "npm:1.6.0"
+    "@biomejs/cli-win32-arm64": "npm:1.6.0"
+    "@biomejs/cli-win32-x64": "npm:1.6.0"
   dependenciesMeta:
     "@biomejs/cli-darwin-arm64":
       optional: true
@@ -364,62 +363,62 @@ __metadata:
       optional: true
   bin:
     biome: bin/biome
-  checksum: 10/1bcdcc3a34de0871d91ecf37eae67f71847f3578723001f81616b1fd1d694d584accce37cf582f07aef3b920b47c32716e7244b7f67f52926c7c8526bc7cd5d9
+  checksum: 10/abf8c4a6a153370c669af092a463ca480dfb6454c1290fecf99e46b27c8141de3958465eda6109cf7106e8196ad9ef287f89ea99107edd3f213217e0a10c72a6
   languageName: node
   linkType: hard
 
-"@biomejs/cli-darwin-arm64@npm:1.5.3":
-  version: 1.5.3
-  resolution: "@biomejs/cli-darwin-arm64@npm:1.5.3"
+"@biomejs/cli-darwin-arm64@npm:1.6.0":
+  version: 1.6.0
+  resolution: "@biomejs/cli-darwin-arm64@npm:1.6.0"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@biomejs/cli-darwin-x64@npm:1.5.3":
-  version: 1.5.3
-  resolution: "@biomejs/cli-darwin-x64@npm:1.5.3"
+"@biomejs/cli-darwin-x64@npm:1.6.0":
+  version: 1.6.0
+  resolution: "@biomejs/cli-darwin-x64@npm:1.6.0"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@biomejs/cli-linux-arm64-musl@npm:1.5.3":
-  version: 1.5.3
-  resolution: "@biomejs/cli-linux-arm64-musl@npm:1.5.3"
+"@biomejs/cli-linux-arm64-musl@npm:1.6.0":
+  version: 1.6.0
+  resolution: "@biomejs/cli-linux-arm64-musl@npm:1.6.0"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@biomejs/cli-linux-arm64@npm:1.5.3":
-  version: 1.5.3
-  resolution: "@biomejs/cli-linux-arm64@npm:1.5.3"
+"@biomejs/cli-linux-arm64@npm:1.6.0":
+  version: 1.6.0
+  resolution: "@biomejs/cli-linux-arm64@npm:1.6.0"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@biomejs/cli-linux-x64-musl@npm:1.5.3":
-  version: 1.5.3
-  resolution: "@biomejs/cli-linux-x64-musl@npm:1.5.3"
+"@biomejs/cli-linux-x64-musl@npm:1.6.0":
+  version: 1.6.0
+  resolution: "@biomejs/cli-linux-x64-musl@npm:1.6.0"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@biomejs/cli-linux-x64@npm:1.5.3":
-  version: 1.5.3
-  resolution: "@biomejs/cli-linux-x64@npm:1.5.3"
+"@biomejs/cli-linux-x64@npm:1.6.0":
+  version: 1.6.0
+  resolution: "@biomejs/cli-linux-x64@npm:1.6.0"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@biomejs/cli-win32-arm64@npm:1.5.3":
-  version: 1.5.3
-  resolution: "@biomejs/cli-win32-arm64@npm:1.5.3"
+"@biomejs/cli-win32-arm64@npm:1.6.0":
+  version: 1.6.0
+  resolution: "@biomejs/cli-win32-arm64@npm:1.6.0"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@biomejs/cli-win32-x64@npm:1.5.3":
-  version: 1.5.3
-  resolution: "@biomejs/cli-win32-x64@npm:1.5.3"
+"@biomejs/cli-win32-x64@npm:1.6.0":
+  version: 1.6.0
+  resolution: "@biomejs/cli-win32-x64@npm:1.6.0"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -659,6 +658,14 @@ __metadata:
   checksum: 10/f4fabdddf82398a797bcdbb51c574cd69b383db041a6cae1a6a91478681d6aab340c01af655cfd8c6e01cde97f63436a1445f08297cdd33587621cf05ffa0d55
   languageName: node
   linkType: hard
+
+"@native/native-app@workspace:native/native-app":
+  version: 0.0.0-use.local
+  resolution: "@native/native-app@workspace:native/native-app"
+  dependencies:
+    "@tauri-apps/cli": "npm:^2.0.0-beta.0"
+  languageName: unknown
+  linkType: soft
 
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
@@ -1072,7 +1079,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-router@npm:1.19.1, @tanstack/react-router@npm:^1.19.1":
+"@tanstack/react-router@npm:1.19.4, @tanstack/react-router@npm:^1.19.2":
+  version: 1.19.4
+  resolution: "@tanstack/react-router@npm:1.19.4"
+  dependencies:
+    "@tanstack/history": "npm:1.15.13"
+    "@tanstack/react-store": "npm:^0.2.1"
+    tiny-invariant: "npm:^1.3.1"
+    tiny-warning: "npm:^1.0.3"
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: 10/6f9279deb0b074dbc716334e812e9f49aa88f48abc2e05546c8f1ba3f91d02c6bd410ddb285a09444f8aef2643a2e1e48eb224dc5d61c89e2c83f6650dd10779
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-router@npm:^1.19.1":
   version: 1.19.1
   resolution: "@tanstack/react-router@npm:1.19.1"
   dependencies:
@@ -1100,18 +1122,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-devtools@npm:^1.19.1":
-  version: 1.19.1
-  resolution: "@tanstack/router-devtools@npm:1.19.1"
+"@tanstack/router-devtools@npm:^1.19.2":
+  version: 1.19.4
+  resolution: "@tanstack/router-devtools@npm:1.19.4"
   dependencies:
-    "@tanstack/react-router": "npm:1.19.1"
+    "@tanstack/react-router": "npm:1.19.4"
     clsx: "npm:^2.1.0"
     date-fns: "npm:^2.29.1"
     goober: "npm:^2.1.14"
   peerDependencies:
     react: ">=16"
     react-dom: ">=16"
-  checksum: 10/d4d1a304680e473bfafcc97513a697ba9794fcdea2cc8216a3013f4a5f49373764d387b103917aece4f24dc7007fe81940290ce926eb9907897f59b4c7e47a2a
+  checksum: 10/570b3589094c414dbd10f9c572ba9d19647dd90de33366e5850f8e2b25f67c44c88ce8cacbccb6872c6db5f923d320a1c681c9e06efd186d1614823a8337ab98
   languageName: node
   linkType: hard
 
@@ -1119,6 +1141,117 @@ __metadata:
   version: 0.1.3
   resolution: "@tanstack/store@npm:0.1.3"
   checksum: 10/90a528e004553538be099b61d357e9dd1af7c0fb35f37b3c50a8a17462c5cd8c8d269d912f60c6dfcc18387a961f8c5a48e0b1e848db7f9d6ad357e45529294b
+  languageName: node
+  linkType: hard
+
+"@tauri-apps/cli-darwin-arm64@npm:2.0.0-beta.8":
+  version: 2.0.0-beta.8
+  resolution: "@tauri-apps/cli-darwin-arm64@npm:2.0.0-beta.8"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@tauri-apps/cli-darwin-x64@npm:2.0.0-beta.8":
+  version: 2.0.0-beta.8
+  resolution: "@tauri-apps/cli-darwin-x64@npm:2.0.0-beta.8"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@tauri-apps/cli-linux-arm-gnueabihf@npm:2.0.0-beta.8":
+  version: 2.0.0-beta.8
+  resolution: "@tauri-apps/cli-linux-arm-gnueabihf@npm:2.0.0-beta.8"
+  conditions: os=linux & cpu=arm
+  languageName: node
+  linkType: hard
+
+"@tauri-apps/cli-linux-arm64-gnu@npm:2.0.0-beta.8":
+  version: 2.0.0-beta.8
+  resolution: "@tauri-apps/cli-linux-arm64-gnu@npm:2.0.0-beta.8"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@tauri-apps/cli-linux-arm64-musl@npm:2.0.0-beta.8":
+  version: 2.0.0-beta.8
+  resolution: "@tauri-apps/cli-linux-arm64-musl@npm:2.0.0-beta.8"
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@tauri-apps/cli-linux-x64-gnu@npm:2.0.0-beta.8":
+  version: 2.0.0-beta.8
+  resolution: "@tauri-apps/cli-linux-x64-gnu@npm:2.0.0-beta.8"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@tauri-apps/cli-linux-x64-musl@npm:2.0.0-beta.8":
+  version: 2.0.0-beta.8
+  resolution: "@tauri-apps/cli-linux-x64-musl@npm:2.0.0-beta.8"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@tauri-apps/cli-win32-arm64-msvc@npm:2.0.0-beta.8":
+  version: 2.0.0-beta.8
+  resolution: "@tauri-apps/cli-win32-arm64-msvc@npm:2.0.0-beta.8"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@tauri-apps/cli-win32-ia32-msvc@npm:2.0.0-beta.8":
+  version: 2.0.0-beta.8
+  resolution: "@tauri-apps/cli-win32-ia32-msvc@npm:2.0.0-beta.8"
+  conditions: os=win32 & cpu=ia32
+  languageName: node
+  linkType: hard
+
+"@tauri-apps/cli-win32-x64-msvc@npm:2.0.0-beta.8":
+  version: 2.0.0-beta.8
+  resolution: "@tauri-apps/cli-win32-x64-msvc@npm:2.0.0-beta.8"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@tauri-apps/cli@npm:^2.0.0-beta.0":
+  version: 2.0.0-beta.8
+  resolution: "@tauri-apps/cli@npm:2.0.0-beta.8"
+  dependencies:
+    "@tauri-apps/cli-darwin-arm64": "npm:2.0.0-beta.8"
+    "@tauri-apps/cli-darwin-x64": "npm:2.0.0-beta.8"
+    "@tauri-apps/cli-linux-arm-gnueabihf": "npm:2.0.0-beta.8"
+    "@tauri-apps/cli-linux-arm64-gnu": "npm:2.0.0-beta.8"
+    "@tauri-apps/cli-linux-arm64-musl": "npm:2.0.0-beta.8"
+    "@tauri-apps/cli-linux-x64-gnu": "npm:2.0.0-beta.8"
+    "@tauri-apps/cli-linux-x64-musl": "npm:2.0.0-beta.8"
+    "@tauri-apps/cli-win32-arm64-msvc": "npm:2.0.0-beta.8"
+    "@tauri-apps/cli-win32-ia32-msvc": "npm:2.0.0-beta.8"
+    "@tauri-apps/cli-win32-x64-msvc": "npm:2.0.0-beta.8"
+  dependenciesMeta:
+    "@tauri-apps/cli-darwin-arm64":
+      optional: true
+    "@tauri-apps/cli-darwin-x64":
+      optional: true
+    "@tauri-apps/cli-linux-arm-gnueabihf":
+      optional: true
+    "@tauri-apps/cli-linux-arm64-gnu":
+      optional: true
+    "@tauri-apps/cli-linux-arm64-musl":
+      optional: true
+    "@tauri-apps/cli-linux-x64-gnu":
+      optional: true
+    "@tauri-apps/cli-linux-x64-musl":
+      optional: true
+    "@tauri-apps/cli-win32-arm64-msvc":
+      optional: true
+    "@tauri-apps/cli-win32-ia32-msvc":
+      optional: true
+    "@tauri-apps/cli-win32-x64-msvc":
+      optional: true
+  bin:
+    tauri: tauri.js
+  checksum: 10/908b61dd36427b1faa4b02af32304e2e9802d428007b796069c43f6000dd44e65cc4af72934bce9323c09c0a690800fc24b7c4778f4dd50398da9386d8ab28f0
   languageName: node
   linkType: hard
 
@@ -2930,7 +3063,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo-project@workspace:."
   dependencies:
-    "@biomejs/biome": "npm:1.5.3"
+    "@biomejs/biome": "npm:1.6.0"
     check-dependency-version-consistency: "npm:^4.1.0"
     vitest: "npm:1.3.1"
   languageName: unknown
