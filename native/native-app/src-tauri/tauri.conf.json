@@ -4,9 +4,7 @@
   "identifier": "com.tauri.build",
   "build": {
     "frontendDist": "../../../apps/core-app/dist",
-    "devUrl": "http://localhost:5173",
-    "beforeDevCommand": "echo ''",
-    "beforeBuildCommand": "echo ''"
+    "devUrl": "http://localhost:5173"
   },
   "app": {
     "windows": [
