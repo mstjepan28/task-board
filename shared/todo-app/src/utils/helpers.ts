@@ -1,4 +1,4 @@
-import { TTaskStatus } from "../enums/taskStatus";
+import type { TTaskStatus } from "../enums/taskStatus";
 
 export const COL_PREFIX = "column" as const;
 export const TASK_PREFIX = "task" as const;

@@ -1,4 +1,4 @@
-import { TCacheDataSignature } from "../enums/CacheDataSignature";
+import type { TCacheDataSignature } from "../enums/CacheDataSignature";
 import { CACHE_KEY_PREFIX, getCacheKey } from "../utils/getCacheKey";
 
 export const storage = {

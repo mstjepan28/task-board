@@ -1,12 +1,7 @@
 {
   "name": "monorepo-project",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "shared/*",
-    "native/*",
-    "services/*"
-  ],
+  "workspaces": ["apps/*", "shared/*", "native/*", "services/*"],
   "scripts": {
     "--- Client commands ---------------------------------------------": "",
     "dev": "yarn workspace @apps/core-app dev",

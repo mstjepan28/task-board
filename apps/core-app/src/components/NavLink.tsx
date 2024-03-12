@@ -1,5 +1,5 @@
-import { Link, LinkOptions } from "@tanstack/react-router";
-import { ReactNode } from "react";
+import { Link, type LinkOptions } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 
 type TNavLink = LinkOptions & { children: ReactNode };
 

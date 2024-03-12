@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { TTask } from "../types/task";
+import type { TTask } from "../types/task";
 import { useContext } from "react";
 import { TaskListContext } from "../context/TaskListContext";
 import { getTaskId } from "../utils/helpers";

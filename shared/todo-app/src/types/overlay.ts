@@ -1,4 +1,4 @@
-import { MutableRefObject } from "react";
+import type { MutableRefObject } from "react";
 
 type TOverlayControls = {
   open: (arg?: unknown) => void;

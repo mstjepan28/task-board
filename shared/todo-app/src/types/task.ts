@@ -1,4 +1,4 @@
-import { TTaskStatus } from "../enums/taskStatus";
+import type { TTaskStatus } from "../enums/taskStatus";
 
 export type TTask = {
   id: string;

@@ -1,7 +1,7 @@
 import { useContext, useMemo } from "react";
 import { TaskListContext } from "../context/TaskListContext";
-import { TTaskStatus, TaskStatus } from "../enums/taskStatus";
-import { TTask } from "../types/task";
+import { type TTaskStatus, TaskStatus } from "../enums/taskStatus";
+import type { TTask } from "../types/task";
 import { TaskCard } from "./TaskCard";
 import { getColumnId } from "../utils/helpers";
 

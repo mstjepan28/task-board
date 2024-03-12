@@ -1,4 +1,4 @@
-import { DragEvent, useContext, useRef } from "react";
+import { type DragEvent, useContext, useRef } from "react";
 import { TaskListContext } from "../context/TaskListContext";
 
 export const DeleteButton = () => {

@@ -1,4 +1,4 @@
-import { ReactNode, MouseEvent, forwardRef, useImperativeHandle, useState } from "react";
+import { type ReactNode, type MouseEvent, forwardRef, useImperativeHandle, useState } from "react";
 
 interface IProps {
   onOpen?: (arg?: unknown) => void;

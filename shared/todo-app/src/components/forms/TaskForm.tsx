@@ -1,7 +1,7 @@
 import { Button, TextArea } from "@services/ui-library";
-import { FormEvent, useContext, useMemo } from "react";
+import { type FormEvent, useContext, useMemo } from "react";
 import { TaskListContext } from "../../context/TaskListContext";
-import { TTask } from "../../types/task";
+import type { TTask } from "../../types/task";
 
 interface IProps {
   initData: TTask | undefined;

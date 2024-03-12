@@ -1,7 +1,7 @@
 import { storage } from "@services/storage";
 import { deepCopy, useArrayState } from "@services/utils";
 import { useEffect } from "react";
-import { TBoard } from "../types/sudoku";
+import type { TBoard } from "../types/sudoku";
 
 type TMove = {
   x: number;

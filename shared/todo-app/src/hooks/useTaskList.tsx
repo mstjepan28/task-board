@@ -1,9 +1,11 @@
 import { supabase } from "@services/supabase";
 import dayjs from "dayjs";
-import { DragEvent, useEffect, useMemo, useRef, useState } from "react";
+import type { DragEvent } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
-import { TTaskStatus, TaskStatus } from "../enums/taskStatus";
-import { TTask } from "../types/task";
+import type { TTaskStatus } from "../enums/taskStatus";
+import { TaskStatus } from "../enums/taskStatus";
+import type { TTask } from "../types/task";
 import { COL_PREFIX, TASK_PREFIX } from "../utils/helpers";
 
 export const useTaskList = () => {
@@ -170,7 +172,7 @@ export const useTaskList = () => {
   const dragOverColumn = (targetElement: HTMLElement) => {
     destroyPlaceholder();
 
-    movingTaskOrdinal.current = Infinity;
+    movingTaskOrdinal.current = Number.POSITIVE_INFINITY;
 
     const placeholderElement = createPlaceholder(targetElement);
     targetElement.appendChild(placeholderElement);

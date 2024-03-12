@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { IOverlayElement } from "../../types/overlay";
+import type { IOverlayElement } from "../../types/overlay";
 import { TaskForm } from "../forms/TaskForm";
 import { BaseDrawer } from "./BaseDrawer";
-import { TTask } from "../../types/task";
+import type { TTask } from "../../types/task";
 
 export const CreateEditTaskDrawer = ({ baseRef }: IOverlayElement) => {
   const closeModal = () => baseRef?.current?.close() || (() => console.error("baseRef is not defined"));
