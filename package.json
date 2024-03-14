@@ -8,7 +8,7 @@
     "build": "yarn workspace @apps/core-app build",
     "analyze": "yarn workspace @apps/core-app analyze",
     "android": "yarn dev & yarn workspace @native/native-app tauri android dev",
-    "android:build": "yarn build && yarn workspace @native/native-app tauri android build",
+    "android:build": "yarn workspace @native/native-app tauri android build",
     "--- Server commands ----------------------------------------------": "",
     "server": "yarn workspace @services/chat-server start",
     "--- Validation commands ------------------------------------------": "",

@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "identifier": "com.tauri.build",
   "build": {
-    "frontendDist": "../../../apps/core-app/dist",
-    "devUrl": "http://localhost:5173"
+    "frontendDist": "./dist",
+    "devUrl": "http://localhost:5173",
+    "beforeBuildCommand": "bash ./src-tauri/scripts/beforeBuild.sh"
   },
   "app": {
     "windows": [
