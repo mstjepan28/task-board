@@ -35,7 +35,12 @@ const generateGrid = (sizeX: number, sizeY: number): TGridCell[] => {
   return grid;
 };
 
-const GridCell = ({ cell }: { cell: TGridCell }) => {
+type TGridCellProps = {
+  cell: TGridCell;
+  onCellClick: (updatedCell: TGridCell) => void;
+};
+
+const GridCell = ({ cell, onCellClick }: TGridCellProps) => {
   const getBackgroundColor = () => {
     if (cell.isStart) {
       return "bg-green-500";
@@ -54,6 +59,7 @@ const GridCell = ({ cell }: { cell: TGridCell }) => {
     }
 
     cell.isWall = !cell.isWall;
+    onCellClick(cell);
   };
 
   return (
@@ -72,6 +78,22 @@ export const PathFinderScreen = () => {
 
   const SIZE_X = 12;
   const SIZE_Y = 9;
+
+  const onCellClick = (updatedCell: TGridCell) => {
+    if (!grid) {
+      return;
+    }
+
+    const newGrid = grid.map((cell) => {
+      if (cell.x === updatedCell.x && cell.y === updatedCell.y) {
+        return updatedCell;
+      }
+
+      return cell;
+    });
+
+    setGrid(newGrid);
+  };
 
   useEffect(() => {
     const newGrid = generateGrid(SIZE_X, SIZE_Y);
@@ -92,7 +114,7 @@ export const PathFinderScreen = () => {
         className="grid h-fit"
       >
         {grid.map((gridItem) => {
-          return <GridCell key={`${gridItem.x}-${gridItem.y}`} cell={gridItem} />;
+          return <GridCell key={`${gridItem.x}-${gridItem.y}`} cell={gridItem} onCellClick={onCellClick} />;
         })}
       </div>
     </div>
