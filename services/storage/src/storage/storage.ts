@@ -8,7 +8,7 @@ export const storage = {
 
     try {
       return storageRes ? (JSON.parse(storageRes) as T) : null;
-    } catch (error) {
+    } catch (_error) {
       return null;
     }
   },
