@@ -14,6 +14,7 @@ export const NavigationLayout = () => {
         <NavLink to="/cryptogram">Cryptogram</NavLink>
         <NavLink to="/chat">Live chat</NavLink>
         <NavLink to="/sudoku">Sudoku</NavLink>
+        <NavLink to="/path-finder">Path finder</NavLink>
       </div>
     </div>
   );

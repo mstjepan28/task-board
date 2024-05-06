@@ -3,6 +3,7 @@ import { NavigationLayout } from "../layout/NavigationLayout";
 import * as sudokuModule from "@shared/sudoku";
 import * as todoModule from "@shared/todo-app";
 import * as chatModule from "@shared/live-chat";
+import * as pathFinder from "@shared/path-finder";
 import * as cryptogramModule from "@shared/cryptogram";
 
 export const createMainRouter = () => {
@@ -18,8 +19,11 @@ export const createMainRouter = () => {
   const chatRouter = chatModule.createModuleRouter<TRootRoute>(rootRoute);
   const todoRouter = todoModule.createModuleRouter<TRootRoute>(rootRoute);
   const sudokuRouter = sudokuModule.createModuleRouter<TRootRoute>(rootRoute);
+  const pathFinderRouter = pathFinder.createModuleRouter<TRootRoute>(rootRoute);
   const cryptogramRouter = cryptogramModule.createModuleRouter<TRootRoute>(rootRoute);
 
-  const routerGroup = [indexRoute, todoRouter, sudokuRouter, chatRouter, cryptogramRouter].flat();
-  return createRouter({ routeTree: rootRoute.addChildren(routerGroup) });
+  const routerGroup = [indexRoute, todoRouter, sudokuRouter, chatRouter, pathFinderRouter, cryptogramRouter].flat();
+  return createRouter({
+    routeTree: rootRoute.addChildren(routerGroup),
+  });
 };
