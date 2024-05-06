@@ -1,35 +1,45 @@
 {
   "organizeImports": {
     "enabled": false,
-    "ignore": ["node_modules"]
+    "ignore": ["node_modules", "native", "package.json"]
+  },
+  "javascript": {
+    "globals": ["React", "JSX"]
   },
   "formatter": {
-    "ignore": ["node_modules"],
+    "ignore": ["node_modules", "native", "package.json"],
     "formatWithErrors": true,
     "indentStyle": "space",
     "indentWidth": 2,
     "lineWidth": 120
   },
   "linter": {
-    "ignore": ["node_modules"],
+    "ignore": ["node_modules", "native", "package.json"],
     "rules": {
       "a11y": {
+        "noNoninteractiveTabindex": { "level": "off" },
         "useKeyWithClickEvents": { "level": "off" },
-        "noSvgWithoutTitle": { "level": "off" }
+        "noSvgWithoutTitle": { "level": "off" },
+        "useHeadingContent": { "level": "off" },
+        "useAltText": { "level": "off" }
       },
       "complexity": {
-        "noBannedTypes": { "level": "error" },
         "noExtraBooleanCast": { "level": "error" },
-        "noUselessFragments": { "level": "error" },
         "useArrowFunction": { "level": "error" },
+        "noBannedTypes": { "level": "error" },
         "useFlatMap": { "level": "error" },
-        "useOptionalChain": { "level": "error" }
+        "noUselessConstructor": { "level": "off" },
+        "noUselessFragments": { "level": "off" },
+        "useOptionalChain": { "level": "off" },
+        "noForEach": { "level": "off" }
       },
       "correctness": {
-        "useExhaustiveDependencies": { "level": "off" },
+        "noUndeclaredVariables": { "level": "error" },
         "useHookAtTopLevel": { "level": "error" },
+        "noUnusedVariables": { "level": "error" },
+        "noUnusedImports": { "level": "error" },
         "noUnreachable": { "level": "error" },
-        "noUndeclaredVariables": { "level": "error" }
+        "useExhaustiveDependencies": { "level": "off" }
       },
       "performance": {
         "noAccumulatingSpread": { "level": "error" },
@@ -37,11 +47,19 @@
       },
       "security": {},
       "style": {
-        "useSelfClosingElements": { "level": "off" }
+        "useExponentiationOperator": { "level": "off" },
+        "noUnusedTemplateLiteral": { "level": "off" },
+        "useSelfClosingElements": { "level": "off" },
+        "noNonNullAssertion": { "level": "off" },
+        "noParameterAssign": { "level": "off" },
+        "noUselessElse": { "level": "off" },
+        "useTemplate": { "level": "off" }
       },
       "suspicious": {
-        "noExplicitAny": { "level": "off" },
-        "noArrayIndexKey": { "level": "off" }
+        "noConfusingVoidType": { "level": "off" },
+        "noArrayIndexKey": { "level": "off" },
+        "noDoubleEquals": { "level": "off" },
+        "noExplicitAny": { "level": "off" }
       }
     }
   }

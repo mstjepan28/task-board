@@ -12,20 +12,20 @@
     "@shared/live-chat": "workspace:^",
     "@shared/sudoku": "workspace:^",
     "@shared/todo-app": "workspace:^",
-    "@tanstack/react-router": "^1.19.2",
-    "internal-ip": "^7.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@tanstack/react-router": "^1.31.20",
+    "internal-ip": "^8.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@tailwindcss/vite": "next",
-    "@tanstack/router-devtools": "^1.19.2",
-    "@types/react": "^18.2.64",
-    "@types/react-dom": "^18.2.21",
+    "@tanstack/router-devtools": "^1.31.20",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.2.1",
     "tailwindcss": "next",
-    "typescript": "^5.4.2",
-    "vite": "^5.1.5",
-    "vite-bundle-visualizer": "1.0.1"
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11",
+    "vite-bundle-visualizer": "1.1.0"
   }
 }
