@@ -6,6 +6,7 @@
   "dependencies": {
     "@services/storage": "workspace:^",
     "@services/utils": "workspace:^",
+    "astar-typescript": "1.2.7",
     "dayjs": "^1.11.11",
     "react": "^18.3.1"
   }
