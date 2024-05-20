@@ -1,4 +1,5 @@
 import type { TMessageBody } from "@services/utils";
+import dayjs from "dayjs";
 import type React from "react";
 import { useEffect, useState } from "react";
 
@@ -88,11 +89,22 @@ export const ChatScreen = () => {
     };
   }, []);
 
+  const clearMessages = () => {
+    const clearMessage = {
+      type: "clear",
+      message: "Messages cleared",
+      username: "system",
+      created_at: dayjs().toISOString(),
+    } satisfies TMessageBody;
+
+    setMessageList([JSON.stringify(clearMessage)]);
+  };
+
   return (
     <>
       <button
         type="button"
-        onClick={() => setMessageList([])}
+        onClick={clearMessages}
         className="text-gray-100/50 absolute top-4 right-8 text-xs cursor-pointer"
       >
         clear
@@ -101,9 +113,9 @@ export const ChatScreen = () => {
       <div className="h-full w-11/12 flex flex-col mx-auto md:w-2/3 py-2">
         <div className="basis-full overflow-y-auto px-2 pt-1 pb-4">
           <div className="h-full max-h-full  flex flex-col gap-y-1">
-            {messageList.map((messageStr) => {
+            {messageList.map((messageStr, index) => {
               const message = JSON.parse(messageStr) as TMessageBody;
-              const key = `${message.username}-${message.created_at}`;
+              const key = `${message.username}-${message.created_at}-${index}`;
 
               const isOwnMessage = message.username === getUsername();
               const ownMsgStyle = "ml-auto bg-blue-500 border-blue-600";
