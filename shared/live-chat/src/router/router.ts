@@ -1,12 +1,12 @@
 import { createRoute } from "@tanstack/react-router";
 import type { AnyRoute } from "@tanstack/react-router";
-import { Chat } from "../screens/Chat";
+import { ChatScreen } from "../screens/ChatScreen";
 
 export const createModuleRouter = <T extends AnyRoute>(rootRoute: T) => {
   const chat = createRoute({
     getParentRoute: () => rootRoute,
     path: "/chat",
-    component: Chat,
+    component: ChatScreen,
   });
 
   return [chat];
