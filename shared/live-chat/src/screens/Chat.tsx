@@ -44,26 +44,14 @@ export const Chat = () => {
     setSocket(newSocket);
   };
 
-  useEffect(() => {
-    if (!connectionOpened) {
-      openNewConnection();
-    }
-
-    return () => {
-      socket?.close();
-      setSocket(null);
-    };
-  }, []);
-
   const sendMessage = (message: string) => {
-    if (connectionOpened) {
-      socket?.send(message);
-      return;
+    if (connectionOpened && socket) {
+      socket.send(message);
+    } else {
+      openNewConnection({
+        onOpen: (socket: WebSocket) => socket.send(message),
+      });
     }
-
-    const onOpen = (socket: WebSocket) => socket.send(message);
-
-    openNewConnection({ onOpen });
   };
 
   const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -80,12 +68,23 @@ export const Chat = () => {
     event.currentTarget.reset();
   };
 
+  useEffect(() => {
+    if (!connectionOpened) {
+      openNewConnection();
+    }
+
+    return () => {
+      socket?.close();
+      setSocket(null);
+    };
+  }, []);
+
   return (
     <div className="h-full w-11/12 flex flex-col mx-auto md:w-2/3 py-2">
       <div className="basis-full px-2 py-1">
         <div className="h-full max-h-full overflow-y-auto flex flex-col gap-y-1">
           {messageList.map((message, index) => (
-            <div key={index} className="w-fit ml-auto py-1 px-2 rounded-lg bg-blue-500 border-blue-600 border-2">
+            <div key={index} className="w-fit ml-auto py-0.5 px-2 rounded-lg bg-blue-500 border-blue-600 border-2">
               <div className="text-sm text-white">{message}</div>
             </div>
           ))}
