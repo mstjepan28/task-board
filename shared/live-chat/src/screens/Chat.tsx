@@ -1,18 +1,19 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 
+interface IOpenConnectionProps {
+  onOpen?: (socket: WebSocket) => void;
+  onClose?: (socket: WebSocket) => void;
+  onMessage?: (message: string) => void;
+}
+
 export const Chat = () => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [connectionOpened, setConnectionOpened] = useState(false);
 
   const [messageList, setMessageList] = useState<string[]>([]);
 
-  interface OpenConnectionProps {
-    onOpen?: (socket: WebSocket) => void;
-    onClose?: (socket: WebSocket) => void;
-    onMessage?: (message: string) => void;
-  }
-  const openNewConnection = (props?: OpenConnectionProps) => {
+  const openNewConnection = (props?: IOpenConnectionProps) => {
     const { onOpen, onClose, onMessage } = props || {};
 
     const newSocket = new WebSocket("ws://localhost:8080");
@@ -68,35 +69,35 @@ export const Chat = () => {
   const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const formElement = event.currentTarget;
-    const messageInput = formElement[0] as HTMLInputElement;
+    const inputField = event.currentTarget[0] as HTMLInputElement;
+    const message = inputField.value;
+    if (!message) {
+      return;
+    }
 
-    sendMessage(messageInput.value);
+    sendMessage(message);
+
+    event.currentTarget.reset();
   };
 
   return (
-    <div className="h-[100svh] w-full flex flex-col items-center justify-center bg-gray-500">
-      <div className="w-2/3 basis-full flex flex-col justify-end">
-        <div className="basis-full">
-          <div className="h-full max-h-full overflow-y-auto">
-            {messageList.map((message, index) => (
-              <div key={index} className="flex justify-end">
-                <div className="bg-blue-500 text-white p-2 rounded-lg">{message}</div>
-              </div>
-            ))}
-          </div>
+    <div className="h-full w-11/12 flex flex-col mx-auto md:w-2/3 py-2">
+      <div className="basis-full px-2 py-1">
+        <div className="h-full max-h-full overflow-y-auto flex flex-col gap-y-1">
+          {messageList.map((message, index) => (
+            <div key={index} className="w-fit ml-auto py-1 px-2 rounded-lg bg-blue-500 border-blue-600 border-2">
+              <div className="text-sm text-white">{message}</div>
+            </div>
+          ))}
         </div>
-
-        <form
-          onSubmit={onFormSubmit}
-          className="flex items-stretch  overflow-hidden rounded-lg focus-within: border-blue-600"
-        >
-          <input type="text" className="basis-full p-2 outline-none ring-0" />
-          <button type="submit" className="p-2 bg-white">
-            Send
-          </button>
-        </form>
       </div>
+
+      <form onSubmit={onFormSubmit} className="rounded-lg w-full flex gap-x-4 text-white bg-white/10 py-2 px-4">
+        <input type="text" className="basis-full outline-none ring-0 border-b border-transparent border-b-white" />
+        <button type="submit" className="cursor-pointer">
+          Send
+        </button>
+      </form>
     </div>
   );
 };
