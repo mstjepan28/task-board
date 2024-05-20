@@ -16,7 +16,7 @@ export const Chat = () => {
   const openNewConnection = (props?: IOpenConnectionProps) => {
     const { onOpen, onClose, onMessage } = props || {};
 
-    const newSocket = new WebSocket("ws://localhost:8080");
+    const newSocket = new WebSocket("ws://localhost:8080/chat");
 
     newSocket.onopen = () => {
       if (typeof onOpen === "function") {
@@ -81,8 +81,8 @@ export const Chat = () => {
 
   return (
     <div className="h-full w-11/12 flex flex-col mx-auto md:w-2/3 py-2">
-      <div className="basis-full px-2 py-1">
-        <div className="h-full max-h-full overflow-y-auto flex flex-col gap-y-1">
+      <div className="basis-full overflow-y-auto px-2 pt-1 pb-4">
+        <div className="h-full max-h-full  flex flex-col gap-y-1">
           {messageList.map((message, index) => (
             <div key={index} className="w-fit ml-auto py-0.5 px-2 rounded-lg bg-blue-500 border-blue-600 border-2">
               <div className="text-sm text-white">{message}</div>
