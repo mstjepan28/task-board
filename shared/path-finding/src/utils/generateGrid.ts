@@ -6,16 +6,25 @@ export const generateGrid = (sizeX: number, sizeY: number): TGridCell[] => {
   }
 
   const grid: TGridCell[] = [];
+  let cellCounter = 0;
 
   for (let row = 0; row < sizeX; row++) {
     for (let col = 0; col < sizeY; col++) {
+      cellCounter++;
+
       const newCell = {
-        x: col + 1,
-        y: row + 1,
-        isWall: Math.random() < 0.3,
-        isStart: false,
-        isEnd: false,
-        direction: null,
+        id: cellCounter,
+        fValue: 0,
+        gValue: 0,
+        hValue: 0,
+        isOnClosedList: false,
+        isOnOpenList: true,
+        isWalkable: true,
+        parentNode: undefined,
+        position: {
+          x: row,
+          y: col,
+        },
       } satisfies TGridCell;
 
       grid.push(newCell);

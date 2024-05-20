@@ -7,11 +7,7 @@ interface IProps {
 
 export const GridCell = ({ cell, onCellClick }: IProps) => {
   const getBackgroundColor = () => {
-    if (cell.isStart) {
-      return "bg-green-500";
-    } else if (cell.isEnd) {
-      return "bg-red-500";
-    } else if (cell.isWall) {
+    if (!cell.isWalkable) {
       return "bg-gray-300";
     }
 
@@ -19,11 +15,7 @@ export const GridCell = ({ cell, onCellClick }: IProps) => {
   };
 
   const toggleWall = () => {
-    if (cell.isStart || cell.isEnd) {
-      return;
-    }
-
-    cell.isWall = !cell.isWall;
+    cell.isWalkable = !cell.isWalkable;
     onCellClick(cell);
   };
 
@@ -33,7 +25,7 @@ export const GridCell = ({ cell, onCellClick }: IProps) => {
       onClick={toggleWall}
       className={`size-12 border flex items-center cursor-pointer justify-center border-gray-400 ${getBackgroundColor()}`}
     >
-      <span className="text-xs select-none">{`${cell.x}x${cell.y}`}</span>
+      <span className="text-xs select-none">{cell.id}</span>
     </button>
   );
 };

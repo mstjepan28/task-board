@@ -7,7 +7,7 @@ import { loadState, saveState } from "../utils/saveLoadGame";
 export const PathFinderScreen = () => {
   const [grid, setGrid] = useState<TGridCell[] | null>(null);
 
-  const SIZE_X = 12;
+  const SIZE_X = 13;
   const SIZE_Y = 9;
 
   const onCellClick = (updatedCell: TGridCell) => {
@@ -16,17 +16,31 @@ export const PathFinderScreen = () => {
     }
 
     const newGrid = grid.map((cell) => {
-      const isSameCell = cell.x === updatedCell.x && cell.y === updatedCell.y;
-      return isSameCell ? updatedCell : cell;
+      return cell.id === updatedCell.id ? updatedCell : cell;
     });
 
     setGrid(newGrid);
     saveState(newGrid);
   };
 
+  const generateNewGrid = () => {
+    const newGrid = generateGrid(SIZE_X, SIZE_Y);
+    saveState(newGrid);
+    setGrid(newGrid);
+  };
+
   useEffect(() => {
     const loadedGrid = loadState() ?? generateGrid(SIZE_X, SIZE_Y);
     setGrid(loadedGrid);
+
+    // const aStar = new AStarFinder({
+    //   grid: {
+    //     matrix: arrayToMatrix<TGridCell>(loadedGrid, SIZE_X),
+    //   },
+    //   heuristic: "Manhattan",
+    // });
+
+    // console.log(aStar);
   }, []);
 
   if (!grid) {
@@ -34,7 +48,7 @@ export const PathFinderScreen = () => {
   }
 
   return (
-    <div className="w-full h-[100svh] flex items-center justify-center">
+    <div className="w-full h-[100svh] flex flex-col gap-y-2 items-center justify-center">
       <div
         style={{
           gridTemplateRows: `repeat(${SIZE_Y}, minmax(0, 1fr))`,
@@ -43,10 +57,17 @@ export const PathFinderScreen = () => {
         className="grid h-fit"
       >
         {grid.map((gridItem) => {
-          const key = `${gridItem.x}-${gridItem.y}`;
-          return <GridCell key={key} cell={gridItem} onCellClick={onCellClick} />;
+          return <GridCell key={gridItem.id} cell={gridItem} onCellClick={onCellClick} />;
         })}
       </div>
+
+      <button
+        type="button"
+        onClick={generateNewGrid}
+        className="bg-white rounded-lg px-4 py-2 uppercase font-bold text-sm border border-gray-400 cursor-pointer hover:bg-gray-100"
+      >
+        generate new
+      </button>
     </div>
   );
 };

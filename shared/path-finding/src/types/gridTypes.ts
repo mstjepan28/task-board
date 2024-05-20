@@ -1,10 +1,14 @@
-import type { TDirection } from "../enums/directions";
-
 export type TGridCell = {
-  x: number;
-  y: number;
-  direction: TDirection | null;
-  isWall: boolean;
-  isStart: boolean;
-  isEnd: boolean;
+  id: number;
+  fValue: number;
+  gValue: number;
+  hValue: number;
+  isOnClosedList: boolean;
+  isOnOpenList: boolean;
+  isWalkable: boolean;
+  parentNode: undefined;
+  position: {
+    x: number;
+    y: number;
+  };
 };
