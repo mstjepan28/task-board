@@ -1,3 +1,4 @@
+import type { TMessageBody } from "@services/utils";
 import type React from "react";
 import { useEffect, useState } from "react";
 
@@ -88,23 +89,53 @@ export const ChatScreen = () => {
   }, []);
 
   return (
-    <div className="h-full w-11/12 flex flex-col mx-auto md:w-2/3 py-2">
-      <div className="basis-full overflow-y-auto px-2 pt-1 pb-4">
-        <div className="h-full max-h-full  flex flex-col gap-y-1">
-          {messageList.map((message, index) => (
-            <div key={index} className="w-fit ml-auto py-0.5 px-2 rounded-lg bg-blue-500 border-blue-600 border-2">
-              <div className="text-sm text-white">{message}</div>
-            </div>
-          ))}
-        </div>
-      </div>
+    <>
+      <button
+        type="button"
+        onClick={() => setMessageList([])}
+        className="text-gray-100/50 absolute top-4 right-8 text-xs cursor-pointer"
+      >
+        clear
+      </button>
 
-      <form onSubmit={onFormSubmit} className="rounded-lg w-full flex gap-x-4 text-white bg-white/10 py-2 px-4">
-        <input type="text" className="basis-full outline-none ring-0 border-b border-transparent border-b-white" />
-        <button type="submit" className="cursor-pointer">
-          Send
-        </button>
-      </form>
-    </div>
+      <div className="h-full w-11/12 flex flex-col mx-auto md:w-2/3 py-2">
+        <div className="basis-full overflow-y-auto px-2 pt-1 pb-4">
+          <div className="h-full max-h-full  flex flex-col gap-y-1">
+            {messageList.map((messageStr) => {
+              const message = JSON.parse(messageStr) as TMessageBody;
+              const key = `${message.username}-${message.created_at}`;
+
+              const isOwnMessage = message.username === getUsername();
+              const ownMsgStyle = "ml-auto bg-blue-500 border-blue-600";
+              const otherMsgStyle = "mr-auto bg-green-500 border-green-600";
+
+              if (message.type === "message") {
+                return (
+                  <div
+                    key={key}
+                    className={`w-fit py-0.5 px-2 rounded-lg border-2 ${isOwnMessage ? ownMsgStyle : otherMsgStyle}`}
+                  >
+                    <div className="text-sm text-white">{message.message}</div>
+                  </div>
+                );
+              }
+
+              return (
+                <div key={key} className="w-full flex justify-center py-2">
+                  <div className="text-xs text-gray-100/50">{message.message}</div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <form onSubmit={onFormSubmit} className="rounded-lg w-full flex gap-x-4 text-white bg-white/10 py-2 px-4">
+          <input type="text" className="basis-full outline-none ring-0 border-b border-transparent border-b-white" />
+          <button type="submit" className="cursor-pointer">
+            Send
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
