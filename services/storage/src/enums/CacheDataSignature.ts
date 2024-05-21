@@ -3,6 +3,7 @@ export const CacheDataSignature = {
   SUDOKU_MOVE_STACK: "sudoku-move-stack",
   CRYPTOGRAM_ROUND_KEY: "cryptogram-round-key",
   PATH_FINDER_GRID: "path-finder-grid",
+  CHAT_DETAILS: "chat-details",
 } as const;
 
 export type TCacheDataSignature = (typeof CacheDataSignature)[keyof typeof CacheDataSignature];
