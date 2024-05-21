@@ -1,65 +1,14 @@
-import { useMemo } from "react";
-import { useNavigate } from "@tanstack/react-router";
+import { Input } from "../components/Input";
+import { Spacer } from "../components/Spacer";
+import { useChatroom } from "../hooks/useChatroom";
 
 const Field = {
   CHATROOM_ID: "roomId",
   USERNAME: "username",
 } as const;
 
-const Input = ({ name, placeholder }: { name: string; placeholder: string }) => {
-  return (
-    <label className="block relative">
-      <input
-        id={name}
-        name={name}
-        placeholder=""
-        className="peer w-full bg-zinc-700 text-white rounded-md p-2 outline-none"
-        autoComplete="off"
-      />
-
-      <div
-        className="
-          absolute left-2 -top-2.5 bg-zinc-700 rounded-lg p-1 transition-all
-          peer-placeholder-shown:bg-transparent peer-placeholder-shown:top-2.5
-        "
-      >
-        <div className="leading-3 text-xs">{placeholder}</div>
-      </div>
-    </label>
-  );
-};
-
-type TSize = "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
-const Spacer = ({ size }: { size?: TSize | undefined }) => {
-  const height = useMemo((): `${number}px` => {
-    if (!size) {
-      return "8px";
-    }
-
-    const pixels = {
-      xxs: 1,
-      xs: 2,
-      sm: 4,
-      md: 8,
-      lg: 16,
-      xl: 32,
-      xxl: 64,
-    }[size];
-
-    return `${pixels}px`;
-  }, [size]);
-
-  return <div style={{ height }} />;
-};
-
 export const ChatroomSelectScreen = () => {
-  const navigate = useNavigate();
-
-  const joinChatroom = (username: string, roomId: string) => {
-    const search = { roomId, username };
-
-    navigate({ to: "/chat/room", search });
-  };
+  const room = useChatroom();
 
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -74,7 +23,7 @@ export const ChatroomSelectScreen = () => {
       return;
     }
 
-    joinChatroom(username, roomId);
+    room.join(username, roomId);
   };
 
   return (
