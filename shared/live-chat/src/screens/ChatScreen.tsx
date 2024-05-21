@@ -2,6 +2,7 @@ import type { TMessageBody } from "@services/utils";
 import dayjs from "dayjs";
 import type React from "react";
 import { useEffect, useState } from "react";
+import { useChatroom } from "../hooks/useChatroom";
 
 interface IOpenConnectionProps {
   onOpen?: (socket: WebSocket) => void;
@@ -12,8 +13,9 @@ interface IOpenConnectionProps {
 export const ChatScreen = () => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [connectionOpened, setConnectionOpened] = useState(false);
-
   const [messageList, setMessageList] = useState<string[]>([]);
+
+  const room = useChatroom();
 
   const getUsername = () => {
     const username = new URLSearchParams(window.location.search).get("username");
@@ -100,15 +102,21 @@ export const ChatScreen = () => {
     setMessageList([JSON.stringify(clearMessage)]);
   };
 
+  const leaveRoom = () => {
+    socket?.close();
+    room.leave();
+  };
+
   return (
     <>
-      <button
-        type="button"
-        onClick={clearMessages}
-        className="text-gray-100/50 absolute top-4 right-8 text-xs cursor-pointer"
-      >
-        clear
-      </button>
+      <div className="absolute top-4 right-8 flex flex-col items-end gap-y-2">
+        <button type="button" onClick={leaveRoom} className="text-gray-100/50  text-xs cursor-pointer">
+          leave room
+        </button>
+        <button type="button" onClick={clearMessages} className="text-gray-100/50  text-xs cursor-pointer">
+          clear
+        </button>
+      </div>
 
       <div className="h-full w-11/12 flex flex-col mx-auto md:w-2/3 py-2">
         <div className="basis-full overflow-y-auto px-2 pt-1 pb-4">

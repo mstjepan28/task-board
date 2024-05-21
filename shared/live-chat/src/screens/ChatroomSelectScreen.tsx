@@ -1,7 +1,8 @@
 import { useMemo } from "react";
+import { useNavigate } from "@tanstack/react-router";
 
 const Field = {
-  CHATROOM_ID: "chatroomId",
+  CHATROOM_ID: "roomId",
   USERNAME: "username",
 } as const;
 
@@ -52,20 +53,28 @@ const Spacer = ({ size }: { size?: TSize | undefined }) => {
 };
 
 export const ChatroomSelectScreen = () => {
+  const navigate = useNavigate();
+
+  const joinChatroom = (username: string, roomId: string) => {
+    const search = { roomId, username };
+
+    navigate({ to: "/chat/room", search });
+  };
+
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
     const formValues = Object.fromEntries(formData.entries());
 
-    const chatroomId = formValues[Field.CHATROOM_ID];
-    const username = formValues[Field.USERNAME];
+    const roomId = formValues[Field.CHATROOM_ID] as string;
+    const username = formValues[Field.USERNAME] as string;
 
-    if (!chatroomId || !username) {
+    if (!roomId || !username) {
       return;
     }
 
-    console.log({ chatroomId, username });
+    joinChatroom(username, roomId);
   };
 
   return (

@@ -12,7 +12,7 @@ export const NavigationLayout = () => {
         <NavLink to="/">Home</NavLink>
         <NavLink to="/task-board">Task board</NavLink>
         <NavLink to="/cryptogram">Cryptogram</NavLink>
-        <NavLink to="/chat">Live chat</NavLink>
+        <NavLink to="/chat/join">Live chat</NavLink>
         <NavLink to="/sudoku">Sudoku</NavLink>
         <NavLink to="/path-finder">Path finder</NavLink>
       </div>
