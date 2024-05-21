@@ -19,9 +19,11 @@ export const ChatScreen = () => {
 
   const getUsername = () => {
     const username = new URLSearchParams(window.location.search).get("username");
-    const fallback = `Anonymous-${Math.floor(Math.random() * 1000)}`;
+    if (username) {
+      return username;
+    }
 
-    return username || fallback;
+    room.leave();
   };
 
   const openNewConnection = (props?: IOpenConnectionProps) => {
@@ -110,10 +112,10 @@ export const ChatScreen = () => {
   return (
     <>
       <div className="absolute top-4 right-8 flex flex-col items-end gap-y-2">
-        <button type="button" onClick={leaveRoom} className="text-gray-100/50  text-xs cursor-pointer">
+        <button type="button" onClick={leaveRoom} className="text-gray-100/50 text-xs cursor-pointer">
           leave room
         </button>
-        <button type="button" onClick={clearMessages} className="text-gray-100/50  text-xs cursor-pointer">
+        <button type="button" onClick={clearMessages} className="text-gray-100/50 text-xs cursor-pointer">
           clear
         </button>
       </div>
