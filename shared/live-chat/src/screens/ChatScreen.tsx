@@ -14,6 +14,7 @@ export const ChatScreen = () => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [connectionOpened, setConnectionOpened] = useState(false);
   const [messageList, setMessageList] = useState<string[]>([]);
+  const [userList, setUserList] = useState<string[]>([]);
 
   const room = useChatroom();
 
@@ -24,6 +25,19 @@ export const ChatScreen = () => {
     }
 
     room.leave();
+  };
+
+  const handleUserJoinLeave = (message: string) => {
+    const parsedMessage = JSON.parse(message) as TMessageBody;
+
+    if (parsedMessage.type === "leave") {
+      setUserList((prev) => prev.filter((user) => user !== parsedMessage.username));
+    } else {
+      setUserList((prev) => {
+        const newUserList = [...prev, parsedMessage.username];
+        return Array.from(new Set(newUserList));
+      });
+    }
   };
 
   const openNewConnection = (props?: IOpenConnectionProps) => {
@@ -51,6 +65,8 @@ export const ChatScreen = () => {
       if (typeof onMessage === "function") {
         onMessage(data);
       }
+
+      handleUserJoinLeave(data);
 
       setMessageList((prev) => [...prev, data]);
     };
@@ -118,6 +134,10 @@ export const ChatScreen = () => {
         <button type="button" onClick={clearMessages} className="text-gray-100/50 text-xs cursor-pointer">
           clear
         </button>
+      </div>
+      <div className="absolute top-4 left-8 flex flex-col items-start gap-y-2">
+        <div className="text-xs text-gray-100/50">Users in room:</div>
+        <div className="text-xs text-gray-100/50">{userList.join(", ")}</div>
       </div>
 
       <div className="h-full w-11/12 flex flex-col mx-auto md:w-2/3 py-2">
