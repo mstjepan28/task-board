@@ -128,10 +128,10 @@ export const ChatScreen = () => {
   return (
     <>
       <div className="absolute top-4 right-8 flex flex-col items-end gap-y-2">
-        <button type="button" onClick={leaveRoom} className="text-gray-100/50 text-xs cursor-pointer">
+        <button type="button" onClick={leaveRoom} className="underline text-gray-100/50 text-xs cursor-pointer">
           leave room
         </button>
-        <button type="button" onClick={clearMessages} className="text-gray-100/50 text-xs cursor-pointer">
+        <button type="button" onClick={clearMessages} className="underline text-gray-100/50 text-xs cursor-pointer">
           clear
         </button>
       </div>
