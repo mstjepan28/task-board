@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.7.3",
+    "@million/lint": "^1.0.0-rc.12",
     "check-dependency-version-consistency": "^4.1.0",
     "vitest": "1.6.0"
   },

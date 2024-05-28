@@ -6,7 +6,7 @@
     "@services/supabase": "workspace:^",
     "@services/ui-library": "workspace:^",
     "@services/utils": "workspace:^",
-    "@tanstack/react-router": "^1.31.20",
+    "@tanstack/react-router": "^1.33.6",
     "dayjs": "^1.11.11",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"

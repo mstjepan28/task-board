@@ -12,7 +12,7 @@
     "@shared/live-chat": "workspace:^",
     "@shared/sudoku": "workspace:^",
     "@shared/todo-app": "workspace:^",
-    "@tanstack/react-router": "^1.31.20",
+    "@tanstack/react-router": "^1.33.6",
     "internal-ip": "^8.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
