@@ -1,3 +1,3 @@
 export const NumberGuesserScreen = () => {
-  return <>number guesser</>;
+  return <div className="text-white">number guesser</div>;
 };
