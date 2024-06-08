@@ -1,0 +1,11 @@
+{
+  "name": "@shared/number-guesser",
+  "private": true,
+  "version": "1",
+  "main": "./src",
+  "dependencies": {
+    "@services/storage": "workspace:^",
+    "@services/utils": "workspace:^",
+    "react": "^18.3.1"
+  }
+}
