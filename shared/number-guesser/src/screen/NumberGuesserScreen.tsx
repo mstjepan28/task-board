@@ -1,7 +1,8 @@
 import { deepCopy } from "@services/utils";
 import { useMemo, useRef, useState } from "react";
-import { generateInputArray, generateRandomNumber, INPUT_LENGTH, VALID_NUMBERS } from "../utils/helpers";
-import { SubmitIcon } from "../components/icons/SubmitIcon";
+import { INPUT_LENGTH, VALID_NUMBERS, generateInputArray, generateRandomNumber } from "../utils/helpers";
+
+type TFocusDirection = "forward" | "backward";
 
 export const NumberGuesserScreen = () => {
   const [inputValues, setInputValues] = useState(generateInputArray());
@@ -13,7 +14,6 @@ export const NumberGuesserScreen = () => {
   // --- Input element handling --------------- //
   // ------------------------------------------ //
   const inputWrapperRef = useRef<HTMLDivElement>(null);
-
   const inputArr = useMemo(generateInputArray, [INPUT_LENGTH]);
 
   // ------------------------------------------ //
@@ -58,6 +58,14 @@ export const NumberGuesserScreen = () => {
 
     const nextInput = inputWrapperRef.current.querySelectorAll("input")[index - 1];
     nextInput?.focus();
+  };
+
+  const shiftFocus = (index: number, direction: TFocusDirection) => {
+    if (direction === "forward") {
+      shiftInputFocusForward(index);
+    } else if (direction === "backward") {
+      shiftInputFocusBackward(index);
+    }
   };
 
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -107,12 +115,12 @@ export const NumberGuesserScreen = () => {
               value={inputValues[index]}
               onDelete={() => deleteInput(index)}
               onChange={(newValue) => updateNewInput(index, newValue)}
+              shiftFocus={(direction) => shiftFocus(index, direction)}
             />
           );
         })}
-        <button type="submit" className="hidden size-16 text-white border rounded-lg">
-          <SubmitIcon />
-        </button>
+
+        <button type="submit" className="sr-only" />
       </div>
     </form>
   );
@@ -122,11 +130,20 @@ interface INumberInputProps {
   value: string | undefined;
   onChange: (newValue: string) => void;
   onDelete: () => void;
+  shiftFocus: (direction: TFocusDirection) => void;
 }
 
-const NumberInput = ({ value, onChange, onDelete }: INumberInputProps) => {
+const NumberInput = ({ value, onChange, onDelete, shiftFocus }: INumberInputProps) => {
   const onKeyDown = (key: string) => {
-    key === "Backspace" ? onDelete() : onChange(key);
+    if (key === "Backspace") {
+      onDelete();
+    } else if (key === "ArrowLeft") {
+      shiftFocus("backward");
+    } else if (key === "ArrowRight") {
+      shiftFocus("forward");
+    } else {
+      onChange(key);
+    }
   };
 
   return (
@@ -137,7 +154,7 @@ const NumberInput = ({ value, onChange, onDelete }: INumberInputProps) => {
       onChange={() => {}}
       className="
         size-16 text-center block rounded-lg text-black bg-white font-medium text-2xl
-        focus:ring-0 focus:outline-none
+        focus:ring-0 focus:outline-none 
         [appearance:textfield] 
         [&::-webkit-inner-spin-button]:appearance-none 
         [&::-webkit-outer-spin-button]:appearance-none
