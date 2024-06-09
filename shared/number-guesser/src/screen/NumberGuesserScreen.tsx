@@ -44,11 +44,15 @@ export const NumberGuesserScreen = () => {
   // --- Handle input delete ------------------ //
   // ------------------------------------------ //
   const deleteInput = (index: number) => {
+    if (!inputValues[index]) {
+      shiftInputFocusBackward(index);
+      return;
+    }
+
     const inputCopy = deepCopy(inputValues);
     inputCopy[index] = "";
 
     setInputValues(inputCopy);
-    shiftInputFocusBackward(index);
   };
   const shiftInputFocusBackward = (index: number) => {
     const inputWrapper = inputWrapperRef.current;
