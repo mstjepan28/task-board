@@ -1,5 +1,5 @@
 import { deepCopy } from "@services/utils";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { INPUT_LENGTH, VALID_NUMBERS, generateInputArray, generateRandomNumber } from "../utils/helpers";
 
 type TFocusDirection = "forward" | "backward";
@@ -9,6 +9,20 @@ export const NumberGuesserScreen = () => {
   const [guessList, setGuessList] = useState<string[]>([]);
 
   const randomNumber = useMemo(generateRandomNumber, []);
+
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  useEffect(() => {
+    if (!errorMessage) {
+      return;
+    }
+
+    console.log(`Error: ${errorMessage}`);
+    const timeout = setTimeout(() => {
+      setErrorMessage("");
+    }, 3000);
+
+    return () => clearTimeout(timeout);
+  }, [errorMessage]);
 
   // ------------------------------------------ //
   // --- Input element handling --------------- //
@@ -76,19 +90,19 @@ export const NumberGuesserScreen = () => {
     e.preventDefault();
     const hasEmptyInputs = inputValues.some((value) => !value);
     if (hasEmptyInputs) {
-      console.log("Please fill all inputs");
+      setErrorMessage("Please fill all inputs");
       return;
     }
 
     const alreadyTried = guessList.some((guess) => guess === inputValues.join(""));
     if (alreadyTried) {
-      console.log("You already tried this combination");
+      setErrorMessage("You already tried this combination");
       return;
     }
 
     const hasRepeatingDigits = new Set(inputValues).size !== inputValues.length;
     if (hasRepeatingDigits) {
-      console.log("Repeating digits are not allowed");
+      setErrorMessage("Repeating digits are not allowed");
       return;
     }
 
@@ -101,32 +115,37 @@ export const NumberGuesserScreen = () => {
   };
 
   return (
-    <form
-      onSubmit={onFormSubmit}
-      className="w-full h-full flex flex-col items-center justify-end gap-y-4 p-4 text-white"
-    >
-      <div className="size-full max-h-full overflow-y-scroll flex flex-col items-center justify-end gap-y-2">
-        {guessList.map((guess, index) => {
-          return <PreviousGuess key={`${guess}-${index}`} guess={guess} />;
-        })}
-      </div>
+    <>
+      {errorMessage && (
+        <div className="fixed top-0 right-0 p-2">
+          <span className="text-xs text-white/50">{errorMessage}</span>
+        </div>
+      )}
 
-      <div ref={inputWrapperRef} className="flex gap-x-4">
-        {inputArr.map((_, index) => {
-          return (
-            <NumberInput
-              key={index}
-              value={inputValues[index]}
-              onDelete={() => deleteInput(index)}
-              onChange={(newValue) => updateNewInput(index, newValue)}
-              shiftFocus={(direction) => shiftFocus(index, direction)}
-            />
-          );
-        })}
+      <form onSubmit={onFormSubmit} className="size-full flex flex-col items-center justify-end gap-y-4 p-4 text-white">
+        <div className="size-full max-h-full overflow-y-scroll flex flex-col items-center justify-end gap-y-2">
+          {guessList.map((guess, index) => {
+            return <PreviousGuess key={`${guess}-${index}`} guess={guess} />;
+          })}
+        </div>
 
-        <button type="submit" className="sr-only" />
-      </div>
-    </form>
+        <div ref={inputWrapperRef} className="flex gap-x-4">
+          {inputArr.map((_, index) => {
+            return (
+              <NumberInput
+                key={index}
+                value={inputValues[index]}
+                onDelete={() => deleteInput(index)}
+                onChange={(newValue) => updateNewInput(index, newValue)}
+                shiftFocus={(direction) => shiftFocus(index, direction)}
+              />
+            );
+          })}
+
+          <button type="submit" className="sr-only" />
+        </div>
+      </form>
+    </>
   );
 };
 
