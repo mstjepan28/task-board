@@ -5,7 +5,8 @@ import { NumberGuesserScreen } from "../screen/NumberGuesserScreen";
 export const createModuleRouter = <T extends AnyRoute>(rootRoute: T) => {
   const sudoku = createRoute({
     getParentRoute: () => rootRoute,
-    path: "/number-guesser",
+    path: "/",
+    // path: "/number-guesser",
     component: NumberGuesserScreen,
   });
 

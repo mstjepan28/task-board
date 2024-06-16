@@ -1,28 +1,94 @@
 import { deepCopy } from "@services/utils";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { INPUT_LENGTH, VALID_NUMBERS, generateInputArray, generateRandomNumber } from "../utils/helpers";
 
 type TFocusDirection = "forward" | "backward";
 
+type TMessageType = "error" | "feedback";
+type TMessage = { content: string | TFeedbackContent; type: TMessageType };
+type TFeedbackContent = { correct: number; misplaced: number; guess: string };
+
+type TDigitState = "correct" | "misplaced" | "not-used";
+type TMarkedDigits = {
+  digit: string;
+  state: TDigitState;
+};
+
 export const NumberGuesserScreen = () => {
   const [inputValues, setInputValues] = useState(generateInputArray());
-  const [guessList, setGuessList] = useState<string[]>([]);
-
   const randomNumber = useMemo(generateRandomNumber, []);
 
-  const [errorMessage, setErrorMessage] = useState<string>("");
-  useEffect(() => {
-    if (!errorMessage) {
+  // ------------------------------------------ //
+  // --- Message handling --------------------- //
+  // ------------------------------------------ //
+
+  const [markedDigits, setMarkedDigits] = useState<TMarkedDigits[]>([]);
+  const [selectedDigit, setSelectedDigit] = useState<string | null>(null);
+
+  const onDigitClick = (digit: string) => {
+    if (selectedDigit === digit) {
+      setSelectedDigit(null);
       return;
     }
 
-    console.log(`Error: ${errorMessage}`);
-    const timeout = setTimeout(() => {
-      setErrorMessage("");
-    }, 3000);
+    setSelectedDigit(digit);
+  };
 
-    return () => clearTimeout(timeout);
-  }, [errorMessage]);
+  const onStatusClick = (status: TDigitState | null) => {
+    if (!selectedDigit) {
+      return;
+    }
+
+    if (status === null) {
+      const filtered = markedDigits.filter((digit) => digit.digit !== selectedDigit);
+      setMarkedDigits(filtered);
+
+      return;
+    }
+
+    const newMarkedDigits = deepCopy(markedDigits);
+    const digitIndex = newMarkedDigits.findIndex((digit) => digit.digit === selectedDigit);
+
+    if (digitIndex === -1) {
+      newMarkedDigits.push({ digit: selectedDigit, state: status });
+    } else {
+      newMarkedDigits[digitIndex].state = status;
+    }
+
+    setMarkedDigits(newMarkedDigits);
+  };
+
+  // ------------------------------------------ //
+  // --- Message handling --------------------- //
+  // ------------------------------------------ //
+  const [messageList, setMessageList] = useState<TMessage[]>([]);
+
+  const evaluateGuess = (guess: string): TFeedbackContent => {
+    const randNumberArr = randomNumber.split("");
+    const guessArr = guess.split("");
+
+    let correct = 0;
+    let misplaced = 0;
+
+    for (let i = 0; i < guessArr.length; i++) {
+      if (guessArr[i] === randNumberArr[i]) {
+        correct++;
+      } else if (randNumberArr.includes(guessArr[i])) {
+        misplaced++;
+      }
+    }
+
+    return {
+      guess: guess,
+      correct: correct,
+      misplaced: misplaced,
+    };
+  };
+
+  const createNewMessage = (content: string | TFeedbackContent, type: TMessageType) => {
+    const newMessage = { content, type };
+    setMessageList((prev) => [...prev, newMessage]);
+  };
 
   // ------------------------------------------ //
   // --- Input element handling --------------- //
@@ -68,6 +134,7 @@ export const NumberGuesserScreen = () => {
 
     setInputValues(inputCopy);
   };
+
   const shiftInputFocusBackward = (index: number) => {
     const inputWrapper = inputWrapperRef.current;
     if (!inputWrapper) {
@@ -86,46 +153,114 @@ export const NumberGuesserScreen = () => {
     }
   };
 
+  const resetFocus = () => {
+    const inputWrapper = inputWrapperRef.current;
+    if (!inputWrapper) {
+      return;
+    }
+
+    const firstInput = inputWrapper.querySelectorAll("input")[0];
+    firstInput.focus();
+  };
+
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const hasEmptyInputs = inputValues.some((value) => !value);
     if (hasEmptyInputs) {
-      setErrorMessage("Please fill all inputs");
-      return;
-    }
-
-    const alreadyTried = guessList.some((guess) => guess === inputValues.join(""));
-    if (alreadyTried) {
-      setErrorMessage("You already tried this combination");
+      createNewMessage("Please fill all inputs", "error");
       return;
     }
 
     const hasRepeatingDigits = new Set(inputValues).size !== inputValues.length;
     if (hasRepeatingDigits) {
-      setErrorMessage("Repeating digits are not allowed");
+      createNewMessage("Repeating digits are not allowed", "error");
       return;
     }
 
     const inputString = inputValues.join("");
     if (inputString === randomNumber) {
+      setMarkedDigits([]);
+      setMessageList([]);
+
       alert("You win!");
     } else {
-      setGuessList((prev) => [...prev, inputString]);
+      const evaluatedGuess = evaluateGuess(inputString);
+      createNewMessage(evaluatedGuess, "feedback");
     }
+
+    setInputValues(generateInputArray());
+    resetFocus();
   };
 
   return (
     <>
-      {errorMessage && (
-        <div className="fixed top-0 right-0 p-2">
-          <span className="text-xs text-white/50">{errorMessage}</span>
+      <div className="absolute top-0 right-0 overflow-hidden">
+        <div
+          data-open={!!selectedDigit}
+          className="flex flex-col gap-y-4 p-4 rounded-l-lg bg-black/50 transition-all translate-x-full data-[open=true]:translate-x-0"
+        >
+          <button
+            type="button"
+            onClick={() => onStatusClick("correct")}
+            className="border rounded-lg border-white size-12 bg-green-600"
+          />
+          <button
+            type="button"
+            onClick={() => onStatusClick("misplaced")}
+            className="border rounded-lg border-white size-12 bg-yellow-500"
+          />
+          <button
+            type="button"
+            onClick={() => onStatusClick("not-used")}
+            className="border rounded-lg border-white size-12 bg-red-600"
+          />
+          <button
+            type="button"
+            onClick={() => onStatusClick(null)}
+            className="border rounded-lg border-white size-12 text-white"
+          >
+            clear
+          </button>
         </div>
-      )}
+      </div>
 
       <form onSubmit={onFormSubmit} className="size-full flex flex-col items-center justify-end gap-y-4 p-4 text-white">
-        <div className="size-full max-h-full overflow-y-scroll flex flex-col items-center justify-end gap-y-2">
-          {guessList.map((guess, index) => {
-            return <PreviousGuess key={`${guess}-${index}`} guess={guess} />;
+        <div className="basis-full max-h-full overflow-y-auto flex flex-col items-center justify-end gap-y-2">
+          {messageList.map((message, index) => {
+            const msgContent = message.content as TFeedbackContent;
+
+            if (message.type === "error") {
+              if (typeof msgContent !== "string") {
+                throw new Error("Invalid message content for error message type");
+              }
+
+              return (
+                <div key={index} className="text-sm bg-red-600 px-4 py-1">
+                  {msgContent}
+                </div>
+              );
+            }
+
+            if (typeof msgContent !== "object") {
+              throw new Error("Invalid message content for feedback message type");
+            }
+
+            return (
+              <div key={index}>
+                <PreviousGuess
+                  key={index}
+                  guess={msgContent.guess}
+                  selectedDigit={selectedDigit}
+                  markedDigits={markedDigits}
+                  onDigitClick={onDigitClick}
+                />
+
+                <div className="flex justify-center gap-x-3 py-2">
+                  <span className="text-sm bg-green-600 px-4 py-1">{msgContent.correct} correct</span>
+                  <span className="text-sm bg-yellow-500 px-4 py-1">{msgContent.misplaced} misplaced</span>
+                </div>
+              </div>
+            );
           })}
         </div>
 
@@ -186,14 +321,45 @@ const NumberInput = ({ value, onChange, onDelete, shiftFocus }: INumberInputProp
   );
 };
 
-const PreviousGuess = ({ guess }: { guess: string }) => {
+interface IPreviousGuessProps {
+  guess: string;
+  selectedDigit: string | null;
+  markedDigits: TMarkedDigits[];
+  onDigitClick: (digit: string) => void;
+}
+const PreviousGuess = ({ guess, onDigitClick, selectedDigit, markedDigits }: IPreviousGuessProps) => {
+  const getMarkedDigitColor = (digitState: TMarkedDigits["state"] | undefined) => {
+    if (!digitState) {
+      return "";
+    }
+
+    return {
+      correct: "bg-green-600",
+      misplaced: "bg-yellow-500",
+      "not-used": "bg-red-600",
+    }[digitState];
+  };
+
   return (
     <div className="flex gap-x-4">
       {guess.split("").map((char, index) => {
+        const isDigitState = markedDigits.find((digit) => digit.digit === char)?.state;
+        const bgColor = getMarkedDigitColor(isDigitState);
+
         return (
-          <div key={index} className="size-16 flex justify-center items-center rounded-lg border">
-            {char}
-          </div>
+          <button
+            type="button"
+            key={index}
+            onClick={() => onDigitClick(char)}
+            className={`size-16 flex justify-center items-center rounded-lg border ${bgColor}`}
+          >
+            <span
+              data-selected={char === selectedDigit}
+              className="font-bold text-xl transition-all data-[selected=true]:text-3xl"
+            >
+              {char}
+            </span>
+          </button>
         );
       })}
     </div>
