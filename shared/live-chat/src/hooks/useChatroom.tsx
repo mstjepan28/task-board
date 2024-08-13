@@ -1,6 +1,6 @@
-import { useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { storage } from "@services/storage";
+import { useNavigate } from "@services/navigation";
 
 type TChatDetails = {
   username: string;
@@ -12,12 +12,12 @@ export const useChatroom = () => {
 
   const join = (username: string, roomId: string) => {
     storage.setItem("chat-details", { username, roomId });
-    navigate({ to: "/chat/room", search: { roomId, username } });
+    navigate(`/join-chat?roomId=${roomId}&username=${username}`);
   };
 
   const leave = () => {
     storage.removeItem("chat-details");
-    navigate({ to: "/chat/join" });
+    navigate("/join-chat");
   };
 
   useEffect(() => {
