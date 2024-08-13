@@ -1,6 +1,8 @@
+import type { TDigitState, TSelectedDigit } from "../types/types";
+
 interface IProps {
-  selectedDigit: string | null;
-  onStatusClick: (status: "correct" | "misplaced" | "not-used" | null) => void;
+  selectedDigit: TSelectedDigit | null;
+  onStatusClick: (status: TDigitState | null) => void;
 }
 
 export const StatusMenu = ({ selectedDigit, onStatusClick }: IProps) => {

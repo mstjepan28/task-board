@@ -1,29 +1,48 @@
-import type { TMarkedDigits } from "../types/types";
+import type { TMarkedDigits, TSelectedDigit } from "../types/types";
 
 interface IProps {
   guess: string;
-  selectedDigit: string | null;
+  selectedDigit: TSelectedDigit | null;
   markedDigits: TMarkedDigits[];
   onDigitClick: (digit: string) => void;
 }
+
+const CORRECT_COLOR = "bg-green-600";
+const MISPLACED_COLOR = "bg-yellow-500";
+const NOT_USED_COLOR = "bg-red-600";
+
 export const PreviousGuess = ({ guess, onDigitClick, selectedDigit, markedDigits }: IProps) => {
-  const getMarkedDigitColor = (digitState: TMarkedDigits["state"] | undefined) => {
+  console.log(JSON.stringify({ selectedDigit, markedDigits }, null, 2));
+
+  const getMarkedDigitColor = (charIndex: number, digitState: TMarkedDigits | undefined) => {
     if (!digitState) {
       return "";
     }
 
-    return {
-      correct: "bg-green-600",
-      misplaced: "bg-yellow-500",
-      "not-used": "bg-red-600",
-    }[digitState];
+    if (digitState.state === "correct") {
+      if (charIndex === digitState.index) {
+        return CORRECT_COLOR;
+      }
+
+      return MISPLACED_COLOR;
+    }
+
+    if (digitState.state === "misplaced") {
+      return MISPLACED_COLOR;
+    }
+
+    if (digitState.state === "not-used") {
+      return NOT_USED_COLOR;
+    }
+
+    throw new Error(`Invalid digit state ${digitState.state}}`);
   };
 
   return (
     <div className="flex gap-x-4">
       {guess.split("").map((char, index) => {
-        const isDigitState = markedDigits.find((digit) => digit.digit === char)?.state;
-        const bgColor = getMarkedDigitColor(isDigitState);
+        const digitMark = markedDigits.find((digit) => digit.digit === char);
+        const bgColor = getMarkedDigitColor(index, digitMark);
 
         return (
           <button
@@ -33,7 +52,7 @@ export const PreviousGuess = ({ guess, onDigitClick, selectedDigit, markedDigits
             className={`size-16 flex justify-center items-center rounded-lg border ${bgColor}`}
           >
             <span
-              data-selected={char === selectedDigit}
+              data-selected={selectedDigit?.digit === char && selectedDigit?.index === index}
               className="font-bold text-xl transition-all data-[selected=true]:text-3xl"
             >
               {char}

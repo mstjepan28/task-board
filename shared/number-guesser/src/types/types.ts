@@ -8,6 +8,11 @@ export type TFeedbackContent = {
   guess: string;
 };
 
+export type TSelectedDigit = {
+  index: number;
+  digit: string;
+};
+
 export type TMessage = {
   content: string | TFeedbackContent;
   type: TFeedbackMessageType;
@@ -16,6 +21,7 @@ export type TMessage = {
 export type TDigitState = "correct" | "misplaced" | "not-used";
 
 export type TMarkedDigits = {
+  index: number;
   digit: string;
   state: TDigitState;
 };

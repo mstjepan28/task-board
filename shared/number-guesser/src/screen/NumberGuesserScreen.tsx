@@ -10,6 +10,7 @@ import type {
   TFocusDirection,
   TMarkedDigits,
   TMessage,
+  TSelectedDigit,
 } from "../types/types";
 import { INPUT_LENGTH, VALID_NUMBERS, generateInputArray, generateRandomNumber } from "../utils/helpers";
 
@@ -17,21 +18,26 @@ export const NumberGuesserScreen = () => {
   const [inputValues, setInputValues] = useState(generateInputArray());
   const randomNumber = useMemo(generateRandomNumber, []);
 
+  console.log(randomNumber);
+
   // ------------------------------------------ //
   // --- Message handling --------------------- //
   // ------------------------------------------ //
 
-  const [selectedDigit, setSelectedDigit] = useState<string | null>(null);
+  const [selectedDigit, setSelectedDigit] = useState<TSelectedDigit | null>(null);
   const [markedDigits, setMarkedDigits] = useState<TMarkedDigits[]>([]);
   const [messageList, setMessageList] = useState<TMessage[]>([]);
 
-  const onDigitClick = (digit: string) => {
-    if (selectedDigit === digit) {
+  const onDigitClick = (index: number, digit: string) => {
+    const isSameDigit = selectedDigit?.digit === digit;
+    const isSameIndex = selectedDigit?.index === index;
+
+    if (isSameDigit && isSameIndex) {
       setSelectedDigit(null);
       return;
     }
 
-    setSelectedDigit(digit);
+    setSelectedDigit({ index, digit });
   };
 
   const onStatusClick = (status: TDigitState | null) => {
@@ -40,18 +46,25 @@ export const NumberGuesserScreen = () => {
     }
 
     if (status === null) {
-      const filtered = markedDigits.filter((digit) => digit.digit !== selectedDigit);
+      const filtered = markedDigits.filter((digit) => digit.digit !== selectedDigit?.digit);
       setMarkedDigits(filtered);
 
       return;
     }
 
     const newMarkedDigits = deepCopy(markedDigits);
-    const digitIndex = newMarkedDigits.findIndex((digit) => digit.digit === selectedDigit);
+    const digitIndex = newMarkedDigits.findIndex((digit) => digit.digit === selectedDigit.digit);
+
+    console.log(digitIndex);
 
     if (digitIndex === -1) {
-      newMarkedDigits.push({ digit: selectedDigit, state: status });
+      newMarkedDigits.push({
+        state: status,
+        index: selectedDigit.index,
+        digit: selectedDigit.digit,
+      });
     } else {
+      newMarkedDigits[digitIndex].index = selectedDigit.index;
       newMarkedDigits[digitIndex].state = status;
     }
 
@@ -104,6 +117,8 @@ export const NumberGuesserScreen = () => {
 
     setInputValues(inputCopy);
     shiftInputFocusForward(index);
+
+    setSelectedDigit(null);
   };
   const shiftInputFocusForward = (index: number) => {
     const inputWrapper = inputWrapperRef.current;

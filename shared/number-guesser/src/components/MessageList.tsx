@@ -1,11 +1,11 @@
-import type { TFeedbackContent, TMarkedDigits, TMessage } from "../types/types";
+import type { TFeedbackContent, TMarkedDigits, TMessage, TSelectedDigit } from "../types/types";
 import { PreviousGuess } from "./PreviousGuess";
 
 interface IProps {
   messageList: TMessage[];
-  selectedDigit: string | null;
   markedDigits: TMarkedDigits[];
-  onDigitClick: (digit: string) => void;
+  selectedDigit: TSelectedDigit | null;
+  onDigitClick: (index: number, digit: string) => void;
 }
 
 export const MessageList = ({ messageList, selectedDigit, markedDigits, onDigitClick }: IProps) => {
@@ -35,7 +35,7 @@ export const MessageList = ({ messageList, selectedDigit, markedDigits, onDigitC
           guess={msgContent.guess}
           selectedDigit={selectedDigit}
           markedDigits={markedDigits}
-          onDigitClick={onDigitClick}
+          onDigitClick={(digit) => onDigitClick(index, digit)}
         />
 
         <div className="flex justify-center gap-x-3 py-2">
