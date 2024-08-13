@@ -1,11 +1,11 @@
 import type { RouteObject } from "@services/navigation";
-import { NoLayoutOutlet } from "@services/ui";
+import { NavigationOutlet } from "@services/ui";
 import { Sudoku } from "../Sudoku";
 
 export const useSudokuRouter = () => {
   return [
     {
-      element: <NoLayoutOutlet />,
+      element: <NavigationOutlet />,
       children: [{ path: "/sudoku", element: <Sudoku /> }],
     },
   ] as const satisfies RouteObject[];

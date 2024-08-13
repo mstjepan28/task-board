@@ -1,11 +1,11 @@
-import { NoLayoutOutlet } from "@services/ui";
+import { NavigationOutlet } from "@services/ui";
 import { Cryptogram } from "../Cryptogram";
 import type { RouteObject } from "@services/navigation";
 
 export const useCryptogramRouter = () => {
   return [
     {
-      element: <NoLayoutOutlet />,
+      element: <NavigationOutlet />,
       children: [{ path: "/cryptogram", element: <Cryptogram /> }],
     },
   ] as const satisfies RouteObject[];
