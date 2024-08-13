@@ -9,7 +9,7 @@ import {
   MdOutlineTaskAlt,
 } from "react-icons/md";
 
-const ICON_SIZE = 24;
+const MENU_ICON_SIZE = 24;
 
 export type TMenuItem = {
   path: TToRoute;
@@ -21,31 +21,31 @@ export const menuContent: TMenuItem[] = [
   {
     path: "/join-chat",
     name: "Join Chat",
-    icon: <MdChatBubbleOutline size={ICON_SIZE} />,
+    icon: <MdChatBubbleOutline size={MENU_ICON_SIZE} />,
   },
   {
     path: "/cryptogram",
     name: "Cryptogram",
-    icon: <MdOutlineEnhancedEncryption size={ICON_SIZE} />,
+    icon: <MdOutlineEnhancedEncryption size={MENU_ICON_SIZE} />,
   },
   {
     path: "/path-finder",
     name: "Path Finder",
-    icon: <MdOutlineLocationSearching size={ICON_SIZE} />,
+    icon: <MdOutlineLocationSearching size={MENU_ICON_SIZE} />,
   },
   {
     path: "/number-guess",
     name: "Number Guess",
-    icon: <MdOutlineNumbers size={ICON_SIZE} />,
+    icon: <MdOutlineNumbers size={MENU_ICON_SIZE} />,
   },
   {
     path: "/sudoku",
     name: "Sudoku",
-    icon: <MdOutlineGridOn size={ICON_SIZE} />,
+    icon: <MdOutlineGridOn size={MENU_ICON_SIZE} />,
   },
   {
     path: "/task-board",
     name: "Task Board",
-    icon: <MdOutlineTaskAlt size={ICON_SIZE} />,
+    icon: <MdOutlineTaskAlt size={MENU_ICON_SIZE} />,
   },
 ];
