@@ -24,7 +24,6 @@ __metadata:
     "@shared/sudoku": "workspace:^"
     "@shared/todo-app": "workspace:^"
     "@tailwindcss/vite": "npm:next"
-    "@tanstack/react-router": "npm:^1.47.1"
     "@types/react": "npm:^18.3.3"
     "@types/react-dom": "npm:^18.3.0"
     "@vitejs/plugin-react": "npm:^4.3.1"
@@ -273,15 +272,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10/8719553710a2fde66e6ca2e44e947559219b2f9d370587d2bc0a55a7d34a02b15596852931ea9f53917ef13663c5aa789c62b5aacad5cb24f682bd4bf1a922e2
-  languageName: node
-  linkType: hard
-
-"@babel/runtime@npm:^7.23.7":
-  version: 7.23.9
-  resolution: "@babel/runtime@npm:7.23.9"
-  dependencies:
-    regenerator-runtime: "npm:^0.14.0"
-  checksum: 10/9a520fe1bf72249f7dd60ff726434251858de15cccfca7aa831bd19d0d3fb17702e116ead82724659b8da3844977e5e13de2bae01eb8a798f2823a669f122be6
   languageName: node
   linkType: hard
 
@@ -897,6 +887,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@remix-run/router@npm:1.19.0":
+  version: 1.19.0
+  resolution: "@remix-run/router@npm:1.19.0"
+  checksum: 10/13a881fc47ca3571dcad298f6f19218c84f09f0dda38695d874a9fb1b496e42b6b37b777169d283cd1f5098a1470fa76c5143c53eb5a4078202bd12ea1541d29
+  languageName: node
+  linkType: hard
+
 "@rollup/rollup-android-arm-eabi@npm:4.17.2":
   version: 4.17.2
   resolution: "@rollup/rollup-android-arm-eabi@npm:4.17.2"
@@ -1103,6 +1100,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@services/navigation@workspace:*, @services/navigation@workspace:^, @services/navigation@workspace:services/navigation":
+  version: 0.0.0-use.local
+  resolution: "@services/navigation@workspace:services/navigation"
+  dependencies:
+    "@shared/cryptogram": "workspace:*"
+    "@shared/live-chat": "workspace:*"
+    "@shared/number-guesser": "workspace:*"
+    "@shared/path-finder": "workspace:*"
+    "@shared/sudoku": "workspace:*"
+    "@shared/todo-app": "workspace:*"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
+    react-router-dom: "npm:^6.26.0"
+  languageName: unknown
+  linkType: soft
+
 "@services/storage@workspace:^, @services/storage@workspace:services/storage":
   version: 0.0.0-use.local
   resolution: "@services/storage@workspace:services/storage"
@@ -1117,13 +1130,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@services/ui-library@workspace:^, @services/ui-library@workspace:services/ui-library":
+"@services/ui@workspace:^, @services/ui@workspace:services/ui-library":
   version: 0.0.0-use.local
-  resolution: "@services/ui-library@workspace:services/ui-library"
+  resolution: "@services/ui@workspace:services/ui-library"
   dependencies:
+    "@services/navigation": "workspace:*"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
-    tailwind-merge: "npm:^2.2.1"
+    tailwind-merge: "npm:^2.5.2"
   languageName: unknown
   linkType: soft
 
@@ -1137,30 +1151,32 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@shared/cryptogram@workspace:shared/cryptogram":
+"@shared/cryptogram@workspace:*, @shared/cryptogram@workspace:shared/cryptogram":
   version: 0.0.0-use.local
   resolution: "@shared/cryptogram@workspace:shared/cryptogram"
   dependencies:
+    "@services/navigation": "workspace:^"
     "@services/storage": "workspace:^"
+    "@services/ui": "workspace:^"
     dayjs: "npm:^1.11.12"
     react: "npm:^18.3.1"
   languageName: unknown
   linkType: soft
 
-"@shared/live-chat@workspace:^, @shared/live-chat@workspace:shared/live-chat":
+"@shared/live-chat@workspace:*, @shared/live-chat@workspace:^, @shared/live-chat@workspace:shared/live-chat":
   version: 0.0.0-use.local
   resolution: "@shared/live-chat@workspace:shared/live-chat"
   dependencies:
     "@services/storage": "workspace:^"
     "@services/utils": "workspace:^"
-    "@tanstack/react-router": "npm:^1.47.1"
+    "@tanstack/react-router": "npm:^1.35.3"
     dayjs: "npm:^1.11.12"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
   languageName: unknown
   linkType: soft
 
-"@shared/number-guesser@workspace:^, @shared/number-guesser@workspace:shared/number-guesser":
+"@shared/number-guesser@workspace:*, @shared/number-guesser@workspace:^, @shared/number-guesser@workspace:shared/number-guesser":
   version: 0.0.0-use.local
   resolution: "@shared/number-guesser@workspace:shared/number-guesser"
   dependencies:
@@ -1170,7 +1186,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@shared/path-finder@workspace:shared/path-finding":
+"@shared/path-finder@workspace:*, @shared/path-finder@workspace:shared/path-finding":
   version: 0.0.0-use.local
   resolution: "@shared/path-finder@workspace:shared/path-finding"
   dependencies:
@@ -1182,7 +1198,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@shared/sudoku@workspace:^, @shared/sudoku@workspace:shared/sudoku":
+"@shared/sudoku@workspace:*, @shared/sudoku@workspace:^, @shared/sudoku@workspace:shared/sudoku":
   version: 0.0.0-use.local
   resolution: "@shared/sudoku@workspace:shared/sudoku"
   dependencies:
@@ -1194,13 +1210,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@shared/todo-app@workspace:^, @shared/todo-app@workspace:shared/todo-app":
+"@shared/todo-app@workspace:*, @shared/todo-app@workspace:^, @shared/todo-app@workspace:shared/todo-app":
   version: 0.0.0-use.local
   resolution: "@shared/todo-app@workspace:shared/todo-app"
   dependencies:
     "@services/storage": "workspace:^"
     "@services/supabase": "workspace:^"
-    "@services/ui-library": "workspace:^"
+    "@services/ui": "workspace:^"
     "@services/utils": "workspace:^"
     "@tanstack/react-router": "npm:^1.47.1"
     dayjs: "npm:^1.11.12"
@@ -1403,7 +1419,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-router@npm:^1.47.1":
+"@tanstack/react-router@npm:^1.35.3, @tanstack/react-router@npm:^1.47.1":
   version: 1.47.1
   resolution: "@tanstack/react-router@npm:1.47.1"
   dependencies:
@@ -3864,6 +3880,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-router-dom@npm:^6.26.0":
+  version: 6.26.0
+  resolution: "react-router-dom@npm:6.26.0"
+  dependencies:
+    "@remix-run/router": "npm:1.19.0"
+    react-router: "npm:6.26.0"
+  peerDependencies:
+    react: ">=16.8"
+    react-dom: ">=16.8"
+  checksum: 10/be433029a0759d5faa2cd2cb28dd3c88106cdb46042c2e804e301aefad3db17aa9021b4e3d533e0fdcde5767ed0e1d296c04fecbc3e41231c3d8be9cc307018a
+  languageName: node
+  linkType: hard
+
+"react-router@npm:6.26.0":
+  version: 6.26.0
+  resolution: "react-router@npm:6.26.0"
+  dependencies:
+    "@remix-run/router": "npm:1.19.0"
+  peerDependencies:
+    react: ">=16.8"
+  checksum: 10/d0c79a0f95a88730c0d2bfd098da9d6bdd4d7f08d4e1ddd152b5d013d3c01064afdd6fed57d4d3fa50c42c412e6d00e9217b2abd6cdbf4aaf810b7c33e728400
+  languageName: node
+  linkType: hard
+
 "react@npm:^18.3.1":
   version: 18.3.1
   resolution: "react@npm:18.3.1"
@@ -3881,13 +3921,6 @@ __metadata:
     string_decoder: "npm:^1.1.1"
     util-deprecate: "npm:^1.0.1"
   checksum: 10/d9e3e53193adcdb79d8f10f2a1f6989bd4389f5936c6f8b870e77570853561c362bee69feca2bbb7b32368ce96a85504aa4cedf7cf80f36e6a9de30d64244048
-  languageName: node
-  linkType: hard
-
-"regenerator-runtime@npm:^0.14.0":
-  version: 0.14.1
-  resolution: "regenerator-runtime@npm:0.14.1"
-  checksum: 10/5db3161abb311eef8c45bcf6565f4f378f785900ed3945acf740a9888c792f75b98ecb77f0775f3bf95502ff423529d23e94f41d80c8256e8fa05ed4b07cf471
   languageName: node
   linkType: hard
 
@@ -4361,12 +4394,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwind-merge@npm:^2.2.1":
-  version: 2.2.1
-  resolution: "tailwind-merge@npm:2.2.1"
-  dependencies:
-    "@babel/runtime": "npm:^7.23.7"
-  checksum: 10/3d8aecfa03c077472a038f25e95504ca47c1e7549ab843a854a690509098caac4e2e57790a7cadda4054fd07ec31421980a7afac33547013cf22299788625e72
+"tailwind-merge@npm:^2.5.2":
+  version: 2.5.2
+  resolution: "tailwind-merge@npm:2.5.2"
+  checksum: 10/9f51ae7277a0ba51d9bec774bc9013c1b8736129b52d97886098689ea51bc7a894f6c7e857217019d92925c935ca18a53f24b4b416be4be363ef16cfb2ce480d
   languageName: node
   linkType: hard
 

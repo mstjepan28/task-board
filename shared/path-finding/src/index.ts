@@ -1,1 +1,1 @@
-export { createModuleRouter } from "./router/router";
+export { usePathFinderRouter } from "./router/router";

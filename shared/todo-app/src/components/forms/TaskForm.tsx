@@ -1,4 +1,4 @@
-import { Button, TextArea } from "@services/ui-library";
+import { Button, TextArea } from "@services/ui";
 import { type FormEvent, useContext, useMemo } from "react";
 import { TaskListContext } from "../../context/TaskListContext";
 import type { TTask } from "../../types/task";

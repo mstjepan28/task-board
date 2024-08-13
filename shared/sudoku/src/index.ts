@@ -1,1 +1,1 @@
-export { createModuleRouter } from "./router/router";
+export { useSudokuRouter } from "./router/router";

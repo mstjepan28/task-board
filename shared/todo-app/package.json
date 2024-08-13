@@ -4,7 +4,7 @@
   "dependencies": {
     "@services/storage": "workspace:^",
     "@services/supabase": "workspace:^",
-    "@services/ui-library": "workspace:^",
+    "@services/ui": "workspace:^",
     "@services/utils": "workspace:^",
     "@tanstack/react-router": "^1.47.1",
     "dayjs": "^1.11.12",
