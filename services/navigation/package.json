@@ -1,0 +1,19 @@
+{
+  "name": "@services/navigation",
+  "private": true,
+  "version": "1",
+  "main": "./src",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.0"
+  },
+  "devDependencies": {
+    "@shared/cryptogram": "workspace:*",
+    "@shared/live-chat": "workspace:*",
+    "@shared/number-guesser": "workspace:*",
+    "@shared/path-finder": "workspace:*",
+    "@shared/sudoku": "workspace:*",
+    "@shared/todo-app": "workspace:*"
+  }
+}

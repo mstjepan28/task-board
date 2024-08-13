@@ -1,1 +1,1 @@
-export { createModuleRouter } from "./router/router";
+export { useChatRouter } from "./router/router";

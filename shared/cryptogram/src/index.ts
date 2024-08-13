@@ -1,1 +1,1 @@
-export { createModuleRouter } from "./router/router";
+export { useCryptogramRouter } from "./router/router";

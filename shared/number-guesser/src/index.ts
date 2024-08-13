@@ -1,1 +1,1 @@
-export { createModuleRouter } from "./router/router";
+export { useNumberGuesserRouter } from "./router/router";

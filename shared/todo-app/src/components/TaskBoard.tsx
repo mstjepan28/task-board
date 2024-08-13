@@ -1,4 +1,4 @@
-import { Button, Searchbar } from "@services/ui-library";
+import { Button, Searchbar } from "@services/ui";
 import { useContext, useRef } from "react";
 import { TaskListContext } from "../context/TaskListContext";
 import { TaskStatus } from "../enums/taskStatus";
