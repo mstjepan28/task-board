@@ -6,3 +6,6 @@ export { useArrayState } from "./hooks/useArrayState";
 
 export type { TMessageBody, TMessageType } from "./types/chatMessage";
 export type { TypeFromEnum } from "./types/customUtilTypes";
+export type { TDisplaySize } from "./enums/displaySize";
+
+export { DisplaySize } from "./enums/displaySize";
