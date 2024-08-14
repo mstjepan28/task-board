@@ -1,0 +1,4 @@
+{
+  "watch": ["(apps|shared|services)/src/**/*.(.ts,.tsx)", "(apps|shared|services)/package.json"],
+  "exec": "yarn check"
+}

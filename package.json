@@ -23,6 +23,7 @@
     "biome": "biome check **/*.{tsx,ts,jsx,json}",
     "biome:fix": "biome check --apply **/*.{tsx,ts,jsx,json}",
     "check": "yarn run biome && yarn run dep-check",
+    "check-watch": "nodemon",
     "--- Misc. commands -----------------------------------------------": "",
     "module": "node ./scripts/create-new-module.js",
     "extract": "yarn workspace @shared/translations extract"
@@ -30,6 +31,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
     "check-dependency-version-consistency": "^4.1.0",
+    "nodemon": "^3.1.4",
     "tsc-watch": "^6.2.0",
     "typescript": "^5.5.4",
     "vitest": "2.0.5"
