@@ -1,26 +1,40 @@
-import { useEffect, useState } from "react";
+import { debounce } from "@services/utils";
+import { useEffect, useRef, useState } from "react";
 import { GridCell } from "../components/GridCell";
 import type { TGridCell } from "../types/gridTypes";
 import { generateGrid } from "../utils/generateGrid";
 import { loadState, saveState } from "../utils/saveLoadGame";
 
+const SIZE_X = 13;
+const SIZE_Y = 9;
+
 export const PathFinderScreen = () => {
   const [grid, setGrid] = useState<TGridCell[] | null>(null);
 
-  const SIZE_X = 13;
-  const SIZE_Y = 9;
+  const lastDraggedOverCell = useRef<TGridCell["id"] | null>(null);
+  const isMousePressed = useRef<boolean>(false);
 
-  const onCellClick = (updatedCell: TGridCell) => {
+  const updateGrid = (updatedCell: TGridCell) => {
     if (!grid) {
       return;
     }
 
-    const newGrid = grid.map((cell) => {
-      return cell.id === updatedCell.id ? updatedCell : cell;
-    });
+    const newGrid = grid.map((c) => (c.id === updatedCell.id ? updatedCell : c));
 
     setGrid(newGrid);
     saveState(newGrid);
+  };
+
+  const onDragOverCell = (updatedCell: TGridCell) => {
+    const draggingOverSameCell = lastDraggedOverCell.current === updatedCell.id;
+    if (!isMousePressed || draggingOverSameCell) {
+      return;
+    }
+
+    updatedCell.isWalkable = !updatedCell.isWalkable;
+    lastDraggedOverCell.current = updatedCell.id;
+
+    updateGrid(updatedCell);
   };
 
   const generateNewGrid = () => {
@@ -50,14 +64,27 @@ export const PathFinderScreen = () => {
   return (
     <div className="w-full h-[100svh] flex flex-col gap-y-2 items-center justify-center">
       <div
+        className="grid h-fit"
         style={{
           gridTemplateRows: `repeat(${SIZE_Y}, minmax(0, 1fr))`,
           gridTemplateColumns: `repeat(${SIZE_X}, minmax(0, 1fr))`,
         }}
-        className="grid h-fit"
       >
         {grid.map((gridItem) => {
-          return <GridCell key={gridItem.id} cell={gridItem} onCellClick={onCellClick} />;
+          return (
+            <div
+              key={gridItem.id}
+              onMouseUp={() => {
+                isMousePressed.current = false;
+              }}
+              onMouseDown={() => {
+                isMousePressed.current = true;
+              }}
+              onMouseMove={debounce(100, () => onDragOverCell(gridItem))}
+            >
+              <GridCell cell={gridItem} onCellClick={updateGrid} />
+            </div>
+          );
         })}
       </div>
 
