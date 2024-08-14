@@ -2560,9 +2560,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@services/ui@workspace:*, @services/ui@workspace:services/ui-library":
+"@services/ui@workspace:*, @services/ui@workspace:services/ui":
   version: 0.0.0-use.local
-  resolution: "@services/ui@workspace:services/ui-library"
+  resolution: "@services/ui@workspace:services/ui"
   dependencies:
     "@services/navigation": "workspace:*"
     react: "npm:^18.3.1"
