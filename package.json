@@ -23,7 +23,7 @@
     "biome": "biome check **/*.{tsx,ts,jsx,json}",
     "biome:fix": "biome check --apply **/*.{tsx,ts,jsx,json}",
     "check": "yarn run biome && yarn run dep-check",
-    "check-watch": "nodemon",
+    "check-watch": "nodemon --watch **/*.{tsx,ts,jsx,json} --exec 'clear && echo Running check... && yarn check'",
     "--- Misc. commands -----------------------------------------------": "",
     "module": "node ./scripts/create-new-module.js",
     "extract": "yarn workspace @shared/translations extract"
