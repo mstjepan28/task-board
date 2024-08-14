@@ -6,7 +6,7 @@
     "start": "bun --hot ./src/index.ts"
   },
   "dependencies": {
-    "@services/utils": "workspace:^",
+    "@services/utils": "workspace:*",
     "dayjs": "^1.11.12"
   },
   "devDependencies": {

@@ -2,11 +2,11 @@
   "name": "@shared/todo-app",
   "main": "./src",
   "dependencies": {
-    "@services/navigation": "workspace:^",
-    "@services/storage": "workspace:^",
-    "@services/supabase": "workspace:^",
-    "@services/ui": "workspace:^",
-    "@services/utils": "workspace:^",
+    "@services/navigation": "workspace:*",
+    "@services/storage": "workspace:*",
+    "@services/supabase": "workspace:*",
+    "@services/ui": "workspace:*",
+    "@services/utils": "workspace:*",
     "dayjs": "^1.11.12",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"

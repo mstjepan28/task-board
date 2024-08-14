@@ -4,8 +4,8 @@
   "version": "1",
   "main": "./src",
   "dependencies": {
-    "@services/storage": "workspace:^",
-    "@services/utils": "workspace:^",
+    "@services/storage": "workspace:*",
+    "@services/utils": "workspace:*",
     "react": "^18.3.1"
   }
 }

@@ -4,8 +4,8 @@
   "version": "1",
   "main": "./src",
   "dependencies": {
-    "@services/storage": "workspace:^",
-    "@services/utils": "workspace:^",
+    "@services/storage": "workspace:*",
+    "@services/utils": "workspace:*",
     "astar-typescript": "1.2.7",
     "dayjs": "^1.11.12",
     "react": "^18.3.1"
