@@ -1,3 +1,5 @@
+import type { TypeFromEnum } from "@services/utils";
+
 export const TaskStatus = {
   PENDING: "pending",
   IN_PROGRESS: "in_progress",
@@ -6,4 +8,4 @@ export const TaskStatus = {
   FAILED: "failed",
 } as const;
 
-export type TTaskStatus = (typeof TaskStatus)[keyof typeof TaskStatus];
+export type TTaskStatus = TypeFromEnum<typeof TaskStatus>;

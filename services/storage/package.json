@@ -2,5 +2,8 @@
   "name": "@services/storage",
   "private": true,
   "version": "1",
-  "main": "./src"
+  "main": "./src",
+  "dependencies": {
+    "@services/utils": "workspace:*"
+  }
 }

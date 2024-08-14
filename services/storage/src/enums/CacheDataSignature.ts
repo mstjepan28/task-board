@@ -1,3 +1,5 @@
+import type { TypeFromEnum } from "@services/utils";
+
 export const CacheDataSignature = {
   SUDOKU_GAME: "sudoku-game",
   SUDOKU_MOVE_STACK: "sudoku-move-stack",
@@ -6,4 +8,4 @@ export const CacheDataSignature = {
   CHAT_DETAILS: "chat-details",
 } as const;
 
-export type TCacheDataSignature = (typeof CacheDataSignature)[keyof typeof CacheDataSignature];
+export type TCacheDataSignature = TypeFromEnum<typeof CacheDataSignature>;

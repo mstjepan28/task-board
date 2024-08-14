@@ -1,3 +1,5 @@
+import type { TypeFromEnum } from "@services/utils";
+
 export const Directions = {
   TOP: "top",
   RIGHT: "right",
@@ -9,4 +11,4 @@ export const Directions = {
   BOTTOM_LEFT: "bottom_left",
 };
 
-export type TDirection = (typeof Directions)[keyof typeof Directions];
+export type TDirection = TypeFromEnum<typeof Directions>;
