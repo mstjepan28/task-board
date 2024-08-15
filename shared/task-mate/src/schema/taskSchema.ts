@@ -26,4 +26,4 @@ export const taskSchema = z.object({
 
 export const taskListSchema = z.array(taskSchema);
 
-export type TTask = z.infer<typeof taskListSchema>;
+export type TTask = z.infer<typeof taskSchema>;
