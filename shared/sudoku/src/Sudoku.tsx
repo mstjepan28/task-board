@@ -293,6 +293,10 @@ export const Sudoku = () => {
     });
   };
 
+  const showSolution = () => {
+    setBoard(gameSolution.current);
+  };
+
   useEffect(() => {
     const loadedGame = loadGame();
     if (!loadedGame) {
@@ -310,8 +314,13 @@ export const Sudoku = () => {
     <>
       <SudokuDifficultySelector baseRef={difficultyPickerRef} onSelect={createNewGame} />
 
+      <div className="items-end absolute top-0 left-0 py-2 px-4 flex flex-col gap-y-1 ">
+        <ActionButton label="Show solution" onClick={() => showSolution()} />
+      </div>
+
       <div className="items-end absolute top-0 right-0 py-2 px-4 flex flex-col gap-y-1">
         <ActionButton label="Clear game" onClick={resetGame} />
+        <ActionButton label="New Game" onClick={() => createNewGame()} />
         <ActionButton
           label="Difficulty"
           onClick={() => difficultyPickerRef.current?.open(selectedDifficulty.current)}
