@@ -14,7 +14,7 @@
     "@shared/number-guesser": "workspace:*",
     "@shared/path-finder": "workspace:*",
     "@shared/sudoku": "workspace:*",
-    "@shared/todo-app": "workspace:*",
-    "@share/task-mate": "workspace:*"
+    "@shared/task-mate": "workspace:*",
+    "@shared/todo-app": "workspace:*"
   }
 }
