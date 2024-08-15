@@ -22,7 +22,7 @@ export const Searchbar = ({ searchValue, searchFn }: IProps) => {
   return (
     <div
       className="
-        flex items-center gap-x-2.5 rounded-lg border border-gray-300 bg-gray-50 px-3
+        w-full flex items-center gap-x-2.5 rounded-lg border border-gray-300 bg-gray-50 px-3
         focus-within:border-primary-600 focus-within:ring-primary-600
       "
     >
