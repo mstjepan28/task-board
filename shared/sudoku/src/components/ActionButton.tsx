@@ -1,12 +1,19 @@
+import { twMerge } from "tailwind-merge";
+
 interface IProps {
   label: string;
   onClick: () => void;
+  className?: string;
 }
 
-export const ActionButton = ({ label, onClick }: IProps) => {
+export const ActionButton = ({ label, onClick, className }: IProps) => {
   return (
-    <button type="button" onClick={onClick} className="flex items-center py-1 cursor-pointer select-none">
-      <span className="text-xs /25">{label}</span>
+    <button
+      type="button"
+      onClick={onClick}
+      className={twMerge("flex items-center py-1 text-xs cursor-pointer select-none", className)}
+    >
+      {label}
     </button>
   );
 };

@@ -7,4 +7,5 @@ export type TSaveGame = {
   solution: TBoard;
   initBoard: TBoard;
   difficulty: TDifficulty;
+  autoCheck: boolean;
 };
