@@ -25,7 +25,7 @@ const NavigationLayoutMobile = ({ children }: IProps) => {
   return (
     <div className="h-[100dvh] overflow-hidden flex flex-col">
       {/* Main view */}
-      <div className="basis-full">
+      <div className="basis-full overflow-y-auto">
         <div className="h-full">{children}</div>
       </div>
 
