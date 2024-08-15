@@ -24,7 +24,7 @@ export const menuContent: TMenuItem[] = [
     icon: (size) => <MdOutlineTaskAlt size={size ?? MENU_ICON_SIZE} />,
   },
   {
-    path: "/tasks",
+    path: "/tasks/create",
     name: "Create new task",
     icon: (size) => <MdOutlineAddTask size={size ?? MENU_ICON_SIZE} />,
   },

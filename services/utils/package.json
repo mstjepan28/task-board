@@ -4,8 +4,9 @@
   "version": "1",
   "main": "./src",
   "dependencies": {
+    "@services/navigation": "workspace:*",
     "react": "^18.3.1",
-    "throttle-debounce": "5.0.0"
+    "throttle-debounce": "5.0.2"
   },
   "devDependencies": {
     "@types/throttle-debounce": "5.0.2"
