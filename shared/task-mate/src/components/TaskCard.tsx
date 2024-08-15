@@ -12,7 +12,7 @@ export const TaskCard = ({ task }: IProps) => {
   }, [task.color]);
 
   return (
-    <Link to={`/tasks/edit/${task.id}`} style={cardBgColor} className="px-2 py-1 rounded-lg">
+    <Link to={`/task/edit/${task.id}`} style={cardBgColor} className="px-2 py-1 rounded-lg">
       {task.description}
     </Link>
   );

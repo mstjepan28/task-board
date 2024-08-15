@@ -19,12 +19,12 @@ export type TMenuItem = {
 
 export const menuContent: TMenuItem[] = [
   {
-    path: "/tasks",
+    path: "/task-list",
     name: "Task List",
     icon: (size) => <MdOutlineTaskAlt size={size ?? MENU_ICON_SIZE} />,
   },
   {
-    path: "/tasks/create",
+    path: "/task/create",
     name: "Create new task",
     icon: (size) => <MdOutlineAddTask size={size ?? MENU_ICON_SIZE} />,
   },

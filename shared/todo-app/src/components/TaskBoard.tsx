@@ -23,7 +23,7 @@ export const TaskBoard = () => {
       <div className="h-full flex flex-col">
         <div className="basis-full flex-col flex px-8 py-4 space-y-4">
           <div className="flex items-stretch gap-x-4">
-            <Searchbar />
+            <Searchbar searchFn={() => {}} />
             <Button
               onClick={() => openDrawer()}
               className="hover:bg-blue-600 hover:text-white uppercase text-sm font-semibold transition-all"
