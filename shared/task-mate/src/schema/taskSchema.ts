@@ -4,6 +4,7 @@ import { CompletionStatus } from "../enums/completionStatus";
 import { RepeatCycle } from "../enums/repeatCycle";
 
 const dateToString = (date: Date) => dayjs(date).toISOString();
+const hexCodePattern = /^#[0-9A-Fa-f]{6}\|#[0-9A-Fa-f]{6}\|#[0-9A-Fa-f]{6}$/;
 
 export const taskSchema = z.object({
   id: z.string().uuid(),
@@ -15,7 +16,7 @@ export const taskSchema = z.object({
   points: z.number().min(0),
   repeatCycle: z.nativeEnum(RepeatCycle),
   status: z.nativeEnum(CompletionStatus),
-  color: z.string().regex(/^rgba\(\d{1,3},\d{1,3},\d{1,3},(0(\.\d{1,2})?|1(\.0{1,2})?)\)$/),
+  color: z.string().regex(hexCodePattern),
 
   deadline: z.coerce.date().transform(dateToString),
   postponed: z.coerce.date().transform(dateToString),
