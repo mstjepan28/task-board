@@ -146,40 +146,6 @@ export const Sudoku = () => {
     return `bg-white ${textColor}`;
   };
 
-  const renderBoardRow = (boardRow: number[], rowIndex: number) => {
-    return boardRow.map((cell, colIndex) => {
-      const key = `${rowIndex}-${colIndex}`;
-      const selectCell = () => {
-        setSelected([rowIndex, colIndex]);
-        setSelectedNumber(cell);
-      };
-
-      const cellStyle = getCellStyle(rowIndex, colIndex, cell);
-
-      return (
-        <button
-          key={key}
-          type="button"
-          onClick={selectCell}
-          className={`
-            w-10 aspect-square flex justify-center items-center cursor-pointer select-none 
-            text-xl border-r border-b border-gray-600 transition-all duration-150
-            hover:bg-blue-300 focus:outline-none
-            ${(colIndex + 1) % 3 === 0 && "!border-r-2 border-r-black"}
-            ${(rowIndex + 1) % 3 === 0 && "!border-b-2 border-b-black"}
-            ${cellStyle}
-          `}
-        >
-          {cell !== EMPTY_CELL && cell}
-        </button>
-      );
-    });
-  };
-
-  const renderBoard = () => {
-    return board.map((row, index) => renderBoardRow(row, index));
-  };
-
   // --- handle number select ---
 
   const handleNumberSelect = (number: number) => {
@@ -215,25 +181,6 @@ export const Sudoku = () => {
       y: col,
       old: selectedNumber || EMPTY_CELL,
       new: number,
-    });
-  };
-
-  const renderNumbers = () => {
-    return Array.from({ length: 9 }).map((_, index) => {
-      return (
-        <button
-          key={index}
-          type="button"
-          onClick={() => handleNumberSelect(index + 1)}
-          className={`
-            w-8 aspect-square flex justify-center items-center cursor-pointer 
-            select-none text-xl rounded-md border border-gray-600 
-            transition-all duration-150 bg-white hover:bg-gray-200
-          `}
-        >
-          {index + 1}
-        </button>
-      );
     });
   };
 
@@ -348,34 +295,83 @@ export const Sudoku = () => {
     <>
       <div className="items-end absolute top-0 right-0 py-2 px-4 flex flex-col gap-y-1">
         <ActionButton label="Clear game" onClick={resetGame} />
-        <ActionButton label="Undo" onClick={handleUndoMove} />
       </div>
 
       <div
         onKeyDownCapture={(event) => handleKeyPress(event.key)}
-        className="w-full h-full flex flex-col justify-center items-center gap-y-4 px-4"
+        className="w-[360px] h-full mx-auto flex flex-col items-center justify-center gap-y-4"
       >
-        <div className="flex flex-col gap-y-4 p-4 rounded-lg border bg-gray-300">
-          <div className="grid grid-cols-9 border-t-2 border-l-2 border-gray-900 bg-white">{renderBoard()}</div>
+        {/* Sudoku board */}
+        <div className=" grid grid-cols-9">
+          {board.map((boardRow, rowIndex) => {
+            return boardRow.map((cell, colIndex) => {
+              const key = `${rowIndex}-${colIndex}`;
+              const selectCell = () => {
+                setSelected([rowIndex, colIndex]);
+                setSelectedNumber(cell);
+              };
 
-          <div className="flex justify-between gap-x-1">{renderNumbers()}</div>
+              const cellStyle = getCellStyle(rowIndex, colIndex, cell);
 
-          <div className="flex justify-end gap-x-2">
-            <button
-              type="button"
-              onClick={handleUndoMove}
-              className="rounded-md bg-white font-medium text-sm border px-4 py-1"
-            >
-              Undo
-            </button>
-            <button
-              type="button"
-              onClick={() => handleKeyPress("Backspace")}
-              className="rounded-md bg-white font-medium text-sm border px-4 py-1"
-            >
-              Delete
-            </button>
-          </div>
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={selectCell}
+                  className={`
+                        min-w-10 min-h-10 size-10 flex justify-center items-center cursor-pointer select-none 
+                        text-xl transition-all duration-150 border border-black shrink-0
+                        hover:bg-blue-300 focus:outline-none
+                        ${(colIndex + 1) % 3 === 0 && "!border-r-2 border-r-black"}
+                        ${(rowIndex + 1) % 3 === 0 && "!border-b-2 border-b-black"}
+                        ${rowIndex === 0 && "!border-t-2"}
+                        ${colIndex === 0 && "!border-l-2"}
+                        ${cellStyle}
+                      `}
+                >
+                  {cell !== EMPTY_CELL && cell}
+                </button>
+              );
+            });
+          })}
+        </div>
+
+        {/* Number */}
+        <div className="w-full flex justify-between">
+          {Array.from({ length: 9 }).map((_, index) => {
+            return (
+              <button
+                key={index}
+                type="button"
+                onClick={() => handleNumberSelect(index + 1)}
+                className={`
+                    w-8 aspect-square flex justify-center items-center cursor-pointer 
+                    select-none text-xl rounded-md border border-gray-600
+                    transition-all duration-150 bg-white hover:bg-gray-200
+                  `}
+              >
+                {index + 1}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Action buttons */}
+        <div className="w-full flex gap-x-2">
+          <button
+            type="button"
+            onClick={handleUndoMove}
+            className="w-full rounded-md bg-white font-semibold uppercase text-sm border px-4 py-1"
+          >
+            Undo
+          </button>
+          <button
+            type="button"
+            onClick={() => handleKeyPress("Backspace")}
+            className="w-full rounded-md bg-white font-semibold uppercase text-sm border px-4 py-1"
+          >
+            Delete
+          </button>
         </div>
       </div>
     </>
