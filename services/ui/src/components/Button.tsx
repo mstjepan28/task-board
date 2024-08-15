@@ -13,7 +13,7 @@ export const Button = ({ type, onClick, children, className }: IProps) => {
     <button
       onClick={onClick}
       type={type || "button"}
-      className={twMerge("border rounded-lg  px-2 py-1", className || "")}
+      className={twMerge("border rounded-lg px-2 py-1 cursor-pointer", className || "")}
     >
       {children}
     </button>

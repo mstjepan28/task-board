@@ -6,8 +6,8 @@ interface IProps {
 
 export const Searchbar = ({ className }: IProps) => {
   return (
-    <div className={twMerge("w-full rounded-lg overflow-hidden border focus-within:border-blue-600", className)}>
-      <input type="text" className="w-full bg-gray-950  px-4 py-1 outline-none hover:uppercase" />
+    <div className={twMerge("w-full rounded-lg overflow-hidden", className)}>
+      <input type="text" className="w-full bg-gray-100  px-4 py-1 outline-none hover:uppercase rounded-lg" />
     </div>
   );
 };

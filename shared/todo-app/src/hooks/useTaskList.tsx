@@ -210,7 +210,9 @@ export const useTaskList = () => {
 
   const readTaskList = async () => {
     const { data } = await supabase.from("tasks").select("*");
-    setTaskList(data as TTask[]);
+    const dataList = (data ?? []) as TTask[];
+
+    setTaskList(dataList);
   };
 
   const updateTaskList = async (updatedStatuses: TTaskStatus[], ordinalNumber: number) => {
