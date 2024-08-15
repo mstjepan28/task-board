@@ -1,10 +1,13 @@
+import type { TOverlayRef } from "@services/ui";
 import { deepCopy } from "@services/utils";
 import { useEffect, useRef, useState } from "react";
 import { ActionButton } from "./components/ActionButton";
+import { SudokuDifficultySelector } from "./components/SudokuDifficultySelector";
+import { Difficulty, type TDifficulty } from "./enums/Difficulty";
 import { useUndoRedo } from "./hooks/useUndoRedo";
+import type { TBoard } from "./types/sudoku";
 import { generateSudokuGame } from "./utils/generateSudoku";
 import { clearGame, loadGame, saveGame } from "./utils/saveLoadGame";
-import type { TBoard } from "./types/sudoku";
 
 export const Sudoku = () => {
   const EMPTY_CELL = -1;
@@ -14,8 +17,11 @@ export const Sudoku = () => {
 
   const [board, setBoard] = useState<TBoard>([]);
 
-  const initBoard = useRef<TBoard>([]);
+  const selectedDifficulty = useRef<TDifficulty>(Difficulty.EASY);
+  const difficultyPickerRef = useRef(null) as TOverlayRef;
+
   const gameSolution = useRef<TBoard>([]);
+  const initBoard = useRef<TBoard>([]);
 
   const { undo, pushMove } = useUndoRedo();
 
@@ -174,6 +180,7 @@ export const Sudoku = () => {
       board: boardCopy,
       initBoard: initBoard.current,
       solution: gameSolution.current,
+      difficulty: selectedDifficulty.current,
     });
 
     pushMove({
@@ -230,8 +237,12 @@ export const Sudoku = () => {
     }
   };
 
-  const createNewGame = () => {
-    const generatedGame = generateSudokuGame("easy");
+  const createNewGame = (difficulty?: TDifficulty) => {
+    const generatedGame = generateSudokuGame(difficulty ?? selectedDifficulty.current);
+
+    if (difficulty) {
+      selectedDifficulty.current = difficulty;
+    }
 
     setBoard(generatedGame.puzzle);
     gameSolution.current = generatedGame.solution;
@@ -241,6 +252,7 @@ export const Sudoku = () => {
       board: generatedGame.puzzle,
       initBoard: initBoard.current,
       solution: gameSolution.current,
+      difficulty: selectedDifficulty.current,
     });
   };
 
@@ -260,6 +272,7 @@ export const Sudoku = () => {
       board: initBoardState,
       initBoard: initBoardState,
       solution: gameSolution.current,
+      difficulty: selectedDifficulty.current,
     });
   };
 
@@ -276,6 +289,7 @@ export const Sudoku = () => {
       board: updateBoard,
       initBoard: initBoard.current,
       solution: gameSolution.current,
+      difficulty: selectedDifficulty.current,
     });
   };
 
@@ -289,12 +303,19 @@ export const Sudoku = () => {
     setBoard(loadedGame.board);
     initBoard.current = loadedGame.initBoard;
     gameSolution.current = loadedGame.solution;
+    selectedDifficulty.current = loadedGame.difficulty;
   }, []);
 
   return (
     <>
+      <SudokuDifficultySelector baseRef={difficultyPickerRef} onSelect={createNewGame} />
+
       <div className="items-end absolute top-0 right-0 py-2 px-4 flex flex-col gap-y-1">
         <ActionButton label="Clear game" onClick={resetGame} />
+        <ActionButton
+          label="Difficulty"
+          onClick={() => difficultyPickerRef.current?.open(selectedDifficulty.current)}
+        />
       </div>
 
       <div

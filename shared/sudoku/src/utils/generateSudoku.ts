@@ -1,6 +1,5 @@
 import { getSudoku } from "sudoku-gen";
-
-type TDifficulty = Required<Parameters<typeof getSudoku>[0]>;
+import type { TDifficulty } from "../types/sudoku";
 
 const splitStringIntoNParts = (str: string, n: number) => {
   const regex = new RegExp(`(.{1,${Math.ceil(str.length / n)}})`, "g");
