@@ -30,7 +30,7 @@ export const TaskForm = ({ initData, onClose }: IProps) => {
   };
 
   return (
-    <form onSubmit={onSubmit} className="px-4 py-2 space-y-2 bg-black text-white border-l border-l-white h-full">
+    <form onSubmit={onSubmit} className="px-4 py-2 space-y-2 bg-black  border-l border-l-white h-full">
       <div className="flex items-center gap-x-4 mb-4">
         <button type="reset" onClick={onClose} className="text-lg border-white">
           X

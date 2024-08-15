@@ -157,7 +157,7 @@ export const ChatScreen = () => {
                     key={key}
                     className={`w-fit py-0.5 px-2 rounded-lg border-2 ${isOwnMessage ? ownMsgStyle : otherMsgStyle}`}
                   >
-                    <div className="text-sm text-white">{message.message}</div>
+                    <div className="text-sm ">{message.message}</div>
                   </div>
                 );
               }
@@ -171,7 +171,7 @@ export const ChatScreen = () => {
           </div>
         </div>
 
-        <form onSubmit={onFormSubmit} className="rounded-lg w-full flex gap-x-4 text-white bg-white/10 py-2 px-4">
+        <form onSubmit={onFormSubmit} className="rounded-lg w-full flex gap-x-4  bg-white/10 py-2 px-4">
           <input type="text" className="basis-full outline-none ring-0 border-b border-transparent border-b-white" />
           <button type="submit" className="cursor-pointer">
             Send

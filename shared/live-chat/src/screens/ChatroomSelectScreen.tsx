@@ -28,10 +28,7 @@ export const ChatroomSelectScreen = () => {
 
   return (
     <div className="w-screen h-full flex justify-center items-center">
-      <form
-        onSubmit={onFormSubmit}
-        className="max-w-sm w-full bg-white/10 text-white flex flex-col px-8 py-4 rounded-xl"
-      >
+      <form onSubmit={onFormSubmit} className="max-w-sm w-full bg-white/10  flex flex-col px-8 py-4 rounded-xl">
         <h2 className="mx-auto border-b mb-4 px-4">Enter Chatroom</h2>
 
         <Input name={Field.USERNAME} placeholder="Username" />

@@ -52,7 +52,7 @@ export const WinModal = forwardRef(function WinModal({ nextRound }: IProps, ref)
 
   return (
     <div id="win-modal" className="hidden justify-center items-center fixed z-10 inset-0 bg-green-600">
-      <div className="flex flex-col items-center text-white">
+      <div className="flex flex-col items-center ">
         <span className="text-4xl">You win!</span>
         <span className="text-xl">Final time: {finalTime}</span>
         <button type="button" onClick={onNextRound} className="max-w-lg border rounded-lg px-4 py-2 mt-2 mx-8">

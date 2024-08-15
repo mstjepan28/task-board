@@ -206,7 +206,7 @@ export const NumberGuesserScreen = () => {
     <>
       <StatusMenu selectedDigit={selectedDigit} onStatusClick={onStatusClick} />
 
-      <form onSubmit={onFormSubmit} className="size-full flex flex-col items-center justify-end gap-y-4 p-4 text-white">
+      <form onSubmit={onFormSubmit} className="size-full flex flex-col items-center justify-end gap-y-4 p-4 ">
         <div className="basis-full max-h-full overflow-y-auto flex flex-col items-center justify-end gap-y-2">
           <MessageList
             messageList={messageList}

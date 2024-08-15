@@ -15,7 +15,7 @@ interface IProps {
 
 export const TextArea = ({ id, name, label, value, onChange, placeholder = "", className = "" }: IProps) => {
   return (
-    <label className="flex flex-col text-white">
+    <label className="flex flex-col ">
       <span className="text-sm">{label}</span>
 
       <textarea
@@ -25,7 +25,7 @@ export const TextArea = ({ id, name, label, value, onChange, placeholder = "", c
         value={value ?? undefined}
         defaultValue={value ?? undefined}
         onChange={onChange}
-        className={twMerge("resize-none px-2 py-1 bg-black text-white border border-white !outline-none", className)}
+        className={twMerge("resize-none px-2 py-1 bg-black  border border-white !outline-none", className)}
       />
     </label>
   );

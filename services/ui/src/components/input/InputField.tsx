@@ -25,7 +25,7 @@ export const InputField = ({
   className = "",
 }: IProps) => {
   return (
-    <label className="flex flex-col text-white">
+    <label className="flex flex-col ">
       <span className="text-sm">{label}</span>
 
       <input
@@ -36,7 +36,7 @@ export const InputField = ({
         value={value ?? undefined}
         defaultValue={value ?? undefined}
         onChange={onChange}
-        className={twMerge("px-2 py-1 bg-black text-white border border-white !outline-none", className)}
+        className={twMerge("px-2 py-1 bg-black  border border-white !outline-none", className)}
       />
     </label>
   );

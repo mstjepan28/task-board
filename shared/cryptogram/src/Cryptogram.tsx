@@ -35,14 +35,14 @@ export const Cryptogram = () => {
 
         if (!isLetter) {
           return (
-            <div key={index} className="w-6 text-white text-center">
+            <div key={index} className="w-6  text-center">
               {letter}
             </div>
           );
         }
 
         return (
-          <button key={index} type="button" className="text-white" onClick={() => setSelectedLetter(encryptedLetter)}>
+          <button key={index} type="button" className="" onClick={() => setSelectedLetter(encryptedLetter)}>
             <div data-selected={isSelected} className="w-6 text-center data-[selected=true]:bg-white/10">
               {getLetterIfReveled(encryptedLetter)}
             </div>
@@ -103,7 +103,7 @@ export const Cryptogram = () => {
       <div className="w-full flex flex-col justify-between items-center p-4">
         <div className="flex flex-col">
           <div className="flex flex-wrap gap-x-4 gap-y-2">{renderQuote()}</div>
-          <div className="italic text-end text-white mt-2">{author}</div>
+          <div className="italic text-end  mt-2">{author}</div>
         </div>
 
         <Keyboard onKeyPress={revealLetter} onDeletePress={deleteLetter} />

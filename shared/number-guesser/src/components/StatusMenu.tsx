@@ -27,11 +27,7 @@ export const StatusMenu = ({ selectedDigit, onStatusClick }: IProps) => {
           onClick={() => onStatusClick("not-used")}
           className="border rounded-lg border-white size-12 bg-red-600"
         />
-        <button
-          type="button"
-          onClick={() => onStatusClick(null)}
-          className="border rounded-lg border-white size-12 text-white"
-        >
+        <button type="button" onClick={() => onStatusClick(null)} className="border rounded-lg border-white size-12 ">
           clear
         </button>
       </div>

@@ -62,7 +62,7 @@ export const Keyboard = ({ onKeyPress, onDeletePress }: IProps) => {
         onClick={onDeletePress}
         className="
           w-9 h-11 uppercase rounded-lg 
-          flex justify-center items-center text-white
+          flex justify-center items-center 
           transition-all duration-150 bg-red-600 
           !outline-none border
           focus:-translate-y-2 focus:scale-125  focus

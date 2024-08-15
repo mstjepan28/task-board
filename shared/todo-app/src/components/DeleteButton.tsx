@@ -29,7 +29,7 @@ export const DeleteButton = () => {
       <span className="invisible px-2 max-h-0">Delete</span>
 
       <div className="z-10 top-0 right-0 absolute flex flex-col items-end">
-        <div className="ml-auto w-fit border rounded-lg text-white px-2 py-1 hover:bg-red-600 cursor-pointer">
+        <div className="ml-auto w-fit border rounded-lg  px-2 py-1 hover:bg-red-600 cursor-pointer">
           <span>Delete</span>
         </div>
 
@@ -42,7 +42,7 @@ export const DeleteButton = () => {
             duration-1000 top-1 relative
           "
         >
-          <span className="whitespace-nowrap text-white text-xs">Drop here to delete</span>
+          <span className="whitespace-nowrap  text-xs">Drop here to delete</span>
         </div>
       </div>
     </div>

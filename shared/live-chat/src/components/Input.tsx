@@ -10,7 +10,7 @@ export const Input = ({ name, placeholder }: IProps) => {
         id={name}
         name={name}
         placeholder=""
-        className="peer w-full bg-zinc-700 text-white rounded-md p-2 outline-none"
+        className="peer w-full bg-zinc-700  rounded-md p-2 outline-none"
         autoComplete="off"
       />
 

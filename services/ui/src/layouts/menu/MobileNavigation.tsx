@@ -13,7 +13,7 @@ export const MobileNavigation = () => {
 
   return (
     <div className="relative">
-      <div className="flex justify-evenly items-center px-2 py-2">
+      <div className="flex justify-evenly items-center px-2 py-2 border-t">
         <BottomMenuLink menuItem={menuContent[0]} />
         <BottomMenuLink menuItem={menuContent[3]} />
         <BottomMenuLink menuItem={menuContent[4]} />
