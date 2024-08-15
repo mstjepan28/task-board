@@ -8,9 +8,11 @@ import { qrcode } from "vite-plugin-qrcode";
 const mobile = !!/android|ios/.exec(process.env.TAURI_ENV_PLATFORM);
 const USE_BASIC_CONFIG = true;
 
-export default defineConfig(async () => {
+export default defineConfig(async (data) => {
+  const pwaPlugin = data.mode === "dev" ? null : VitePWA(pwaOptions);
+
   return defineConfig({
-    plugins: [react(), tailwindcss(), qrcode(), VitePWA(pwaOptions)],
+    plugins: [react(), tailwindcss(), qrcode(), pwaPlugin],
     server: USE_BASIC_CONFIG ? getBasicConfig() : await getTauriConfig(),
     build: { sourcemap: true },
   });
@@ -42,7 +44,7 @@ const getTauriConfig = async () => {
 };
 
 const pwaOptions: Parameters<typeof VitePWA>[0] = {
-  devOptions: { enabled: true },
+  devOptions: { enabled: false },
   registerType: "prompt",
   manifest: {
     name: "React-vite-app",
