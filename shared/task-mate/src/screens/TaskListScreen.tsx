@@ -24,7 +24,7 @@ export const TaskListScreen = () => {
       {taskList.loading.fetching ? (
         <LoadingIndicator size="xl" />
       ) : (
-        <div className="basis-full flex flex-col gap-y-4">
+        <div className="basis-full flex flex-col gap-y-4 pb-4">
           {taskList.dataList.map((task, index) => {
             return <TaskCard key={task.id + index} task={task} />;
           })}
