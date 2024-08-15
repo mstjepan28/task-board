@@ -27,7 +27,7 @@ export const LoadingIndicator = ({ size = "xl", color }: IProps) => {
 
   return (
     <div className="flex h-full w-full items-center justify-center">
-      <div className={`${sizeStyles} animate-spin rounded-full ${color || "border-t-primary-600"}`}></div>
+      <div className={`${sizeStyles} animate-spin rounded-full border-gray-200 ${color || "border-t-blue-600"}`}></div>
     </div>
   );
 };
