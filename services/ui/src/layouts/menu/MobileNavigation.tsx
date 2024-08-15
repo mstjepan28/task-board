@@ -15,9 +15,9 @@ export const MobileNavigation = () => {
     <div className="relative">
       <div className="flex justify-evenly items-center px-2 py-2 border-t">
         <BottomMenuLink menuItem={menuContent[0]} />
+        <BottomMenuLink menuItem={menuContent[2]} />
         <BottomMenuLink menuItem={menuContent[3]} />
         <BottomMenuLink menuItem={menuContent[4]} />
-        <BottomMenuLink menuItem={menuContent[5]} />
 
         <BottomMenuButton icon={<MdMoreVert size={ICON_SIZE} />} onClick={() => menuRef.current?.open()} />
       </div>

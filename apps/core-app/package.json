@@ -12,6 +12,7 @@
     "@shared/live-chat": "workspace:*",
     "@shared/number-guesser": "workspace:*",
     "@shared/sudoku": "workspace:*",
+    "@shared/task-mate": "workspace:*",
     "@shared/todo-app": "workspace:*",
     "internal-ip": "^8.0.0",
     "react": "^18.3.1",

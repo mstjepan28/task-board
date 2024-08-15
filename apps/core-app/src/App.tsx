@@ -4,6 +4,7 @@ import { useChatRouter } from "@shared/live-chat";
 import { useNumberGuesserRouter } from "@shared/number-guesser";
 import { usePathFinderRouter } from "@shared/path-finder";
 import { useSudokuRouter } from "@shared/sudoku";
+import { useTaskMateRouter } from "@shared/task-mate";
 import { useTodoRouter } from "@shared/todo-app";
 
 export const App = () => {
@@ -14,8 +15,9 @@ export const App = () => {
         ...useNumberGuesserRouter(),
         ...usePathFinderRouter(),
         ...useCryptogramRouter(),
-        ...useChatRouter(),
+        ...useTaskMateRouter(),
         ...useSudokuRouter(),
+        ...useChatRouter(),
         ...useTodoRouter(),
         {
           path: "*",

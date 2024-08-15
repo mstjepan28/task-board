@@ -3,6 +3,7 @@ import type { useCryptogramRouter } from "@shared/cryptogram";
 import type { useChatRouter } from "@shared/live-chat";
 import type { useNumberGuesserRouter } from "@shared/number-guesser";
 import type { usePathFinderRouter } from "@shared/path-finder";
+import type { useTaskMateRouter } from "@shared/task-mate";
 import type { useSudokuRouter } from "@shared/sudoku";
 import type { useTodoRouter } from "@shared/todo-app";
 
@@ -15,6 +16,7 @@ type ExtractPaths<T extends reactRouter.RouteObject[]> = {
 type TNumberGuesserRouter = ExtractPaths<ReturnType<typeof useNumberGuesserRouter>>;
 type TCryptogramRouter = ExtractPaths<ReturnType<typeof useCryptogramRouter>>;
 type TPathFinderRouter = ExtractPaths<ReturnType<typeof usePathFinderRouter>>;
+type TTaskMateRouter = ExtractPaths<ReturnType<typeof useTaskMateRouter>>;
 type TSudokuRouter = ExtractPaths<ReturnType<typeof useSudokuRouter>>;
 type TChatRouter = ExtractPaths<ReturnType<typeof useChatRouter>>;
 type TTodoRouter = ExtractPaths<ReturnType<typeof useTodoRouter>>;
@@ -24,6 +26,7 @@ type TRawRoutes =
   | TNumberGuesserRouter
   | TCryptogramRouter
   | TPathFinderRouter
+  | TTaskMateRouter
   | TSudokuRouter
   | TChatRouter
   | TTodoRouter;

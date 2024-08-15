@@ -45,6 +45,7 @@ __metadata:
     "@shared/live-chat": "workspace:*"
     "@shared/number-guesser": "workspace:*"
     "@shared/sudoku": "workspace:*"
+    "@shared/task-mate": "workspace:*"
     "@shared/todo-app": "workspace:*"
     "@tailwindcss/vite": "npm:next"
     "@types/react": "npm:^18.3.3"
@@ -2549,6 +2550,8 @@ __metadata:
 "@services/storage@workspace:*, @services/storage@workspace:services/storage":
   version: 0.0.0-use.local
   resolution: "@services/storage@workspace:services/storage"
+  dependencies:
+    "@services/utils": "workspace:*"
   languageName: unknown
   linkType: soft
 
@@ -2638,6 +2641,21 @@ __metadata:
     dayjs: "npm:^1.11.12"
     react: "npm:^18.3.1"
     sudoku-gen: "npm:1.0.2"
+  languageName: unknown
+  linkType: soft
+
+"@shared/task-mate@workspace:*, @shared/task-mate@workspace:shared/task-mate":
+  version: 0.0.0-use.local
+  resolution: "@shared/task-mate@workspace:shared/task-mate"
+  dependencies:
+    "@services/navigation": "workspace:*"
+    "@services/storage": "workspace:*"
+    "@services/supabase": "workspace:*"
+    "@services/ui": "workspace:*"
+    "@services/utils": "workspace:*"
+    dayjs: "npm:^1.11.12"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
   languageName: unknown
   linkType: soft
 
