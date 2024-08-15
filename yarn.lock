@@ -48,6 +48,7 @@ __metadata:
     "@shared/task-mate": "workspace:*"
     "@shared/todo-app": "workspace:*"
     "@tailwindcss/vite": "npm:next"
+    "@tanstack/react-query": "npm:5.51.23"
     "@types/react": "npm:^18.3.3"
     "@types/react-dom": "npm:^18.3.0"
     "@vitejs/plugin-react": "npm:^4.3.1"
