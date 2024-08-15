@@ -1,10 +1,10 @@
+import { Link } from "@services/navigation";
 import { useRef } from "react";
+import { MdMoreVert } from "react-icons/md";
 import { BaseModal } from "../../components/overlays/BaseModal";
 import { menuContent, type TMenuItem } from "../../data/menuContent";
-import type { TOverlayRef } from "../../types/OverlayElement";
+import type { TOverlayRef } from "../../types/overlay";
 import { MenuItem } from "./MenuItem";
-import { Link } from "@services/navigation";
-import { MdMoreVert } from "react-icons/md";
 
 const ICON_SIZE = 28;
 

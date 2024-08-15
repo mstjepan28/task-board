@@ -1,4 +1,4 @@
-import { supabase } from "@services/supabase";
+// import { supabase } from "@services/supabase";
 import dayjs from "dayjs";
 import type { DragEvent } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -202,31 +202,30 @@ export const useTaskList = () => {
       status: status,
     } as TTask;
 
-    await supabase.from("tasks").insert([newTask]);
+    // await supabase.from("tasks").insert([newTask]);
 
     newTask.id = `task-${Date.now()}`;
     setTaskList([...taskList, newTask]);
   };
 
   const readTaskList = async () => {
-    const { data } = await supabase.from("tasks").select("*");
-    const dataList = (data ?? []) as TTask[];
+    // const { data } = await supabase.from("tasks").select("*");
+    // const dataList = (data ?? []) as TTask[];
 
-    setTaskList(dataList);
+    // setTaskList(dataList);
+    setTaskList([]);
   };
 
-  const updateTaskList = async (updatedStatuses: TTaskStatus[], ordinalNumber: number) => {
-    const impactedTaskList = taskList.filter((task) => {
-      const didMoveDown = task.ordinalNumber >= ordinalNumber;
-      const inSameStatus = updatedStatuses.includes(task.status);
-
-      return didMoveDown && inSameStatus;
-    });
-
-    for (const task of impactedTaskList) {
-      const updatedTask = { ...task, ordinalNumber: task.ordinalNumber + 1 };
-      await supabase.from("tasks").update(updatedTask).eq("id", task.id);
-    }
+  const updateTaskList = async (_updatedStatuses: TTaskStatus[], _ordinalNumber: number) => {
+    // const impactedTaskList = taskList.filter((task) => {
+    //   const didMoveDown = task.ordinalNumber >= ordinalNumber;
+    //   const inSameStatus = updatedStatuses.includes(task.status);
+    //   return didMoveDown && inSameStatus;
+    // });
+    // for (const task of impactedTaskList) {
+    //   const updatedTask = { ...task, ordinalNumber: task.ordinalNumber + 1 };
+    //   await supabase.from("tasks").update(updatedTask).eq("id", task.id);
+    // }
   };
 
   const deleteTask = async () => {
@@ -238,7 +237,7 @@ export const useTaskList = () => {
       return;
     }
 
-    await supabase.from("tasks").delete().eq("id", movedTask.id);
+    // await supabase.from("tasks").delete().eq("id", movedTask.id);
 
     const updatedTaskList = taskList.filter((task) => task.id !== movedTask.id);
     setTaskList(updatedTaskList);

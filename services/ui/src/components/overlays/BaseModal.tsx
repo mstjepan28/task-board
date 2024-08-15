@@ -2,7 +2,7 @@ import { DisplaySize, useResponsive } from "@services/utils";
 import { forwardRef, useImperativeHandle, useMemo, useRef, type ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 import { useOverlayControls } from "../../hooks/useOverlayControls";
-import type { TOverlayControls } from "../../types/OverlayElement";
+import type { TOverlayControls } from "../../types/overlay";
 
 interface IBaseProps {
   children?: ReactNode;

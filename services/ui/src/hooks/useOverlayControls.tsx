@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { TOverlayToggleOptions } from "../types/OverlayElement";
+import type { TOverlayToggleOptions } from "../types/overlay";
 
 interface IProps {
   defaultOpen?: boolean;
