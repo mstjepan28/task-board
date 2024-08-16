@@ -30,7 +30,11 @@ export const LoginScreen = () => {
           <PasswordInput name="password" label="Password" defaultValue={devPassword} />
         </div>
 
-        <Button type="submit" className="w-full text-sm font-semibold uppercase py-2 text-white bg-blue-600">
+        <Button
+          type="submit"
+          loading={login.loading}
+          className="w-full text-sm font-semibold uppercase py-2 text-white bg-blue-600"
+        >
           Login
         </Button>
       </form>

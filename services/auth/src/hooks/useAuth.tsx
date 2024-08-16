@@ -2,6 +2,7 @@ import { FirebaseContext } from "@services/firebase";
 import { useMutation } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { QueryKeys } from "../enums/queryKeys";
+import { type TUser, userSchema } from "../schemas/userSchema";
 
 type TCredentials = {
   email: string;
@@ -11,23 +12,32 @@ type TCredentials = {
 export const useAuth = () => {
   const { credentialLogin, logout } = useContext(FirebaseContext);
 
+  const [authUser, setAuthUser] = useState<TUser | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [authUser, _setAuthUser] = useState(null);
 
   const loggingIn = useMutation({
     mutationKey: [QueryKeys.LOGGING_IN],
     mutationFn: async ({ email, password }: TCredentials) => {
-      const response = credentialLogin(email, password);
-      console.log(response);
+      const { user } = await credentialLogin(email, password);
+
+      const validatedUser = userSchema.parse({
+        id: user.uid,
+        name: user.displayName ?? user.email,
+        email: user.email,
+        profilePicture: user.photoURL,
+      });
+
+      setAuthUser(validatedUser);
+      setIsLoggedIn(true);
     },
-    onSuccess: () => setIsLoggedIn(true),
     onError: console.error,
   });
 
   const loggingOut = useMutation({
     mutationKey: [QueryKeys.LOGGING_IN],
-    mutationFn: logout,
-    onSuccess: () => setIsLoggedIn(false),
+    mutationFn: async () => {
+      logout().then(() => setIsLoggedIn(false));
+    },
     onError: console.error,
   });
 
