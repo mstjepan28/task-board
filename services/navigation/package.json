@@ -11,6 +11,7 @@
   "devDependencies": {
     "@shared/cryptogram": "workspace:*",
     "@shared/live-chat": "workspace:*",
+    "@shared/login": "workspace:*",
     "@shared/number-guesser": "workspace:*",
     "@shared/path-finder": "workspace:*",
     "@shared/sudoku": "workspace:*",

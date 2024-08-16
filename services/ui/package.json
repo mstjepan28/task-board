@@ -4,6 +4,7 @@
   "version": "1",
   "main": "./src",
   "dependencies": {
+    "@services/auth": "workspace:*",
     "@services/navigation": "workspace:*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

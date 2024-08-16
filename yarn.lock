@@ -43,6 +43,7 @@ __metadata:
   resolution: "@apps/core-app@workspace:apps/core-app"
   dependencies:
     "@shared/live-chat": "workspace:*"
+    "@shared/login": "workspace:*"
     "@shared/number-guesser": "workspace:*"
     "@shared/sudoku": "workspace:*"
     "@shared/task-mate": "workspace:*"
@@ -2522,18 +2523,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@services/auth@workspace:services/auth":
+"@services/auth@workspace:*, @services/auth@workspace:services/auth":
   version: 0.0.0-use.local
   resolution: "@services/auth@workspace:services/auth"
   dependencies:
     "@services/environment": "workspace:*"
     "@services/navigation": "workspace:*"
-    "@services/ui": "workspace:*"
     "@services/utils": "workspace:*"
     "@tanstack/react-query": "npm:5.51.23"
     react: "npm:18.3.1"
-    react-dom: "npm:18.3.1"
-    react-icons: "npm:5.3.0"
   languageName: unknown
   linkType: soft
 
@@ -2561,6 +2559,7 @@ __metadata:
   dependencies:
     "@shared/cryptogram": "workspace:*"
     "@shared/live-chat": "workspace:*"
+    "@shared/login": "workspace:*"
     "@shared/number-guesser": "workspace:*"
     "@shared/path-finder": "workspace:*"
     "@shared/sudoku": "workspace:*"
@@ -2592,6 +2591,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@services/ui@workspace:services/ui"
   dependencies:
+    "@services/auth": "workspace:*"
     "@services/navigation": "workspace:*"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
@@ -2633,6 +2633,19 @@ __metadata:
     dayjs: "npm:^1.11.12"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
+  languageName: unknown
+  linkType: soft
+
+"@shared/login@workspace:*, @shared/login@workspace:shared/login":
+  version: 0.0.0-use.local
+  resolution: "@shared/login@workspace:shared/login"
+  dependencies:
+    "@services/navigation": "workspace:*"
+    "@services/ui": "workspace:*"
+    "@services/utils": "workspace:*"
+    react: "npm:18.3.1"
+    react-dom: "npm:18.3.1"
+    react-icons: "npm:5.3.0"
   languageName: unknown
   linkType: soft
 

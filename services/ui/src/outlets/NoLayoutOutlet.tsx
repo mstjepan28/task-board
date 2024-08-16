@@ -1,12 +1,16 @@
-import { Navigate, Outlet } from "@services/navigation";
+import { AuthContext } from "@services/auth";
+import { Outlet } from "@services/navigation";
+import { useContext } from "react";
 import type { IOutletProps } from "../types/outletProps";
+import { RouteGuard } from "./RouteGuard";
 
 export const NoLayoutOutlet = ({ isProtected, reroute }: IOutletProps) => {
-  const isAuthenticating = true;
+  const { isLoggedIn } = useContext(AuthContext);
+  const allowAccess = !isProtected || isLoggedIn;
 
-  if (!isAuthenticating && isProtected) {
-    return <Navigate to={reroute || "/"} replace />;
-  }
-
-  return <Outlet />;
+  return (
+    <RouteGuard condition={allowAccess} redirectPath={reroute ?? "/"}>
+      <Outlet />
+    </RouteGuard>
+  );
 };

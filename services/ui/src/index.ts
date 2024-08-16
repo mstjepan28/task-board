@@ -5,6 +5,7 @@ export { Button } from "./components/Button";
 export { InputField } from "./components/input/InputField";
 export { TextArea } from "./components/input/TextArea";
 
+export { UnauthenticatedOutlet } from "./outlets/UnauthenticatedOutlet";
 export { NavigationOutlet } from "./outlets/NavigationOutlet";
 export { NoLayoutOutlet } from "./outlets/NoLayoutOutlet";
 
