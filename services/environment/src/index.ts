@@ -28,10 +28,15 @@ const envSchema = z.object({
   }),
   devCredentials: z
     .object({
-      email: z.string().email(),
-      password: z.string(),
+      devEmail: z.string().email(),
+      devPassword: z.string(),
     })
-    .optional(),
+    .transform((data) => {
+      return {
+        devEmail: data.devEmail ?? "",
+        devPassword: data.devPassword ?? "",
+      };
+    }),
 });
 
 export const env = envSchema.parse({
@@ -47,7 +52,7 @@ export const env = envSchema.parse({
     appId: VITE_FIREBASE_APP_ID,
   },
   devCredentials: {
-    email: VITE_EMAIL,
-    password: VITE_PASSWORD,
+    devEmail: VITE_EMAIL,
+    devPassword: VITE_PASSWORD,
   },
 });

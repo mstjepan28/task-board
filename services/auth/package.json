@@ -5,6 +5,7 @@
   "main": "./src",
   "dependencies": {
     "@services/environment": "workspace:*",
+    "@services/firebase": "workspace:*",
     "@services/navigation": "workspace:*",
     "@services/utils": "workspace:*",
     "@tanstack/react-query": "5.51.23",

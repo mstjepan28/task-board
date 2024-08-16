@@ -3161,6 +3161,7 @@ __metadata:
   resolution: "@services/auth@workspace:services/auth"
   dependencies:
     "@services/environment": "workspace:*"
+    "@services/firebase": "workspace:*"
     "@services/navigation": "workspace:*"
     "@services/utils": "workspace:*"
     "@tanstack/react-query": "npm:5.51.23"

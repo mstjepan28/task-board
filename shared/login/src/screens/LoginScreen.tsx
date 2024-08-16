@@ -1,9 +1,11 @@
 import { AuthContext } from "@services/auth";
+import { env } from "@services/environment";
 import { Button, PasswordInput, TextInput } from "@services/ui";
 import { useContext } from "react";
 
 export const LoginScreen = () => {
   const { login } = useContext(AuthContext);
+  const { devEmail, devPassword } = env.devCredentials;
 
   const onFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,8 +26,8 @@ export const LoginScreen = () => {
         </div>
 
         <div className="py-4">
-          <TextInput name="email" label="Email" />
-          <PasswordInput name="password" label="Password" />
+          <TextInput name="email" label="Email" defaultValue={devEmail} />
+          <PasswordInput name="password" label="Password" defaultValue={devPassword} />
         </div>
 
         <Button type="submit" className="w-full text-sm font-semibold uppercase py-2 text-white bg-blue-600">

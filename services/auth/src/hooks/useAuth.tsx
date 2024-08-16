@@ -1,7 +1,7 @@
+import { FirebaseContext } from "@services/firebase";
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { QueryKeys } from "../enums/queryKeys";
-import { fakeApiRequest } from "@services/utils";
 
 type TCredentials = {
   email: string;
@@ -9,14 +9,16 @@ type TCredentials = {
 };
 
 export const useAuth = () => {
+  const { credentialLogin, logout } = useContext(FirebaseContext);
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [authUser, _setAuthUser] = useState(null);
 
   const loggingIn = useMutation({
     mutationKey: [QueryKeys.LOGGING_IN],
-    mutationFn: async (credentials: TCredentials) => {
-      console.log("Logging in...", credentials);
-      await fakeApiRequest(true);
+    mutationFn: async ({ email, password }: TCredentials) => {
+      const response = credentialLogin(email, password);
+      console.log(response);
     },
     onSuccess: () => setIsLoggedIn(true),
     onError: console.error,
@@ -24,10 +26,7 @@ export const useAuth = () => {
 
   const loggingOut = useMutation({
     mutationKey: [QueryKeys.LOGGING_IN],
-    mutationFn: async () => {
-      console.log("Logging out...");
-      await fakeApiRequest(true);
-    },
+    mutationFn: logout,
     onSuccess: () => setIsLoggedIn(false),
     onError: console.error,
   });
