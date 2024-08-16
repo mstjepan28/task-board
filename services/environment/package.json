@@ -1,0 +1,9 @@
+{
+  "name": "@services/environment",
+  "private": true,
+  "version": "1",
+  "main": "./src",
+  "dependencies": {
+    "zod": "3.23.8"
+  }
+}

@@ -331,8 +331,6 @@ export const Sudoku = () => {
       return;
     }
 
-    console.log(loadedGame.autoCheck);
-
     setBoard(loadedGame.board);
     setAutoCheck(loadedGame.autoCheck);
 
