@@ -12,7 +12,7 @@ export const MainRouter = () => {
   return (
     <RouterProvider
       router={createBrowserRouter([
-        { path: "/", element: <Navigate to="/sudoku" replace /> },
+        { path: "/", element: <Navigate to="/task-list" replace /> },
         ...useNumberGuesserRouter(),
         ...usePathFinderRouter(),
         ...useCryptogramRouter(),
