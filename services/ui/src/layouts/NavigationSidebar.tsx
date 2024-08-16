@@ -1,36 +1,37 @@
-import { useState } from "react";
-import { MdOutlineMenuOpen } from "react-icons/md";
+import { useContext, useState } from "react";
+import { MdLogout, MdOutlineMenuOpen } from "react-icons/md";
 import { menuContent } from "../data/menuContent";
-import { MenuItem } from "./menu/MenuItem";
+import { MenuItemButtons, MenuItemLink } from "./menu/MenuItem";
+import { AuthContext } from "@services/auth";
 
 export const NavigationSidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { logout } = useContext(AuthContext);
 
   const toggleExpanded = () => setIsExpanded((pre) => !pre);
 
   return (
-    <div className="w-fit basis-full px-2 py-1 border-r bg-gray-100 shadow-lg">
-      <div className="flex flex-col gap-y-2">
-        <button
-          type="button"
+    <div className="w-fit basis-full px-2 py-2 border-r bg-gray-100 shadow-lg">
+      <div className="h-full flex flex-col gap-y-2">
+        <MenuItemButtons
+          title="Application"
+          icon={<MdOutlineMenuOpen size={28} />}
           onClick={toggleExpanded}
-          className="w-full flex uppercase text-start font-semibold px-3 pr-4 py-2 mb-2 border-b-2"
-        >
-          <div className={`transition-all duration-300 ${isExpanded ? "" : "rotate-180"}`}>
-            <MdOutlineMenuOpen size={28} />
-          </div>
-
-          <span
-            className={`flex uppercase font-extrabold overflow-hidden whitespace-nowrap duration-300 transition-all ${isExpanded ? "max-w-[250px]" : "max-w-[0px]"}`}
-          >
-            <div className="shrink-0 size-4" />
-            Application
-          </span>
-        </button>
+          expanded={isExpanded}
+        />
 
         {menuContent.map((menuItem) => {
-          return <MenuItem key={menuItem.path} menuItem={menuItem} expanded={isExpanded} />;
+          return <MenuItemLink key={menuItem.path} menuItem={menuItem} expanded={isExpanded} />;
         })}
+
+        <div className="basis-full" />
+
+        <MenuItemButtons
+          title="Logout"
+          icon={<MdLogout size={28} />}
+          onClick={() => logout.logoutUser()}
+          expanded={isExpanded}
+        />
       </div>
     </div>
   );

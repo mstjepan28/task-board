@@ -2,11 +2,11 @@ import { AuthContext } from "@services/auth";
 import { Link } from "@services/navigation";
 import { useContext, useRef } from "react";
 import { MdMoreVert } from "react-icons/md";
+import { LoadingIndicator } from "../../components/LoadingIndicator";
 import { BaseModal } from "../../components/overlays/BaseModal";
 import { menuContent, type TMenuItem } from "../../data/menuContent";
 import type { TOverlayRef } from "../../types/overlay";
-import { MenuItem } from "./MenuItem";
-import { LoadingIndicator } from "../../components/LoadingIndicator";
+import { MenuItemLink } from "./MenuItem";
 
 const ICON_SIZE = 28;
 
@@ -32,7 +32,7 @@ export const MobileNavigation = () => {
           </div>
 
           {menuContent.map((menuItem) => {
-            return <MenuItem key={menuItem.path} menuItem={menuItem} expanded />;
+            return <MenuItemLink key={menuItem.path} menuItem={menuItem} expanded />;
           })}
 
           <button type="button" onClick={() => logout.logoutUser()} className="w-fit flex gap-x-2 items-center py-2">
