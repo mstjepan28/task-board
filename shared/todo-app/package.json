@@ -4,7 +4,6 @@
   "dependencies": {
     "@services/navigation": "workspace:*",
     "@services/storage": "workspace:*",
-    "@services/supabase": "workspace:*",
     "@services/ui": "workspace:*",
     "@services/utils": "workspace:*",
     "dayjs": "^1.11.12",

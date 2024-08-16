@@ -1,4 +1,3 @@
-// import { supabase } from "@services/supabase";
 import dayjs from "dayjs";
 import type { DragEvent } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
