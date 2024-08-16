@@ -6,6 +6,7 @@ export const CacheDataSignature = {
   CRYPTOGRAM_ROUND_KEY: "cryptogram-round-key",
   PATH_FINDER_GRID: "path-finder-grid",
   CHAT_DETAILS: "chat-details",
+  AUTH_USER: "auth-user",
 } as const;
 
 export type TCacheDataSignature = TypeFromEnum<typeof CacheDataSignature>;

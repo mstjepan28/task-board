@@ -1,5 +1,6 @@
 import { FirebaseContext } from "@services/firebase";
-import { useMutation } from "@tanstack/react-query";
+import { storage } from "@services/storage";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { QueryKeys } from "../enums/queryKeys";
 import { type TUser, userSchema } from "../schemas/userSchema";
@@ -15,20 +16,28 @@ export const useAuth = () => {
   const [authUser, setAuthUser] = useState<TUser | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const validateAndSetUser = (authUser: unknown) => {
+    const validatedUser = userSchema.parse(authUser);
+
+    setAuthUser(validatedUser);
+    setIsLoggedIn(true);
+
+    return validatedUser;
+  };
+
   const loggingIn = useMutation({
     mutationKey: [QueryKeys.LOGGING_IN],
     mutationFn: async ({ email, password }: TCredentials) => {
       const { user } = await credentialLogin(email, password);
 
-      const validatedUser = userSchema.parse({
+      const validUser = validateAndSetUser({
         id: user.uid,
         name: user.displayName ?? user.email,
         email: user.email,
         profilePicture: user.photoURL,
       });
 
-      setAuthUser(validatedUser);
-      setIsLoggedIn(true);
+      storage.setItem("auth-user", validUser);
     },
     onError: console.error,
   });
@@ -36,9 +45,23 @@ export const useAuth = () => {
   const loggingOut = useMutation({
     mutationKey: [QueryKeys.LOGGING_IN],
     mutationFn: async () => {
-      logout().then(() => setIsLoggedIn(false));
+      logout().then(() => {
+        storage.removeItem("auth-user");
+        setIsLoggedIn(false);
+      });
     },
     onError: console.error,
+  });
+
+  useQuery({
+    queryKey: [QueryKeys.VALIDATE_SESSION],
+    queryFn: async () => {
+      const storedUser = storage.getItem("auth-user");
+      validateAndSetUser(storedUser);
+    },
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
+    enabled: true,
   });
 
   return {

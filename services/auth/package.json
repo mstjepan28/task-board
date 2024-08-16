@@ -4,6 +4,7 @@
   "version": "1",
   "main": "./src",
   "dependencies": {
+    "@services/storage": "workspace:*",
     "@services/environment": "workspace:*",
     "@services/firebase": "workspace:*",
     "@services/navigation": "workspace:*",
