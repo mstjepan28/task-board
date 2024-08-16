@@ -2,7 +2,7 @@ export { LoadingIndicator } from "./components/LoadingIndicator";
 export { Searchbar } from "./components/Searchbar";
 export { Button } from "./components/Button";
 
-export { InputField } from "./components/input/InputField";
+export { TextInput } from "./components/input/TextInput";
 export { TextArea } from "./components/input/TextArea";
 
 export { UnauthenticatedOutlet } from "./outlets/UnauthenticatedOutlet";
