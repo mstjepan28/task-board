@@ -1,14 +1,17 @@
+import { AuthContext } from "@services/auth";
 import { Link } from "@services/navigation";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import { MdMoreVert } from "react-icons/md";
 import { BaseModal } from "../../components/overlays/BaseModal";
 import { menuContent, type TMenuItem } from "../../data/menuContent";
 import type { TOverlayRef } from "../../types/overlay";
 import { MenuItem } from "./MenuItem";
+import { LoadingIndicator } from "../../components/LoadingIndicator";
 
 const ICON_SIZE = 28;
 
 export const MobileNavigation = () => {
+  const { logout } = useContext(AuthContext);
   const menuRef = useRef(null) as TOverlayRef;
 
   return (
@@ -23,10 +26,15 @@ export const MobileNavigation = () => {
       </div>
 
       <BaseModal ref={menuRef} closeOnOutsideClick>
-        <div className="flex flex-col gap-y-2 py-4">
+        <div className="flex flex-col gap-y-2 pt-4">
           {menuContent.map((menuItem) => {
             return <MenuItem key={menuItem.path} menuItem={menuItem} expanded />;
           })}
+
+          <button type="button" onClick={() => logout.logoutUser()} className="w-fit flex gap-x-2 items-center py-2">
+            <span className="uppercase font-semibold text-sm">Logout</span>
+            {logout.loading && <LoadingIndicator size="sm" />}
+          </button>
         </div>
       </BaseModal>
     </div>

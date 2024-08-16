@@ -16,7 +16,7 @@ export const useAuth = () => {
     mutationKey: [QueryKeys.LOGGING_IN],
     mutationFn: async (credentials: TCredentials) => {
       console.log("Logging in...", credentials);
-      fakeApiRequest(true);
+      await fakeApiRequest(true);
     },
     onSuccess: () => setIsLoggedIn(true),
     onError: console.error,
@@ -26,7 +26,7 @@ export const useAuth = () => {
     mutationKey: [QueryKeys.LOGGING_IN],
     mutationFn: async () => {
       console.log("Logging out...");
-      fakeApiRequest(true);
+      await fakeApiRequest(true);
     },
     onSuccess: () => setIsLoggedIn(false),
     onError: console.error,
