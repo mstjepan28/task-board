@@ -5,12 +5,12 @@ import { NavigationLayout } from "../layouts/NavigationLayout";
 import type { IOutletProps } from "../types/outletProps";
 import { RouteGuard } from "./RouteGuard";
 
-export const NavigationOutlet = ({ isProtected, reroute }: IOutletProps) => {
+export const NavigationOutlet = ({ isProtected = true, reroute }: IOutletProps) => {
   const { isLoggedIn } = useContext(AuthContext);
   const allowAccess = !isProtected || isLoggedIn;
 
   return (
-    <RouteGuard condition={allowAccess} redirectPath={reroute ?? "/"}>
+    <RouteGuard condition={allowAccess} redirectPath={reroute ?? "/login"}>
       <NavigationLayout>
         <Outlet />
       </NavigationLayout>
