@@ -1,12 +1,13 @@
 import { AuthContext } from "@services/auth";
 import { Link } from "@services/navigation";
 import { useContext, useRef } from "react";
-import { MdMoreVert } from "react-icons/md";
+import { MdLogout, MdMoreVert } from "react-icons/md";
 import { LoadingIndicator } from "../../components/LoadingIndicator";
 import { BaseModal } from "../../components/overlays/BaseModal";
 import { menuContent, type TMenuItem } from "../../data/menuContent";
 import type { TOverlayRef } from "../../types/overlay";
 import { MenuItemLink } from "./MenuItem";
+import { HiOutlineUser } from "react-icons/hi";
 
 const ICON_SIZE = 28;
 
@@ -27,18 +28,20 @@ export const MobileNavigation = () => {
 
       <BaseModal ref={menuRef} forceState="popup" closeOnOutsideClick>
         <div className="flex flex-col gap-y-2 pt-4">
-          <div className="font-semibold pb-2">
-            <span>Hello {authUser?.name}!</span>
+          <div className="w-full flex justify-between py-2">
+            <Link to="/user-edit" className="flex items-center gap-x-2 font-medium">
+              <HiOutlineUser size={20} /> {authUser?.name ?? "Profile"}
+            </Link>
+
+            <button type="button" onClick={() => logout.logoutUser()} className="w-fit flex gap-x-2 items-center py-2">
+              {logout.loading ? <LoadingIndicator size="sm" /> : <MdLogout size={20} />}
+              <span className="uppercase font-semibold text-sm">Logout</span>
+            </button>
           </div>
 
           {menuContent.map((menuItem) => {
             return <MenuItemLink key={menuItem.path} menuItem={menuItem} expanded />;
           })}
-
-          <button type="button" onClick={() => logout.logoutUser()} className="w-fit flex gap-x-2 items-center py-2">
-            <span className="uppercase font-semibold text-sm">Logout</span>
-            {logout.loading && <LoadingIndicator size="sm" />}
-          </button>
         </div>
       </BaseModal>
     </div>

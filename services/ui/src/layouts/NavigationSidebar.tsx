@@ -30,7 +30,7 @@ export const NavigationSidebar = () => {
         <MenuItemLink
           menuItem={{
             icon: () => <HiOutlineUser size={28} />,
-            path: "/",
+            path: "/user-edit",
             name: authUser?.name ?? "Profile",
           }}
           expanded={isExpanded}
