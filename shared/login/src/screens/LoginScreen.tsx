@@ -19,13 +19,13 @@ export const LoginScreen = () => {
 
   return (
     <div className="size-full flex flex-col items-center justify-center">
-      <form onSubmit={onFormSubmit} className="min-w-[80%] max-w-md">
+      <form onSubmit={onFormSubmit} className="w-full max-w-sm px-4">
         <div className="text-center">
           <h1 className="text-3xl italic font-semibold">Task mate</h1>
           <h2 className="text-xl font-semibold">Login</h2>
         </div>
 
-        <div className="py-4">
+        <div className="py-4 ">
           <TextInput name="email" label="Email" defaultValue={devEmail} />
           <PasswordInput name="password" label="Password" defaultValue={devPassword} />
         </div>

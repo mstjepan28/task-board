@@ -342,43 +342,43 @@ export const Sudoku = () => {
   return (
     <>
       <SudokuDifficultySelector baseRef={difficultyPickerRef} onSelect={createNewGame} />
+      <div className="relative h-full">
+        <div className="absolute top-0 left-0 py-2 px-4 flex flex-col gap-y-1 ">
+          <ActionButton label="Show solution" onClick={() => showSolution()} className="text-start" />
+          <ActionButton label={autoCheckLabel} onClick={() => onAutoCheckToggle()} className="text-start" />
+        </div>
 
-      <div className="absolute top-0 left-0 py-2 px-4 flex flex-col gap-y-1 ">
-        <ActionButton label="Show solution" onClick={() => showSolution()} className="text-start" />
-        <ActionButton label={autoCheckLabel} onClick={() => onAutoCheckToggle()} className="text-start" />
-      </div>
+        <div className="items-end absolute top-0 right-0 py-2 px-4 flex flex-col gap-y-1">
+          <ActionButton label="Clear game" onClick={resetGame} />
+          <ActionButton label="New Game" onClick={() => createNewGame()} />
+          <ActionButton
+            label="Difficulty"
+            onClick={() => difficultyPickerRef.current?.open(selectedDifficulty.current)}
+          />
+        </div>
 
-      <div className="items-end absolute top-0 right-0 py-2 px-4 flex flex-col gap-y-1">
-        <ActionButton label="Clear game" onClick={resetGame} />
-        <ActionButton label="New Game" onClick={() => createNewGame()} />
-        <ActionButton
-          label="Difficulty"
-          onClick={() => difficultyPickerRef.current?.open(selectedDifficulty.current)}
-        />
-      </div>
+        <div
+          onKeyDownCapture={(event) => handleKeyPress(event.key)}
+          className="w-[360px] h-full mx-auto flex flex-col items-center justify-center gap-y-4"
+        >
+          {/* Sudoku board */}
+          <div className=" grid grid-cols-9">
+            {board.map((boardRow, rowIndex) => {
+              return boardRow.map((cell, colIndex) => {
+                const key = `${rowIndex}-${colIndex}`;
+                const selectCell = () => {
+                  setSelected([rowIndex, colIndex]);
+                  setSelectedNumber(cell);
+                };
 
-      <div
-        onKeyDownCapture={(event) => handleKeyPress(event.key)}
-        className="w-[360px] h-full mx-auto flex flex-col items-center justify-center gap-y-4"
-      >
-        {/* Sudoku board */}
-        <div className=" grid grid-cols-9">
-          {board.map((boardRow, rowIndex) => {
-            return boardRow.map((cell, colIndex) => {
-              const key = `${rowIndex}-${colIndex}`;
-              const selectCell = () => {
-                setSelected([rowIndex, colIndex]);
-                setSelectedNumber(cell);
-              };
+                const cellStyle = getCellStyle(rowIndex, colIndex, cell);
 
-              const cellStyle = getCellStyle(rowIndex, colIndex, cell);
-
-              return (
-                <button
-                  key={key}
-                  type="button"
-                  onClick={selectCell}
-                  className={`
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={selectCell}
+                    className={`
                     min-w-10 min-h-10 size-10 flex justify-center items-center cursor-pointer select-none 
                     text-xl transition-all duration-150 border border-black shrink-0
                     hover:bg-blue-300 focus:outline-none
@@ -388,50 +388,51 @@ export const Sudoku = () => {
                     ${colIndex === 0 && "!border-l-2"}
                     ${cellStyle}
                   `}
-                >
-                  {cell !== EMPTY_CELL && cell}
-                </button>
-              );
-            });
-          })}
-        </div>
+                  >
+                    {cell !== EMPTY_CELL && cell}
+                  </button>
+                );
+              });
+            })}
+          </div>
 
-        {/* Number */}
-        <div className="w-full flex justify-between">
-          {Array.from({ length: 9 }).map((_, index) => {
-            return (
-              <button
-                key={index}
-                type="button"
-                onClick={() => handleNumberSelect(index + 1)}
-                className={`
+          {/* Number */}
+          <div className="w-full flex justify-between">
+            {Array.from({ length: 9 }).map((_, index) => {
+              return (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => handleNumberSelect(index + 1)}
+                  className={`
                     w-8 aspect-square flex justify-center items-center cursor-pointer 
                     select-none text-xl rounded-md border border-gray-600
                     transition-all duration-150 bg-white hover:bg-gray-200
                   `}
-              >
-                {index + 1}
-              </button>
-            );
-          })}
-        </div>
+                >
+                  {index + 1}
+                </button>
+              );
+            })}
+          </div>
 
-        {/* Action buttons */}
-        <div className="w-full flex gap-x-2">
-          <button
-            type="button"
-            onClick={handleUndoMove}
-            className="w-full rounded-md bg-white font-semibold uppercase text-sm border px-4 py-1"
-          >
-            Undo
-          </button>
-          <button
-            type="button"
-            onClick={() => handleKeyPress("Backspace")}
-            className="w-full rounded-md bg-white font-semibold uppercase text-sm border px-4 py-1"
-          >
-            Delete
-          </button>
+          {/* Action buttons */}
+          <div className="w-full flex gap-x-2">
+            <button
+              type="button"
+              onClick={handleUndoMove}
+              className="w-full rounded-md bg-white font-semibold uppercase text-sm border px-4 py-1"
+            >
+              Undo
+            </button>
+            <button
+              type="button"
+              onClick={() => handleKeyPress("Backspace")}
+              className="w-full rounded-md bg-white font-semibold uppercase text-sm border px-4 py-1"
+            >
+              Delete
+            </button>
+          </div>
         </div>
       </div>
     </>

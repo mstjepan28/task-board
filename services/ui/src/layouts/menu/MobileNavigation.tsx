@@ -11,7 +11,7 @@ import { LoadingIndicator } from "../../components/LoadingIndicator";
 const ICON_SIZE = 28;
 
 export const MobileNavigation = () => {
-  const { logout } = useContext(AuthContext);
+  const { logout, authUser } = useContext(AuthContext);
   const menuRef = useRef(null) as TOverlayRef;
 
   return (
@@ -25,8 +25,12 @@ export const MobileNavigation = () => {
         <BottomMenuButton icon={<MdMoreVert size={ICON_SIZE} />} onClick={() => menuRef.current?.open()} />
       </div>
 
-      <BaseModal ref={menuRef} closeOnOutsideClick>
+      <BaseModal ref={menuRef} forceState="popup" closeOnOutsideClick>
         <div className="flex flex-col gap-y-2 pt-4">
+          <div className="font-semibold pb-2">
+            <span>Hello {authUser?.name}!</span>
+          </div>
+
           {menuContent.map((menuItem) => {
             return <MenuItem key={menuItem.path} menuItem={menuItem} expanded />;
           })}
