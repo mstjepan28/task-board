@@ -2522,6 +2522,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@services/auth@workspace:services/auth":
+  version: 0.0.0-use.local
+  resolution: "@services/auth@workspace:services/auth"
+  dependencies:
+    "@services/environment": "workspace:*"
+    "@services/navigation": "workspace:*"
+    "@services/ui": "workspace:*"
+    "@services/utils": "workspace:*"
+    "@tanstack/react-query": "npm:5.51.23"
+    react: "npm:18.3.1"
+    react-dom: "npm:18.3.1"
+    react-icons: "npm:5.3.0"
+  languageName: unknown
+  linkType: soft
+
 "@services/chat-server@workspace:services/chat-server":
   version: 0.0.0-use.local
   resolution: "@services/chat-server@workspace:services/chat-server"
@@ -2529,6 +2544,14 @@ __metadata:
     "@services/utils": "workspace:*"
     bun-types: "npm:1.1.8"
     dayjs: "npm:^1.11.12"
+  languageName: unknown
+  linkType: soft
+
+"@services/environment@workspace:*, @services/environment@workspace:services/environment":
+  version: 0.0.0-use.local
+  resolution: "@services/environment@workspace:services/environment"
+  dependencies:
+    zod: "npm:3.23.8"
   languageName: unknown
   linkType: soft
 
@@ -2644,6 +2667,7 @@ __metadata:
     dayjs: "npm:^1.11.12"
     react: "npm:^18.3.1"
     sudoku-gen: "npm:1.0.2"
+    tailwind-merge: "npm:^2.5.2"
   languageName: unknown
   linkType: soft
 
@@ -6305,7 +6329,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^18.3.1":
+"react-dom@npm:18.3.1, react-dom@npm:^18.3.1":
   version: 18.3.1
   resolution: "react-dom@npm:18.3.1"
   dependencies:
@@ -6357,7 +6381,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18.3.1":
+"react@npm:18.3.1, react@npm:^18.3.1":
   version: 18.3.1
   resolution: "react@npm:18.3.1"
   dependencies:
@@ -8174,7 +8198,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.23.8":
+"zod@npm:3.23.8, zod@npm:^3.23.8":
   version: 3.23.8
   resolution: "zod@npm:3.23.8"
   checksum: 10/846fd73e1af0def79c19d510ea9e4a795544a67d5b34b7e1c4d0425bf6bfd1c719446d94cdfa1721c1987d891321d61f779e8236fde517dc0e524aa851a6eff1
