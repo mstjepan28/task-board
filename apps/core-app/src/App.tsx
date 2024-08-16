@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MainRouter } from "./router/MainRouter";
 import { AuthProvider } from "@services/auth";
+import { FirebaseProvider } from "@services/firebase";
 
 export const App = () => {
   const queryClient = new QueryClient({
@@ -15,10 +16,12 @@ export const App = () => {
   });
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <MainRouter />
-      </AuthProvider>
-    </QueryClientProvider>
+    <FirebaseProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <MainRouter />
+        </AuthProvider>
+      </QueryClientProvider>
+    </FirebaseProvider>
   );
 };

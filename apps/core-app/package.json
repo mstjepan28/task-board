@@ -9,6 +9,7 @@
     "analyze": "yarn vite-bundle-visualizer"
   },
   "dependencies": {
+    "@services/firebase": "workspace:*",
     "@shared/live-chat": "workspace:*",
     "@shared/login": "workspace:*",
     "@shared/number-guesser": "workspace:*",
