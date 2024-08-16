@@ -1,12 +1,13 @@
+import { AuthContext } from "@services/auth";
 import { useContext, useState } from "react";
+import { HiOutlineUser } from "react-icons/hi";
 import { MdLogout, MdOutlineMenuOpen } from "react-icons/md";
 import { menuContent } from "../data/menuContent";
 import { MenuItemButtons, MenuItemLink } from "./menu/MenuItem";
-import { AuthContext } from "@services/auth";
 
 export const NavigationSidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const { logout } = useContext(AuthContext);
+  const { logout, authUser } = useContext(AuthContext);
 
   const toggleExpanded = () => setIsExpanded((pre) => !pre);
 
@@ -25,6 +26,15 @@ export const NavigationSidebar = () => {
         })}
 
         <div className="basis-full" />
+
+        <MenuItemLink
+          menuItem={{
+            icon: () => <HiOutlineUser size={28} />,
+            path: "/",
+            name: authUser?.name ?? "Profile",
+          }}
+          expanded={isExpanded}
+        />
 
         <MenuItemButtons
           title="Logout"
