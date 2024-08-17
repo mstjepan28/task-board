@@ -14,3 +14,11 @@ export { BaseDrawer } from "./components/overlays/BaseDrawer";
 export { BaseModal } from "./components/overlays/BaseModal";
 
 export type { TOverlayToggleOptions, TOverlayControls, TOverlayRef, IOverlayElement } from "./types/overlay";
+
+export {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./components/shadcn/Select";

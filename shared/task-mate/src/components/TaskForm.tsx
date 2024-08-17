@@ -1,5 +1,10 @@
 import type { IFormProps } from "@services/utils";
+import dayjs from "dayjs";
+import { useState } from "react";
+import { ColorPallet, type TColorPallet } from "../enums/colorPallet";
 import type { TTask } from "../schema/taskSchema";
+import { ColorPicker } from "./ColorPicker";
+import { TaskCard } from "./TaskCard";
 
 // ------------------------------------------------
 //  FIELD NAME     |  FIELD TYPE
@@ -15,15 +20,33 @@ import type { TTask } from "../schema/taskSchema";
 // points:         |  "float",
 // ------------------------------------------------
 
-const _ColorPalettes = {
-  BLUE: "#74BCFD|#254C7E|#FFFFFF",
-  RED: "#DC3545|#A71D2A|#FFFFFF",
-  GREEN: "#28A745|#19692C|#FFFFFF",
-  ORANGE: "#FF5733|#C70039|#FFFFFF",
-  PINK: "#E83E8C|#A0275D|#FFFFFF",
-  PURPLE: "#6610F2|#3E0A8A|#FFFFFF",
-} as const;
+// { data, onSubmit, isSubmitting, onDelete, isDeleting }
 
-export const TaskForm = ({ data, onSubmit, isSubmitting, onDelete, isDeleting }: IFormProps<TTask>) => {
-  return <div></div>;
+const MOCK_TASK: TTask = {
+  id: "mock_id",
+  description: "Task description",
+  assigned_by: { id: "mock_id", name: "" },
+  assigned_to: [{ id: "mock_id", name: "Me" }],
+  color: ColorPallet.BLUE,
+  repeatCycle: "never",
+  deadline: dayjs().toISOString(),
+  postponed: dayjs().toISOString(),
+  status: "pending",
+  points: 10.0,
+  created_at: dayjs().toISOString(),
+  updated_at: dayjs().toISOString(),
+};
+
+export const TaskForm = (_props: IFormProps<TTask>) => {
+  const [color, setColor] = useState<TColorPallet>(ColorPallet.BLUE);
+
+  return (
+    <div className="p-4">
+      <div className="pt-4 pb-8">
+        <TaskCard task={{ ...MOCK_TASK, color }} />
+      </div>
+
+      <ColorPicker onChange={(scheme) => setColor(scheme)} />
+    </div>
+  );
 };
