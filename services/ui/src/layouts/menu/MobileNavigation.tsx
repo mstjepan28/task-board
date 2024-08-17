@@ -1,6 +1,6 @@
 import { AuthContext } from "@services/auth";
-import { Link } from "@services/navigation";
-import { useContext, useRef } from "react";
+import { Link, useLocation } from "@services/navigation";
+import { useContext, useEffect, useRef } from "react";
 import { MdLogout, MdMoreVert } from "react-icons/md";
 import { LoadingIndicator } from "../../components/LoadingIndicator";
 import { BaseModal } from "../../components/overlays/BaseModal";
@@ -13,7 +13,12 @@ const ICON_SIZE = 28;
 
 export const MobileNavigation = () => {
   const { logout, authUser } = useContext(AuthContext);
+  const { pathname } = useLocation();
   const menuRef = useRef(null) as TOverlayRef;
+
+  useEffect(() => {
+    menuRef.current?.close();
+  }, [pathname]);
 
   return (
     <div className="relative">
