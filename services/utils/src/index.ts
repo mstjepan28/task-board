@@ -8,6 +8,7 @@ export { useFilters } from "./hooks/useFilters";
 export type { TMessageBody, TMessageType } from "./types/chatMessage";
 export type { TypeFromEnum } from "./types/customUtilTypes";
 export type { TDisplaySize } from "./enums/displaySize";
+export type { IFormProps } from "./types/formProps";
 
 export { DisplaySize } from "./enums/displaySize";
 
