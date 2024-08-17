@@ -288,19 +288,19 @@ export const Sudoku = () => {
     return flatBoard.every((cell, index) => cell === flatSolution[index]);
   };
 
-  const resetGame = () => {
-    const initBoardState = deepCopy(initBoard.current);
+  // const resetGame = () => {
+  //   const initBoardState = deepCopy(initBoard.current);
 
-    setBoard(initBoardState);
+  //   setBoard(initBoardState);
 
-    saveGame({
-      board: initBoardState,
-      autoCheck: autoCheck,
-      initBoard: initBoardState,
-      solution: gameSolution.current,
-      difficulty: selectedDifficulty.current,
-    });
-  };
+  //   saveGame({
+  //     board: initBoardState,
+  //     autoCheck: autoCheck,
+  //     initBoard: initBoardState,
+  //     solution: gameSolution.current,
+  //     difficulty: selectedDifficulty.current,
+  //   });
+  // };
 
   const clearCurrentGame = () => {
     clearGame();
@@ -349,7 +349,7 @@ export const Sudoku = () => {
         </div>
 
         <div className="items-end absolute top-0 right-0 py-2 px-4 flex flex-col gap-y-1">
-          <ActionButton label="Clear game" onClick={resetGame} />
+          {/* <ActionButton label="Clear game" onClick={resetGame} /> */}
           <ActionButton label="New Game" onClick={() => createNewGame()} />
           <ActionButton
             label="Difficulty"

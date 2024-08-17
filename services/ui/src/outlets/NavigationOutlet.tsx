@@ -7,7 +7,11 @@ import { RouteGuard } from "./RouteGuard";
 
 export const NavigationOutlet = ({ isProtected = true, reroute }: IOutletProps) => {
   const { isLoggedIn } = useContext(AuthContext);
-  const allowAccess = !isProtected || isLoggedIn;
+  if (isLoggedIn === null) {
+    return null;
+  }
+
+  const allowAccess = !isProtected || isLoggedIn === true;
 
   return (
     <RouteGuard condition={allowAccess} redirectPath={reroute ?? "/login"}>

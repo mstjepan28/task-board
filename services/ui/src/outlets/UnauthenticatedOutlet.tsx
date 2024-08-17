@@ -8,7 +8,11 @@ interface IProps extends Omit<IOutletProps, "isProtected"> {}
 
 export const UnauthenticatedOutlet = ({ reroute }: IProps) => {
   const { isLoggedIn } = useContext(AuthContext);
-  const allowAccess = !isLoggedIn;
+  if (isLoggedIn === null) {
+    return null;
+  }
+
+  const allowAccess = isLoggedIn === false;
 
   return (
     <RouteGuard condition={allowAccess} redirectPath={reroute ?? "/"}>

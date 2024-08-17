@@ -13,8 +13,8 @@ type TCredentials = {
 export const useAuth = () => {
   const { credentialLogin, logout } = useContext(FirebaseContext);
 
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const [authUser, setAuthUser] = useState<TUser | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const validateAndSetUser = (authUser: unknown) => {
     const validatedUser = userSchema.parse(authUser);
