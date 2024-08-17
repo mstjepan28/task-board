@@ -25,7 +25,7 @@ interface IProps extends IFormProps<TNewTask> {
   initData: TNewTask;
 }
 
-export const TaskForm = ({ initData, isSubmitting, onDelete }: IProps) => {
+export const TaskForm = ({ initData, onDelete }: IProps) => {
   const [task, setTask] = useState<TNewTask>(initData);
   const editMode = !!onDelete;
 
@@ -63,11 +63,7 @@ export const TaskForm = ({ initData, isSubmitting, onDelete }: IProps) => {
 
       <div className="basis-full" />
 
-      <Button
-        type="submit"
-        loading={isSubmitting}
-        className="w-full text-sm font-semibold uppercase py-2 text-white bg-blue-600"
-      >
+      <Button type="submit" className="w-full text-sm font-semibold uppercase py-2 text-white bg-blue-600">
         {editMode ? "Update Task" : "Create Task"}
       </Button>
     </form>

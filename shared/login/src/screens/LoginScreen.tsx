@@ -1,6 +1,6 @@
 import { AuthContext } from "@services/auth";
 import { env } from "@services/environment";
-import { Button, PasswordInput, TextInput } from "@services/ui";
+import { Button, Input, InputLabel } from "@services/ui";
 import { useContext } from "react";
 
 export const LoginScreen = () => {
@@ -25,16 +25,17 @@ export const LoginScreen = () => {
           <h2 className="text-xl font-semibold">Login</h2>
         </div>
 
-        <div className="py-4 ">
-          <TextInput name="email" label="Email" defaultValue={devEmail} />
-          <PasswordInput name="password" label="Password" defaultValue={devPassword} />
+        <div className="flex flex-col gap-y-4 py-4">
+          <InputLabel label="Email">
+            <Input name="email" defaultValue={devEmail} />
+          </InputLabel>
+
+          <InputLabel label="Password">
+            <Input name="password" type="password" defaultValue={devPassword} />
+          </InputLabel>
         </div>
 
-        <Button
-          type="submit"
-          loading={login.loading}
-          className="w-full text-sm font-semibold uppercase py-2 text-white bg-blue-600"
-        >
+        <Button type="submit" className="w-full text-sm font-semibold uppercase py-2 text-white bg-blue-600">
           Login
         </Button>
       </form>

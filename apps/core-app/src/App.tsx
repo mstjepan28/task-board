@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MainRouter } from "./router/MainRouter";
 import { AuthProvider } from "@services/auth";
 import { FirebaseProvider } from "@services/firebase";
+import { Toaster } from "@services/ui";
 
 export const App = () => {
   const queryClient = new QueryClient({
@@ -20,6 +21,7 @@ export const App = () => {
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <MainRouter />
+          <Toaster />
         </AuthProvider>
       </QueryClientProvider>
     </FirebaseProvider>
