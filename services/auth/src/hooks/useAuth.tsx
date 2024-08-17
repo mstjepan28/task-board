@@ -17,12 +17,13 @@ export const useAuth = () => {
   const [authUser, setAuthUser] = useState<TUser | null>(null);
 
   const validateAndSetUser = (authUser: unknown) => {
-    const validatedUser = userSchema.parse(authUser);
+    const { data, success } = userSchema.safeParse(authUser);
+    const validatedData = data ?? null;
 
-    setAuthUser(validatedUser);
-    setIsLoggedIn(true);
+    setAuthUser(validatedData);
+    setIsLoggedIn(success);
 
-    return validatedUser;
+    return validatedData;
   };
 
   const loggingIn = useMutation({

@@ -4,11 +4,12 @@ import { useContext } from "react";
 import { NavigationLayout } from "../layouts/NavigationLayout";
 import type { IOutletProps } from "../types/outletProps";
 import { RouteGuard } from "./RouteGuard";
+import { ValidatingLoginMsg } from "./ValidatingLoginMsg";
 
 export const NavigationOutlet = ({ isProtected = true, reroute }: IOutletProps) => {
   const { isLoggedIn } = useContext(AuthContext);
   if (isLoggedIn === null) {
-    return null;
+    return <ValidatingLoginMsg />;
   }
 
   const allowAccess = !isProtected || isLoggedIn === true;
