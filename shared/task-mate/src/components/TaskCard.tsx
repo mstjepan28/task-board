@@ -6,9 +6,10 @@ import { FaUser } from "react-icons/fa";
 
 interface IProps {
   task: TTask;
+  previewMode?: boolean;
 }
 
-export const TaskCard = ({ task }: IProps) => {
+export const TaskCard = ({ task, previewMode }: IProps) => {
   const colors = useMemo(() => {
     const [primary, secondary, text] = task.color?.split("|") ?? [];
     return { primary, secondary, text };
@@ -38,10 +39,19 @@ export const TaskCard = ({ task }: IProps) => {
 
   return (
     <div style={{ color: colors.text }} className="relative">
-      <Link to={`/task/edit/${task.id}`} style={primaryStyle} className="block px-4 py-2 rounded-md shadow-xl">
+      <TaskCardWrapper
+        id={task?.id ?? undefined}
+        style={primaryStyle}
+        className="block px-4 py-2 rounded-md shadow-xl"
+        previewMode={previewMode}
+      >
         {/* Description */}
         <div className="pb-2">
-          <p className="text-sm text-white font-semibold">{task.description}</p>
+          {task.description ? (
+            <p className="text-sm font-semibold">{task.description}</p>
+          ) : (
+            <p className="text-sm italic font-medium">No description provided</p>
+          )}
         </div>
 
         <div className="flex items-center justify-between">
@@ -54,11 +64,35 @@ export const TaskCard = ({ task }: IProps) => {
           {/* Deadline */}
           <span className="font-semibold">{deadLine}</span>
         </div>
-      </Link>
+      </TaskCardWrapper>
 
       <div className="absolute inset-x-0 -z-10 -bottom-2">
         <div style={secondaryStyle} className="w-[95%] h-7 mx-auto rounded-md" />
       </div>
     </div>
+  );
+};
+
+interface ITaskCardWrapper {
+  id: string | undefined;
+  previewMode?: boolean;
+  style: { backgroundColor: string };
+  className: string;
+  children: React.ReactNode;
+}
+
+const TaskCardWrapper = ({ id, previewMode, style, className, children }: ITaskCardWrapper) => {
+  if (previewMode || !id) {
+    return (
+      <div style={style} className={className}>
+        {children}
+      </div>
+    );
+  }
+
+  return (
+    <Link to={`/task/edit/${id}`} style={style} className={className}>
+      {children}
+    </Link>
   );
 };

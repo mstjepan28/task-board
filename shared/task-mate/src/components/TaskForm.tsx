@@ -1,7 +1,6 @@
+import { Button, Textarea } from "@services/ui";
 import type { IFormProps } from "@services/utils";
-import dayjs from "dayjs";
 import { useState } from "react";
-import { ColorPallet, type TColorPallet } from "../enums/colorPallet";
 import type { TTask } from "../schema/taskSchema";
 import { ColorPicker } from "./ColorPicker";
 import { TaskCard } from "./TaskCard";
@@ -20,33 +19,57 @@ import { TaskCard } from "./TaskCard";
 // points:         |  "float",
 // ------------------------------------------------
 
-// { data, onSubmit, isSubmitting, onDelete, isDeleting }
+type TNewTask = Omit<TTask, "id">;
 
-const MOCK_TASK: TTask = {
-  id: "mock_id",
-  description: "Task description",
-  assigned_by: { id: "mock_id", name: "" },
-  assigned_to: [{ id: "mock_id", name: "Me" }],
-  color: ColorPallet.BLUE,
-  repeatCycle: "never",
-  deadline: dayjs().toISOString(),
-  postponed: dayjs().toISOString(),
-  status: "pending",
-  points: 10.0,
-  created_at: dayjs().toISOString(),
-  updated_at: dayjs().toISOString(),
-};
+interface IProps extends IFormProps<TNewTask> {
+  initData: TNewTask;
+}
 
-export const TaskForm = (_props: IFormProps<TTask>) => {
-  const [color, setColor] = useState<TColorPallet>(ColorPallet.BLUE);
+export const TaskForm = ({ initData, isSubmitting, onDelete }: IProps) => {
+  const [task, setTask] = useState<TNewTask>(initData);
+  const editMode = !!onDelete;
+
+  const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const formValues = Object.fromEntries(formData.entries());
+
+    console.log(formValues);
+  };
+
+  const onTaskChange = (key: keyof TNewTask, value: string) => {
+    setTask((prev) => ({ ...prev, [key]: value }));
+  };
 
   return (
-    <div className="p-4">
+    <form onSubmit={onFormSubmit} className="h-full flex flex-col p-4">
       <div className="pt-4 pb-8">
-        <TaskCard task={{ ...MOCK_TASK, color }} />
+        <TaskCard task={{ id: "", ...task }} previewMode />
       </div>
 
-      <ColorPicker onChange={(scheme) => setColor(scheme)} />
-    </div>
+      <ColorPicker name="color" value={task.color} onChange={(scheme) => onTaskChange("color", scheme)} />
+
+      <div className="h-4" />
+
+      <label>
+        <div className="font-medium pb-1">Task description: </div>
+        <Textarea
+          name="description"
+          value={task.description}
+          onChange={({ target }) => onTaskChange("description", target.value)}
+        />
+      </label>
+
+      <div className="basis-full" />
+
+      <Button
+        type="submit"
+        loading={isSubmitting}
+        className="w-full text-sm font-semibold uppercase py-2 text-white bg-blue-600"
+      >
+        {editMode ? "Update Task" : "Create Task"}
+      </Button>
+    </form>
   );
 };

@@ -1,4 +1,4 @@
-import { Button, TextArea } from "@services/ui";
+import { Button } from "@services/ui";
 import { type FormEvent, useContext } from "react";
 import { TaskListContext } from "../../context/TaskListContext";
 import type { TTask } from "../../types/task";
@@ -36,7 +36,7 @@ export const TaskForm = ({ initData, onClose }: IProps) => {
       </div>
 
       <div className="grid gap-y-4">
-        <TextArea label="Input field" name="description" className="min-h-16" />
+        {/* <TextArea label="Input field" name="description" className="min-h-16" /> */}
       </div>
 
       <div className="flex justify-end pt-4">

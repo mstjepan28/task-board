@@ -1,5 +1,5 @@
 export interface IFormProps<T> {
-  data?: T;
+  initData?: T;
 
   onSubmit: (data: T) => void;
   isSubmitting: boolean;
