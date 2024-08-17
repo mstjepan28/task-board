@@ -4,6 +4,6 @@
   "version": "1",
   "main": "./src",
   "dependencies": {
-    "zod": "3.23.8"
+    "zod": "^3.23.8"
   }
 }
