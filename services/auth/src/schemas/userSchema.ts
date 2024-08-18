@@ -9,7 +9,7 @@ export const userSchema = z.object({
   email: z.string().email(),
   totalPoints: z.number().min(0).max(Number.MAX_SAFE_INTEGER),
   profilePictureUrl: z.string().or(z.null()),
-  friends: z.array(z.string()).or(z.array(z.undefined())),
+  friends: z.array(z.string()),
   updatedAt: z.coerce.date().transform(dateToString),
 });
 

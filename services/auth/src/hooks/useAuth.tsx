@@ -38,11 +38,7 @@ export const useAuth = () => {
     mutationKey: [QueryKeys.LOGGING_IN],
     mutationFn: async ({ email, password }: TCredentials) => {
       const { user } = await credentialLogin(email, password);
-
-      console.log("on credentialLogin user: ", user);
-
       const userInfo = await getDocumentById("users", user.uid);
-      console.log("on getDocumentById user: ", userInfo);
 
       return validateAndSetUser(userInfo);
     },

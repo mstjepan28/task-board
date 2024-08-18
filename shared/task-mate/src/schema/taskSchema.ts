@@ -7,12 +7,11 @@ import { ColorPallet } from "../enums/colorPallet";
 const dateToString = (date: Date) => dayjs(date).toISOString();
 
 const userSchema = z.object({
-  id: z.string().uuid(),
+  id: z.string(),
   name: z.string().max(255),
 });
 
-export const taskSchema = z.object({
-  id: z.string().uuid(),
+const baseTaskSchema = {
   description: z.string(),
 
   assigned_by: userSchema,
@@ -24,10 +23,18 @@ export const taskSchema = z.object({
   color: z.nativeEnum(ColorPallet),
 
   deadline: z.coerce.date().transform(dateToString),
-  postponed: z.coerce.date().transform(dateToString).or(z.literal(null)),
 
   created_at: z.coerce.date().transform(dateToString),
   updated_at: z.coerce.date().transform(dateToString),
+};
+
+export const newTaskSchema = z.object(baseTaskSchema);
+
+export const taskSchema = z.object({
+  ...baseTaskSchema,
+
+  id: z.string(),
+  postponed: z.coerce.date().transform(dateToString).or(z.literal(null)),
 });
 
 export const taskListSchema = z.array(taskSchema);

@@ -5,4 +5,6 @@ export const QueryKeys = {
   TASK_CREATE: "taskCreate",
   TASK_UPDATE: "taskUpdate",
   TASK_DELETE: "taskDelete",
+
+  FRIEND_LIST: "friendList",
 } as const;

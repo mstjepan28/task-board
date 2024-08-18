@@ -131,6 +131,7 @@ interface ISelectDropdownProps {
   placeholder?: string;
   defaultValue?: string;
   optionsList: { label: string; value: string }[];
+  loading?: boolean;
 }
 
 export const SelectDropdown = ({ name, optionsList, placeholder, defaultValue }: ISelectDropdownProps) => {

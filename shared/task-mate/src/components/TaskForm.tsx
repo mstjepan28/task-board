@@ -1,25 +1,15 @@
-import { Button, DatePicker, InputLabel, SelectDropdown, Spacer, Textarea } from "@services/ui";
+import { FirebaseContext } from "@services/firebase";
+import { Button, DatePicker, InputLabel, SelectDropdown, Spacer, Textarea, toast } from "@services/ui";
 import type { IFormProps } from "@services/utils";
-import { useState } from "react";
-import type { TTask } from "../schema/taskSchema";
-import { ColorPicker } from "./ColorPicker";
-import { TaskCard } from "./TaskCard";
+import { useContext, useState } from "react";
 import { CompletionStatus } from "../enums/completionStatus";
 import { RepeatCycle } from "../enums/repeatCycle";
-
-// ------------------------------------------------
-//  FIELD NAME     |  FIELD TYPE
-// ------------------------------------------------
-// "description":  |  "string",
-// "assigned-by":  |  "uuid",
-// "assigned-to":  |  "uuid[]",
-// color:          |  "rgba",
-// repeatCycle:    |  "never|daily|weekly|monthly",
-// deadline:       |  "iso-datetime",
-// postponed:      |  "iso-datetime",
-// status:         |  "pending|inProgress|closed|done",
-// points:         |  "float",
-// ------------------------------------------------
+import { useFriendList } from "../hooks/useFriendList";
+import { newTaskSchema, type TTask } from "../schema/taskSchema";
+import { ColorPicker } from "./ColorPicker";
+import { FriendPicker } from "./FriendPicker";
+import { TaskCard } from "./TaskCard";
+import { useNavigate } from "@services/navigation";
 
 type TNewTask = Omit<TTask, "id">;
 
@@ -29,15 +19,33 @@ interface IProps extends IFormProps<TNewTask> {
 
 export const TaskForm = ({ initData, onDelete }: IProps) => {
   const [task, setTask] = useState<TNewTask>(initData);
+  const friendList = useFriendList();
+
+  const navigate = useNavigate();
+
+  const { createDocument } = useContext(FirebaseContext);
+
   const editMode = !!onDelete;
 
   const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-    const formValues = Object.fromEntries(formData.entries());
+    const formValues: Record<string, unknown> = Object.fromEntries(formData.entries());
 
-    console.log(formValues);
+    const selectedFriends = (formValues.assigned_to as string).split(",");
+    formValues.assigned_to = friendList.getFriendsByIdList(selectedFriends);
+
+    try {
+      const newTask = newTaskSchema.parse({ ...initData, ...formValues });
+      createDocument("tasks", newTask).then(() => {
+        toast.error("Successfully created a new task");
+        navigate("/task-list");
+      });
+    } catch (error: any) {
+      console.log(error.issues);
+      toast.error("Error creating task");
+    }
   };
 
   const onTaskChange = (key: keyof TNewTask, value: string) => {
@@ -58,6 +66,7 @@ export const TaskForm = ({ initData, onDelete }: IProps) => {
             name="description"
             value={task.description}
             onChange={({ target }) => onTaskChange("description", target.value)}
+            className="resize-none"
           />
         </InputLabel>
       </div>
@@ -92,6 +101,10 @@ export const TaskForm = ({ initData, onDelete }: IProps) => {
               { label: "Monthly", value: RepeatCycle.MONTHLY },
             ]}
           />
+        </InputLabel>
+
+        <InputLabel label="Select users to assign this task to">
+          <FriendPicker name="assigned_to" />
         </InputLabel>
       </div>
       <Spacer full />
