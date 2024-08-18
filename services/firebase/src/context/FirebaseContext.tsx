@@ -2,8 +2,9 @@ import { env } from "@services/environment";
 import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { collection, doc, getDoc, getDocs, getFirestore, query, setDoc, where } from "firebase/firestore";
-import { createContext, useMemo, type ReactNode } from "react";
+import { createContext, useContext, useMemo, type ReactNode } from "react";
 import { Collection, type TCollection } from "../enums/collection";
+import { AuthContext } from "@services/auth";
 
 type TFirebaseContext = {
   registerUser: (email: string, password: string) => ReturnType<typeof createUserWithEmailAndPassword>;
@@ -13,11 +14,14 @@ type TFirebaseContext = {
   getDocumentListById: (collectionKey: TCollection, idList: string[]) => Promise<unknown[]>;
   getDocumentById: (collectionKey: TCollection, id: string) => Promise<unknown>;
   createDocument: (collectionKey: TCollection, data: unknown) => Promise<void>;
+  getTasksForCurrentUser: () => Promise<unknown[]>;
 };
 
 export const FirebaseContext = createContext<TFirebaseContext>({} as TFirebaseContext);
 
 export const FirebaseProvider = ({ children }: { children: ReactNode }) => {
+  const { authUser } = useContext(AuthContext);
+
   const firebase: TFirebaseContext = useMemo(() => {
     const app = initializeApp(env.firebaseConfig);
     const auth = getAuth(app);
@@ -55,6 +59,23 @@ export const FirebaseProvider = ({ children }: { children: ReactNode }) => {
       createDocument: async (collectionKey, data) => {
         const collectionRef = collections[collectionKey];
         setDoc(doc(collectionRef), data);
+      },
+      getTasksForCurrentUser: async () => {
+        console.log(authUser);
+        if (!authUser) {
+          throw new Error("User is not authenticated");
+        }
+
+        const tasksQuery = query(
+          collections[Collection.TASKS],
+          where("assigned_to", "array-contains", { id: authUser.id }),
+        );
+        const querySnapshot = await getDocs(tasksQuery);
+
+        const tasks: unknown[] = [];
+        querySnapshot.forEach((doc) => tasks.push(doc.data()));
+
+        return tasks;
       },
     };
   }, [env.firebaseConfig]);

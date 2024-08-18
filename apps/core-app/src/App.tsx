@@ -17,13 +17,13 @@ export const App = () => {
   });
 
   return (
-    <FirebaseProvider>
-      <QueryClientProvider client={queryClient}>
-        <AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <FirebaseProvider>
           <MainRouter />
           <Toaster />
-        </AuthProvider>
-      </QueryClientProvider>
-    </FirebaseProvider>
+        </FirebaseProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 };

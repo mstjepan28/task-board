@@ -6,6 +6,7 @@
   "dependencies": {
     "@services/environment": "workspace:*",
     "@services/utils": "workspace:*",
+    "@services/auth": "workspace:*",
     "firebase": "10.13.0",
     "react": "^18.3.1"
   }

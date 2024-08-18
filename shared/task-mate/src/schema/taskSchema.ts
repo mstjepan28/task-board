@@ -37,6 +37,4 @@ export const taskSchema = z.object({
   postponed: z.coerce.date().transform(dateToString).or(z.literal(null)),
 });
 
-export const taskListSchema = z.array(taskSchema);
-
 export type TTask = z.infer<typeof taskSchema>;

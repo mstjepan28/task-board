@@ -19,13 +19,11 @@ interface IProps extends IFormProps<TNewTask> {
 
 export const TaskForm = ({ initData, onDelete }: IProps) => {
   const [task, setTask] = useState<TNewTask>(initData);
-  const friendList = useFriendList();
-
-  const navigate = useNavigate();
+  const editMode = !!onDelete;
 
   const { createDocument } = useContext(FirebaseContext);
-
-  const editMode = !!onDelete;
+  const friendList = useFriendList();
+  const navigate = useNavigate();
 
   const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

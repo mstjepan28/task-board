@@ -1,9 +1,13 @@
+import { FirebaseContext } from "@services/firebase";
 import { debounce, useFilters } from "@services/utils";
+import { useQuery } from "@tanstack/react-query";
+import { useContext } from "react";
+import { z } from "zod";
+import { QueryKeys } from "../enums/queryKeys";
+import { taskSchema } from "../schema/taskSchema";
 import type { TTaskListFilters } from "../types/taskListFilters";
 import { ALL_VALUE_FILTER } from "../utils/constants";
-import { QueryKeys } from "../enums/queryKeys";
-import { useQuery } from "@tanstack/react-query";
-import { fetchTaskList } from "../api/taskListRequests";
+import { AuthContext } from "@services/auth";
 
 interface IProps {
   fetchOnLoad?: boolean;
@@ -16,19 +20,24 @@ const initFilters: TTaskListFilters = {
 };
 
 export const useTaskList = (options?: IProps) => {
+  const { getTasksForCurrentUser } = useContext(FirebaseContext);
+  const { authUser } = useContext(AuthContext);
+
   const { fetchOnLoad = true } = options || {};
 
   const { setFilters, filters } = useFilters<TTaskListFilters>({ initFilters });
 
   const fetchingList = useQuery({
     queryKey: [QueryKeys.TASK_LIST, filters],
-    queryFn: async () => fetchTaskList(filters),
-    enabled: fetchOnLoad,
+    queryFn: async () => {
+      const response = getTasksForCurrentUser();
+      return z.array(taskSchema).parse(response);
+    },
+    enabled: !!authUser && fetchOnLoad,
   });
 
   return {
-    dataList: fetchingList.data?.data ?? [],
-    totalPages: fetchingList.data?.totalPages ?? 1,
+    dataList: fetchingList.data ?? [],
 
     search: debounce(250, (search: string) => setFilters({ search, page: "1" })),
     setFilters,
