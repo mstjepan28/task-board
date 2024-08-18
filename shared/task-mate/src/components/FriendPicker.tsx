@@ -52,7 +52,7 @@ export const FriendPicker = ({ name }: IProps) => {
               key={friend.id}
               type="button"
               onClick={() => onFriendClick(friend.id, isSelected)}
-              className={`text-sm font-semibold px-4 py-1 border border-black rounded-full ${isSelected ? "text-white bg-green-600" : "bg-white"}`}
+              className={`text-sm font-semibold px-4 py-1 border border-black rounded-full ${isSelected ? "text-white bg-green-600 border-transparent" : "bg-white"}`}
             >
               {friend.name}
             </button>

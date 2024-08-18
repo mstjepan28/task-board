@@ -18,12 +18,12 @@ export const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <FirebaseProvider>
+      <FirebaseProvider>
+        <AuthProvider>
           <MainRouter />
           <Toaster />
-        </FirebaseProvider>
-      </AuthProvider>
+        </AuthProvider>
+      </FirebaseProvider>
     </QueryClientProvider>
   );
 };

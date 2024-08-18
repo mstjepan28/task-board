@@ -10,6 +10,8 @@ import { ColorPicker } from "./ColorPicker";
 import { FriendPicker } from "./FriendPicker";
 import { TaskCard } from "./TaskCard";
 import { useNavigate } from "@services/navigation";
+import { useQueryClient } from "@tanstack/react-query";
+import { QueryKeys } from "../enums/queryKeys";
 
 type TNewTask = Omit<TTask, "id">;
 
@@ -19,6 +21,7 @@ interface IProps extends IFormProps<TNewTask> {
 
 export const TaskForm = ({ initData, onDelete }: IProps) => {
   const [task, setTask] = useState<TNewTask>(initData);
+  const queryClient = useQueryClient();
   const editMode = !!onDelete;
 
   const { createDocument } = useContext(FirebaseContext);
@@ -37,7 +40,8 @@ export const TaskForm = ({ initData, onDelete }: IProps) => {
     try {
       const newTask = newTaskSchema.parse({ ...initData, ...formValues });
       createDocument("tasks", newTask).then(() => {
-        toast.error("Successfully created a new task");
+        queryClient.invalidateQueries({ queryKey: [QueryKeys.TASK_LIST] });
+        toast.success("Successfully created a new task");
         navigate("/task-list");
       });
     } catch (error: any) {

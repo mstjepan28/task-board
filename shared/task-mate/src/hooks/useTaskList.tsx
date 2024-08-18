@@ -30,8 +30,15 @@ export const useTaskList = (options?: IProps) => {
   const fetchingList = useQuery({
     queryKey: [QueryKeys.TASK_LIST, filters],
     queryFn: async () => {
-      const response = getTasksForCurrentUser();
-      return z.array(taskSchema).parse(response);
+      const response = await getTasksForCurrentUser();
+      const { error, success, data } = z.array(taskSchema).safeParse(response);
+
+      if (success) {
+        return data;
+      }
+
+      console.error("Error fetching task list: ", JSON.stringify(error.issues, null, 2));
+      return [];
     },
     enabled: !!authUser && fetchOnLoad,
   });

@@ -28,7 +28,6 @@ export const CreateTaskScreen = () => {
     repeatCycle: RepeatCycle.NEVER,
     status: CompletionStatus.PENDING,
     deadline: dayjs().add(1, "week").startOf("day").set("hour", 12).toISOString(),
-    postponed: null,
     points: 0,
     created_at: dayjs().toISOString(),
     updated_at: dayjs().toISOString(),

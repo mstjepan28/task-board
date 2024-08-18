@@ -34,7 +34,7 @@ export const taskSchema = z.object({
   ...baseTaskSchema,
 
   id: z.string(),
-  postponed: z.coerce.date().transform(dateToString).or(z.literal(null)),
+  postponed: z.coerce.date().transform(dateToString).optional(),
 });
 
 export type TTask = z.infer<typeof taskSchema>;
