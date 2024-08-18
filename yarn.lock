@@ -3700,6 +3700,7 @@ __metadata:
     "@services/storage": "workspace:*"
     "@services/utils": "workspace:*"
     "@tanstack/react-query": "npm:5.51.23"
+    dayjs: "npm:^1.10.7"
     react: "npm:^18.3.1"
     zod: "npm:^3.23.8"
   languageName: unknown
@@ -5202,7 +5203,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.11.12":
+"dayjs@npm:^1.10.7, dayjs@npm:^1.11.12":
   version: 1.11.12
   resolution: "dayjs@npm:1.11.12"
   checksum: 10/8ee7c1e14961fd08d40b788d0c0e930dc6288b3d32911bb911b2fb31bb703c262788164fbe678ee9e50e2a35268d667b8c8ba43fd1806771c1f404c300a2b428

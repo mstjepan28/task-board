@@ -11,17 +11,25 @@ type TCredentials = {
 };
 
 export const useAuth = () => {
-  const { credentialLogin, logout } = useContext(FirebaseContext);
+  const { credentialLogin, logout, getDocumentById } = useContext(FirebaseContext);
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const [authUser, setAuthUser] = useState<TUser | null>(null);
 
   const validateAndSetUser = (authUser: unknown) => {
-    const { data, success } = userSchema.safeParse(authUser);
+    const { data, success, error } = userSchema.safeParse(authUser);
+
     const validatedData = data ?? null;
 
     setAuthUser(validatedData);
     setIsLoggedIn(success);
+
+    if (success) {
+      storage.setItem("auth-user", data);
+    } else {
+      console.error("Error validating user: ", error.issues);
+      storage.removeItem("auth-user");
+    }
 
     return validatedData;
   };
@@ -31,16 +39,14 @@ export const useAuth = () => {
     mutationFn: async ({ email, password }: TCredentials) => {
       const { user } = await credentialLogin(email, password);
 
-      const validUser = validateAndSetUser({
-        id: user.uid,
-        name: user.displayName ?? user.email,
-        email: user.email,
-        profilePicture: user.photoURL,
-      });
+      console.log("on credentialLogin user: ", user);
 
-      storage.setItem("auth-user", validUser);
+      const userInfo = await getDocumentById("users", user.uid);
+      console.log("on getDocumentById user: ", userInfo);
+
+      return validateAndSetUser(userInfo);
     },
-    onError: console.error,
+    onError: (error) => console.error("Something went wrong: ", error),
   });
 
   const loggingOut = useMutation({
