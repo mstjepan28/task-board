@@ -60,6 +60,11 @@ export const useAuth = () => {
     queryKey: [QueryKeys.VALIDATE_SESSION],
     queryFn: async () => {
       const storedUser = storage.getItem("auth-user");
+      if (!storedUser) {
+        setIsLoggedIn(false);
+        return null;
+      }
+
       return validateAndSetUser(storedUser);
     },
     refetchOnWindowFocus: true,

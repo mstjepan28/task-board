@@ -12,10 +12,10 @@ const userSchema = z.object({
 });
 
 const baseTaskSchema = {
-  description: z.string(),
+  description: z.string().min(1).max(255),
 
   assigned_by: userSchema,
-  assigned_to: z.array(userSchema),
+  assigned_to: z.array(z.string()).min(1),
 
   points: z.number().min(0),
   repeatCycle: z.nativeEnum(RepeatCycle),

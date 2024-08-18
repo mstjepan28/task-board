@@ -1,17 +1,16 @@
 import { FirebaseContext } from "@services/firebase";
+import { useNavigate } from "@services/navigation";
 import { Button, DatePicker, InputLabel, SelectDropdown, Spacer, Textarea, toast } from "@services/ui";
 import type { IFormProps } from "@services/utils";
+import { useQueryClient } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { CompletionStatus } from "../enums/completionStatus";
+import { QueryKeys } from "../enums/queryKeys";
 import { RepeatCycle } from "../enums/repeatCycle";
-import { useFriendList } from "../hooks/useFriendList";
 import { newTaskSchema, type TTask } from "../schema/taskSchema";
 import { ColorPicker } from "./ColorPicker";
 import { FriendPicker } from "./FriendPicker";
 import { TaskCard } from "./TaskCard";
-import { useNavigate } from "@services/navigation";
-import { useQueryClient } from "@tanstack/react-query";
-import { QueryKeys } from "../enums/queryKeys";
 
 type TNewTask = Omit<TTask, "id">;
 
@@ -25,24 +24,24 @@ export const TaskForm = ({ initData, onDelete }: IProps) => {
   const editMode = !!onDelete;
 
   const { createDocument } = useContext(FirebaseContext);
-  const friendList = useFriendList();
   const navigate = useNavigate();
 
   const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-    const formValues: Record<string, unknown> = Object.fromEntries(formData.entries());
 
-    const selectedFriends = (formValues.assigned_to as string).split(",");
-    formValues.assigned_to = friendList.getFriendsByIdList(selectedFriends);
+    const formValues: Record<string, unknown> = Object.fromEntries(formData.entries());
+    formValues.assigned_to = (formValues.assigned_to as string).split(",");
 
     try {
       const newTask = newTaskSchema.parse({ ...initData, ...formValues });
+
       createDocument("tasks", newTask).then(() => {
         queryClient.invalidateQueries({ queryKey: [QueryKeys.TASK_LIST] });
-        toast.success("Successfully created a new task");
         navigate("/task-list");
+
+        toast.success("Successfully created a new task");
       });
     } catch (error: any) {
       console.log(error.issues);

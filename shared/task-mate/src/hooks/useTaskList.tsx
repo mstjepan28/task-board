@@ -23,12 +23,11 @@ export const useTaskList = (options?: IProps) => {
   const { getTasksForCurrentUser } = useContext(FirebaseContext);
   const { authUser } = useContext(AuthContext);
 
+  const { setFilters, filters } = useFilters<TTaskListFilters>({ initFilters });
   const { fetchOnLoad = true } = options || {};
 
-  const { setFilters, filters } = useFilters<TTaskListFilters>({ initFilters });
-
   const fetchingList = useQuery({
-    queryKey: [QueryKeys.TASK_LIST, filters],
+    queryKey: [QueryKeys.TASK_LIST, filters, authUser?.id],
     queryFn: async () => {
       const response = await getTasksForCurrentUser();
       const { error, success, data } = z.array(taskSchema).safeParse(response);

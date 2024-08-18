@@ -1,8 +1,9 @@
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
 import type { TTask } from "../schema/taskSchema";
 import { Link } from "@services/navigation";
 import dayjs from "dayjs";
 import { FaUser } from "react-icons/fa";
+import { AuthContext } from "@services/auth";
 
 interface IProps {
   task: TTask;
@@ -10,6 +11,8 @@ interface IProps {
 }
 
 export const TaskCard = ({ task, previewMode }: IProps) => {
+  const { authUser } = useContext(AuthContext);
+
   const colors = useMemo(() => {
     const [primary, secondary, text] = task.color?.split("|") ?? [];
     return { primary, secondary, text };
@@ -26,12 +29,18 @@ export const TaskCard = ({ task, previewMode }: IProps) => {
   }, [task.deadline]);
 
   const assignedTo = useMemo(() => {
-    const numOfAssignees = task.assigned_to.length;
-    if (numOfAssignees > 2) {
-      return numOfAssignees;
+    if (!authUser) {
+      return "";
     }
 
-    return task.assigned_to.map((u) => u.name).join(", ");
+    const assignees = task.assigned_to;
+    const isAssignedToMe = assignees.includes(authUser.id);
+    if (isAssignedToMe) {
+      const numOfOthers = assignees.length - 1;
+      return `Me ${numOfOthers ? `+${numOfOthers}` : ""}`;
+    }
+
+    return assignees.length || "";
   }, [task.assigned_to]);
 
   const primaryStyle = { backgroundColor: colors.primary };

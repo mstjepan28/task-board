@@ -9,22 +9,34 @@ import { useTaskMateRouter } from "@shared/task-mate";
 import { useTodoRouter } from "@shared/todo-app";
 
 export const MainRouter = () => {
+  const numberGuesserRouter = useNumberGuesserRouter();
+  const pathFinderRouter = usePathFinderRouter();
+  const cryptogramRouter = useCryptogramRouter();
+  const taskMateRouter = useTaskMateRouter();
+  const sudokuRouter = useSudokuRouter();
+  const loginRouter = useLoginRouter();
+  const chatRouter = useChatRouter();
+  const todoRouter = useTodoRouter();
+
+  const gotoMain = { path: "/", element: <Navigate to="/task-list" replace /> };
+  const notFound = {
+    path: "*",
+    element: <div className="h-screen flex justify-center items-center">404 - Page not found</div>,
+  };
+
   return (
     <RouterProvider
       router={createBrowserRouter([
-        { path: "/", element: <Navigate to="/task-list" replace /> },
-        ...useNumberGuesserRouter(),
-        ...usePathFinderRouter(),
-        ...useCryptogramRouter(),
-        ...useTaskMateRouter(),
-        ...useSudokuRouter(),
-        ...useLoginRouter(),
-        ...useChatRouter(),
-        ...useTodoRouter(),
-        {
-          path: "*",
-          element: <div className="h-screen flex justify-center items-center">404 - Page not found</div>,
-        },
+        gotoMain,
+        ...numberGuesserRouter,
+        ...pathFinderRouter,
+        ...cryptogramRouter,
+        ...taskMateRouter,
+        ...sudokuRouter,
+        ...loginRouter,
+        ...chatRouter,
+        ...todoRouter,
+        notFound,
       ])}
     />
   );

@@ -23,21 +23,11 @@ export const useFriendList = () => {
     enabled: !!authUser?.id,
   });
 
-  const getFriendsByIdList = (idList: string[]) => {
-    if (!friendList.data) {
-      return [];
-    }
-
-    return friendList.data.filter((friend) => idList.includes(friend.id));
-  };
-
   return {
     data: friendList.data,
 
     loading: {
       fetching: friendList.isLoading,
     },
-
-    getFriendsByIdList: getFriendsByIdList,
   };
 };

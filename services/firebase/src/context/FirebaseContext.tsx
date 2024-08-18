@@ -66,7 +66,6 @@ export const FirebaseProvider = ({ children }: { children: ReactNode }) => {
       },
       getTasksForCurrentUser: async () => {
         const authUser = auth.currentUser;
-
         if (!authUser) {
           throw new Error("User is not authenticated");
         }
@@ -80,7 +79,7 @@ export const FirebaseProvider = ({ children }: { children: ReactNode }) => {
         return tasks;
       },
     };
-  }, [auth, db]);
+  }, [auth, auth.currentUser, db]);
 
   return <FirebaseContext.Provider value={firebase}>{children}</FirebaseContext.Provider>;
 };
