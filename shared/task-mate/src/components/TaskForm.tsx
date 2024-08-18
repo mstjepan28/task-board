@@ -1,9 +1,11 @@
-import { Button, Textarea } from "@services/ui";
+import { Button, DatePicker, InputLabel, SelectDropdown, Spacer, Textarea } from "@services/ui";
 import type { IFormProps } from "@services/utils";
 import { useState } from "react";
 import type { TTask } from "../schema/taskSchema";
 import { ColorPicker } from "./ColorPicker";
 import { TaskCard } from "./TaskCard";
+import { CompletionStatus } from "../enums/completionStatus";
+import { RepeatCycle } from "../enums/repeatCycle";
 
 // ------------------------------------------------
 //  FIELD NAME     |  FIELD TYPE
@@ -44,26 +46,57 @@ export const TaskForm = ({ initData, onDelete }: IProps) => {
 
   return (
     <form onSubmit={onFormSubmit} className="h-full flex flex-col p-4">
-      <div className="pt-4 pb-8">
+      <div className="flex flex-col gap-y-4 border rounded-lg p-2 bg-blue-50 dark:bg-blue-950">
         <TaskCard task={{ id: "", ...task }} previewMode />
+        <ColorPicker name="color" value={task.color} onChange={(scheme) => onTaskChange("color", scheme)} />
       </div>
+      <Spacer />
 
-      <ColorPicker name="color" value={task.color} onChange={(scheme) => onTaskChange("color", scheme)} />
+      <div className="flex flex-col gap-y-4 border rounded-lg p-2 bg-blue-50 dark:bg-blue-950">
+        <InputLabel label="Task description">
+          <Textarea
+            name="description"
+            value={task.description}
+            onChange={({ target }) => onTaskChange("description", target.value)}
+          />
+        </InputLabel>
+      </div>
+      <Spacer />
 
-      <div className="h-4" />
+      <div className=" flex flex-col gap-y-4 border rounded-lg p-2 bg-blue-50 dark:bg-blue-950">
+        <InputLabel label="Deadline">
+          <DatePicker />
+        </InputLabel>
 
-      <label>
-        <div className="font-medium pb-1">Task description: </div>
-        <Textarea
-          name="description"
-          value={task.description}
-          onChange={({ target }) => onTaskChange("description", target.value)}
-        />
-      </label>
+        <InputLabel label="Status">
+          <SelectDropdown
+            name="status"
+            defaultValue={CompletionStatus.PENDING}
+            optionsList={[
+              { label: "Pending", value: CompletionStatus.PENDING },
+              { label: "In progress", value: CompletionStatus.IN_PROGRESS },
+              { label: "Closed", value: CompletionStatus.CLOSED },
+              { label: "Done", value: CompletionStatus.DONE },
+            ]}
+          />
+        </InputLabel>
 
-      <div className="basis-full" />
+        <InputLabel label="How often should this task repeat?">
+          <SelectDropdown
+            name="repeatCycle"
+            defaultValue={RepeatCycle.NEVER}
+            optionsList={[
+              { label: "Never", value: RepeatCycle.NEVER },
+              { label: "Daily", value: RepeatCycle.DAILY },
+              { label: "Weekly", value: RepeatCycle.WEEKLY },
+              { label: "Monthly", value: RepeatCycle.MONTHLY },
+            ]}
+          />
+        </InputLabel>
+      </div>
+      <Spacer full />
 
-      <Button type="submit" className="w-full text-sm font-semibold uppercase py-2 text-white bg-blue-600">
+      <Button type="submit" className="w-full text-sm font-semibold uppercase py-2 bg-blue-600 ">
         {editMode ? "Update Task" : "Create Task"}
       </Button>
     </form>

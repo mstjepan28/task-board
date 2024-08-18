@@ -1,5 +1,6 @@
 // biome-ignore:
-export { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./components/shadcn/Select";
+export { SelectDropdown } from "./components/shadcn/SelectDropdown";
+export { DatePicker } from "./components/shadcn/DatePicker";
 export { Calendar } from "./components/shadcn/Calendar";
 export { Textarea } from "./components/shadcn/TextArea";
 export { Toaster } from "./components/shadcn/Toaster";
@@ -10,6 +11,7 @@ export { Input } from "./components/shadcn/Input";
 export { LoadingIndicator } from "./components/LoadingIndicator";
 export { InputLabel } from "./components/InputLabel";
 export { Searchbar } from "./components/Searchbar";
+export { Spacer } from "./components/Spacer";
 
 export { NavigationOutlet } from "./outlets/NavigationOutlet";
 export { NoLayoutOutlet } from "./outlets/NoLayoutOutlet";

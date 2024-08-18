@@ -6,7 +6,7 @@ interface IProps {
 export const InputLabel = ({ label, children }: IProps) => {
   return (
     <label>
-      <span>{label}</span>
+      <div className="pb-2 font-medium text-sm">{label}</div>
       {children}
     </label>
   );

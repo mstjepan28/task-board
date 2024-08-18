@@ -38,7 +38,7 @@ export const TaskCard = ({ task, previewMode }: IProps) => {
   const secondaryStyle = { backgroundColor: colors.secondary };
 
   return (
-    <div style={{ color: colors.text }} className="relative">
+    <div style={{ color: colors.text }} className="relative mb-2">
       <TaskCardWrapper
         id={task?.id ?? undefined}
         style={primaryStyle}

@@ -1,20 +1,35 @@
+import { AuthContext } from "@services/auth";
+import { Navigate } from "@services/navigation";
+import { toast } from "@services/ui";
 import dayjs from "dayjs";
+import { useContext } from "react";
 import { TaskForm } from "../components/TaskForm";
 import { ColorPallet } from "../enums/colorPallet";
-import type { TTask } from "../schema/taskSchema";
 import { CompletionStatus } from "../enums/completionStatus";
+import { RepeatCycle } from "../enums/repeatCycle";
+import type { TTask } from "../schema/taskSchema";
 
 export const CreateTaskScreen = () => {
+  const { authUser } = useContext(AuthContext);
+
+  if (!authUser) {
+    toast.error("You need to login to create a task");
+    return <Navigate to="/login" />;
+  }
+
   const defaultTaskTemplate: Omit<TTask, "id"> = {
-    description: "Task description",
-    assigned_by: { id: "mock_id", name: "" },
-    assigned_to: [{ id: "mock_id", name: "Me" }],
+    description: "",
+    assigned_by: {
+      id: authUser.id,
+      name: authUser.name,
+    },
+    assigned_to: [],
     color: ColorPallet.BLUE,
-    repeatCycle: "never",
-    deadline: dayjs().toISOString(),
-    postponed: null,
+    repeatCycle: RepeatCycle.NEVER,
     status: CompletionStatus.PENDING,
-    points: 5,
+    deadline: dayjs().add(1, "week").startOf("day").set("hour", 12).toISOString(),
+    postponed: null,
+    points: 0,
     created_at: dayjs().toISOString(),
     updated_at: dayjs().toISOString(),
   };

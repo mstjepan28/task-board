@@ -19,8 +19,6 @@ export const ColorPicker = ({ name, value, onChange }: IProps) => {
     <div>
       <input id={name} name={name} type="text" value={selectedSchema} onChange={() => {}} className="sr-only" />
 
-      <div className="font-medium pb-1">Color schema: </div>
-
       <div className="flex gap-x-2">
         {Object.values(ColorPallet).map((schema) => {
           const backgroundColor = schema.split("|")[0];
