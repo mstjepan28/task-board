@@ -5,6 +5,7 @@ export { useResponsive } from "./hooks/useResponsive";
 export { useArrayState } from "./hooks/useArrayState";
 export { useFilters } from "./hooks/useFilters";
 
+export type { TUnionOrGenericString } from "./types/unionOrGenericString";
 export type { TMessageBody, TMessageType } from "./types/chatMessage";
 export type { TypeFromEnum } from "./types/customUtilTypes";
 export type { TDisplaySize } from "./enums/displaySize";
