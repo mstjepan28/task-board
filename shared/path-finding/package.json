@@ -7,7 +7,7 @@
     "@services/storage": "workspace:*",
     "@services/utils": "workspace:*",
     "astar-typescript": "1.2.7",
-    "dayjs": "^1.11.12",
+    "dayjs": "^1.11.13",
     "react": "^18.3.1"
   }
 }

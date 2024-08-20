@@ -9,8 +9,8 @@
     "@services/navigation": "workspace:*",
     "@services/storage": "workspace:*",
     "@services/utils": "workspace:*",
-    "@tanstack/react-query": "5.51.23",
-    "dayjs": "^1.10.7",
+    "@tanstack/react-query": "5.51.24",
+    "dayjs": "^1.11.13",
     "react": "^18.3.1",
     "zod": "^3.23.8"
   }
