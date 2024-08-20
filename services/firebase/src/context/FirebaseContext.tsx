@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from "uuid";
 import { Collection, type TCollection } from "../enums/collection";
 
 type TFirebaseContext = {
+  currentUserId: string | undefined;
+
   registerUser: (email: string, password: string) => ReturnType<typeof createUserWithEmailAndPassword>;
   credentialLogin: (email: string, password: string) => ReturnType<typeof signInWithEmailAndPassword>;
   logout: () => ReturnType<typeof signOut>;
@@ -36,6 +38,8 @@ export const FirebaseProvider = ({ children }: { children: ReactNode }) => {
     };
 
     return {
+      currentUserId: auth.currentUser?.uid,
+
       credentialLogin: async (email, password) => {
         return signInWithEmailAndPassword(auth, email, password);
       },

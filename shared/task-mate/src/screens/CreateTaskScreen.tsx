@@ -8,6 +8,7 @@ import { ColorPallet } from "../enums/colorPallet";
 import { CompletionStatus } from "../enums/completionStatus";
 import { RepeatCycle } from "../enums/repeatCycle";
 import type { TTask } from "../schema/taskSchema";
+import { HiChevronLeft } from "react-icons/hi";
 
 export const CreateTaskScreen = () => {
   const { authUser } = useContext(AuthContext);
@@ -33,5 +34,18 @@ export const CreateTaskScreen = () => {
     updated_at: dayjs().toISOString(),
   };
 
-  return <TaskForm initData={defaultTaskTemplate} onSubmit={() => {}} isSubmitting={false} />;
+  return (
+    <div className="h-full flex flex-col overflow-hidden">
+      <div className="flex gap-x-4 items-center p-2 border-b">
+        <button type="button">
+          <HiChevronLeft size={24} />
+        </button>
+        <span className="font-medium text-lg">Create new task</span>
+      </div>
+
+      <div className="basis-full overflow-y-auto">
+        <TaskForm initData={defaultTaskTemplate} onSubmit={() => {}} isSubmitting={false} />
+      </div>
+    </div>
+  );
 };
