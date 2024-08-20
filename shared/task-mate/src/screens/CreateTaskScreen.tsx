@@ -1,14 +1,14 @@
 import { AuthContext } from "@services/auth";
-import { Navigate } from "@services/navigation";
+import { Link, Navigate } from "@services/navigation";
 import { toast } from "@services/ui";
 import dayjs from "dayjs";
 import { useContext } from "react";
+import { HiChevronLeft } from "react-icons/hi";
 import { TaskForm } from "../components/TaskForm";
 import { ColorPallet } from "../enums/colorPallet";
 import { CompletionStatus } from "../enums/completionStatus";
 import { RepeatCycle } from "../enums/repeatCycle";
 import type { TTask } from "../schema/taskSchema";
-import { HiChevronLeft } from "react-icons/hi";
 
 export const CreateTaskScreen = () => {
   const { authUser } = useContext(AuthContext);
@@ -37,9 +37,9 @@ export const CreateTaskScreen = () => {
   return (
     <div className="h-full flex flex-col overflow-hidden">
       <div className="flex gap-x-4 items-center p-2 border-b">
-        <button type="button">
+        <Link to="/task-list">
           <HiChevronLeft size={24} />
-        </button>
+        </Link>
         <span className="font-medium text-lg">Create new task</span>
       </div>
 
