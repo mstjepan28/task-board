@@ -6,11 +6,11 @@
     "@services/storage": "workspace:*",
     "@services/ui": "workspace:*",
     "@services/utils": "workspace:*",
+    "@services/validation": "workspace:*",
     "@tanstack/react-query": "5.51.24",
     "dayjs": "^1.11.13",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-icons": "^5.3.0",
-    "zod": "^3.23.8"
+    "react-icons": "^5.3.0"
   }
 }

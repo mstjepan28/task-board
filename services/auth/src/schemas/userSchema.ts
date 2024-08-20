@@ -1,5 +1,5 @@
+import { z } from "@services/validation";
 import dayjs from "dayjs";
-import { z } from "zod";
 
 const dateToString = (date: Date) => dayjs(date).toISOString();
 

@@ -1,9 +1,9 @@
 import { AuthContext } from "@services/auth";
 import { userSchema } from "@services/auth/src/schemas/userSchema";
 import { FirebaseContext } from "@services/firebase";
+import { z } from "@services/validation";
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
-import { z } from "zod";
 import { QueryKeys } from "../enums/queryKeys";
 
 export const useFriendList = () => {

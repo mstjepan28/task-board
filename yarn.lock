@@ -3699,10 +3699,10 @@ __metadata:
     "@services/navigation": "workspace:*"
     "@services/storage": "workspace:*"
     "@services/utils": "workspace:*"
+    "@services/validation": "workspace:*"
     "@tanstack/react-query": "npm:5.51.24"
     dayjs: "npm:^1.11.13"
     react: "npm:^18.3.1"
-    zod: "npm:^3.23.8"
   languageName: unknown
   linkType: soft
 
@@ -3720,7 +3720,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@services/environment@workspace:services/environment"
   dependencies:
-    zod: "npm:^3.23.8"
+    "@services/validation": "workspace:*"
   languageName: unknown
   linkType: soft
 
@@ -3798,7 +3798,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@services/validation@workspace:services/validation":
+"@services/validation@workspace:*, @services/validation@workspace:services/validation":
   version: 0.0.0-use.local
   resolution: "@services/validation@workspace:services/validation"
   dependencies:
@@ -3887,12 +3887,12 @@ __metadata:
     "@services/storage": "workspace:*"
     "@services/ui": "workspace:*"
     "@services/utils": "workspace:*"
+    "@services/validation": "workspace:*"
     "@tanstack/react-query": "npm:5.51.24"
     dayjs: "npm:^1.11.13"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     react-icons: "npm:^5.3.0"
-    zod: "npm:^3.23.8"
   languageName: unknown
   linkType: soft
 

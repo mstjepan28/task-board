@@ -1,8 +1,8 @@
+import { z } from "@services/validation";
 import dayjs from "dayjs";
-import { z } from "zod";
+import { ColorPallet } from "../enums/colorPallet";
 import { CompletionStatus } from "../enums/completionStatus";
 import { RepeatCycle } from "../enums/repeatCycle";
-import { ColorPallet } from "../enums/colorPallet";
 
 const dateToString = (date: Date) => dayjs(date).toISOString();
 
