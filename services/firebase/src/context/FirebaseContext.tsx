@@ -7,8 +7,6 @@ import { v4 as uuidv4 } from "uuid";
 import { Collection, type TCollection } from "../enums/collection";
 
 type TFirebaseContext = {
-  currentUserId: string | undefined;
-
   registerUser: (email: string, password: string) => ReturnType<typeof createUserWithEmailAndPassword>;
   credentialLogin: (email: string, password: string) => ReturnType<typeof signInWithEmailAndPassword>;
   logout: () => ReturnType<typeof signOut>;
@@ -16,7 +14,7 @@ type TFirebaseContext = {
   getDocumentListById: (collectionKey: TCollection, idList: string[]) => Promise<unknown[]>;
   getDocumentById: (collectionKey: TCollection, id: string) => Promise<unknown>;
   createDocument: (collectionKey: TCollection, data: object) => Promise<void>;
-  getTasksForCurrentUser: () => Promise<unknown[]>;
+  getTasksForCurrentUser: (currentUserId: string) => Promise<unknown[]>;
 };
 
 export const FirebaseContext = createContext<TFirebaseContext>({} as TFirebaseContext);
@@ -38,8 +36,6 @@ export const FirebaseProvider = ({ children }: { children: ReactNode }) => {
     };
 
     return {
-      currentUserId: auth.currentUser?.uid,
-
       credentialLogin: async (email, password) => {
         return signInWithEmailAndPassword(auth, email, password);
       },
@@ -68,13 +64,8 @@ export const FirebaseProvider = ({ children }: { children: ReactNode }) => {
 
         setDoc(doc(collectionRef, id), { id, ...data });
       },
-      getTasksForCurrentUser: async () => {
-        const authUser = auth.currentUser;
-        if (!authUser) {
-          throw new Error("User is not authenticated");
-        }
-
-        const tasksQuery = query(collections[Collection.TASKS], where("assigned_to", "array-contains", authUser.uid));
+      getTasksForCurrentUser: async (currentUserId: string) => {
+        const tasksQuery = query(collections[Collection.TASKS], where("assigned_to", "array-contains", currentUserId));
         const querySnapshot = await getDocs(tasksQuery);
 
         const tasks: unknown[] = [];

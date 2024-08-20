@@ -29,7 +29,11 @@ export const useTaskList = (options?: IProps) => {
   const fetchingList = useQuery({
     queryKey: [QueryKeys.TASK_LIST, filters, authUser?.id],
     queryFn: async () => {
-      const response = await getTasksForCurrentUser();
+      if (!authUser) {
+        return [];
+      }
+
+      const response = await getTasksForCurrentUser(authUser?.id);
       const { error, success, data } = z.array(taskSchema).safeParse(response);
 
       if (success) {
