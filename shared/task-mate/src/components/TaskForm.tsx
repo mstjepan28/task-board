@@ -11,6 +11,7 @@ import { newTaskSchema, type TTask } from "../schema/taskSchema";
 import { ColorPicker } from "./ColorPicker";
 import { FriendPicker } from "./FriendPicker";
 import { TaskCard } from "./TaskCard";
+import { useFormValidation } from "@services/validation";
 
 type TNewTask = Omit<TTask, "id">;
 
@@ -25,6 +26,8 @@ export const TaskForm = ({ initData, onDelete }: IProps) => {
 
   const { createDocument } = useContext(FirebaseContext);
   const navigate = useNavigate();
+
+  const validation = useFormValidation(newTaskSchema);
 
   const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -57,15 +60,19 @@ export const TaskForm = ({ initData, onDelete }: IProps) => {
     <form onSubmit={onFormSubmit} className="h-full flex flex-col p-4">
       <div className="flex flex-col gap-y-4 border rounded-lg p-2 bg-blue-50 dark:bg-blue-950">
         <TaskCard task={{ id: "", ...task }} previewMode />
-        <ColorPicker name="color" value={task.color} onChange={(scheme) => onTaskChange("color", scheme)} />
+        <ColorPicker
+          name={validation.fieldNames.color}
+          value={task.color}
+          onChange={(scheme) => onTaskChange("color", scheme)}
+        />
       </div>
       <Spacer />
 
       <div className="flex flex-col gap-y-4 border rounded-lg p-2 bg-blue-50 dark:bg-blue-950">
         <InputLabel label="Task description">
           <Textarea
-            name="description"
             value={task.description}
+            name={validation.fieldNames.description}
             onChange={({ target }) => onTaskChange("description", target.value)}
             className="resize-none"
           />
@@ -75,12 +82,12 @@ export const TaskForm = ({ initData, onDelete }: IProps) => {
 
       <div className=" flex flex-col gap-y-4 border rounded-lg p-2 bg-blue-50 dark:bg-blue-950">
         <InputLabel label="Deadline">
-          <DatePicker />
+          <DatePicker name={validation.fieldNames.deadline} defaultValue={initData.deadline} />
         </InputLabel>
 
         <InputLabel label="Status">
           <SelectDropdown
-            name="status"
+            name={validation.fieldNames.status}
             defaultValue={CompletionStatus.PENDING}
             optionsList={[
               { label: "Pending", value: CompletionStatus.PENDING },
@@ -93,7 +100,7 @@ export const TaskForm = ({ initData, onDelete }: IProps) => {
 
         <InputLabel label="How often should this task repeat?">
           <SelectDropdown
-            name="repeatCycle"
+            name={validation.fieldNames.repeatCycle}
             defaultValue={RepeatCycle.NEVER}
             optionsList={[
               { label: "Never", value: RepeatCycle.NEVER },
@@ -105,9 +112,10 @@ export const TaskForm = ({ initData, onDelete }: IProps) => {
         </InputLabel>
 
         <InputLabel label="Select users to assign this task to">
-          <FriendPicker name="assigned_to" />
+          <FriendPicker name={validation.fieldNames.assigned_to} />
         </InputLabel>
       </div>
+
       <Spacer full />
 
       <Button type="submit" className="w-full text-sm font-semibold uppercase py-2 bg-blue-600 ">
